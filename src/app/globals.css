@@ -1,0 +1,54 @@
+@import "tailwindcss";
+
+@theme {
+  --color-gold: #D4AF37;
+  --color-gold-light: #E5C158;
+  --color-gold-dark: #B5952F;
+  --color-brown: #3E2723;
+  --color-cream: #FFFDD0;
+  --color-neutral-light: #F2F2F2;
+
+  --font-serif: var(--font-playfair-display), serif;
+  --font-sans: var(--font-montserrat), sans-serif;
+  --font-cinzel: var(--font-cinzel), serif;
+  
+  --color-gray-200: #e5e7eb;
+}
+
+body {
+  font-family: var(--font-sans);
+  background-color: var(--color-neutral-light);
+  color: var(--color-brown);
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-serif);
+}
+
+.font-cinzel {
+  font-family: var(--font-cinzel);
+}
+
+@layer utilities {
+  .scrollbar-hide {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+  .scrollbar-hide::-webkit-scrollbar {
+    display: none;
+  }
+  /* Prevent iOS zoom on form inputs */
+  input, select, textarea {
+    font-size: max(16px, 1em);
+  }
+  /* Touch-friendly interactive elements */
+  button, a, [role="button"] {
+    touch-action: manipulation;
+    -webkit-tap-highlight-color: transparent;
+  }
+  /* Prevent horizontal overflow site-wide */
+  html, body {
+    overflow-x: hidden;
+    max-width: 100vw;
+  }
+}

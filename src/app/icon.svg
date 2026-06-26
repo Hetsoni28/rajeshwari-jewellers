@@ -1,0 +1,72 @@
+<svg
+  width="512"
+  height="512"
+  viewBox="0 0 512 512"
+  fill="none"
+  xmlns="http://www.w3.org/2000/svg"
+  aria-label="RJ Monogram - Rajeshwari Jewellers"
+>
+  <defs>
+    <linearGradient id="primaryGold" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#E7C55A" />
+      <stop offset="50%" stop-color="#D4AF37" />
+      <stop offset="100%" stop-color="#B8860B" />
+    </linearGradient>
+    <linearGradient id="ringGold" x1="100%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#E7C55A" />
+      <stop offset="40%" stop-color="#D4AF37" />
+      <stop offset="100%" stop-color="#B8860B" />
+    </linearGradient>
+  </defs>
+
+  <!-- Thin Luxury Circular Ring (with gap at top) -->
+  <path 
+    d="M 150 110 A 210 210 0 1 0 362 110" 
+    stroke="url(#ringGold)" 
+    stroke-width="4" 
+    fill="none" 
+    stroke-linecap="round"
+  />
+
+  <!-- Lotus / Royal Crown -->
+  <g transform="scale(1.2)" transform-origin="256px 100px">
+    <!-- Center leaf -->
+    <path d="M 256 50 Q 268 80 256 100 Q 244 80 256 50 Z" fill="url(#primaryGold)" />
+    <!-- Inner side leaves -->
+    <path d="M 220 65 Q 240 85 248 100 Q 228 100 220 65 Z" fill="url(#primaryGold)" />
+    <path d="M 292 65 Q 272 85 264 100 Q 284 100 292 65 Z" fill="url(#primaryGold)" />
+    <!-- Outer side leaves -->
+    <path d="M 195 85 Q 220 95 240 100 Q 215 105 195 85 Z" fill="url(#primaryGold)" />
+    <path d="M 317 85 Q 292 95 272 100 Q 297 105 317 85 Z" fill="url(#primaryGold)" />
+    <!-- Crown base -->
+    <path d="M 190 110 L 322 110 L 308 118 L 204 118 Z" fill="url(#primaryGold)" />
+  </g>
+
+  <!-- Star / Sparkle -->
+  <path 
+    d="M 430 320 Q 440 320 440 310 Q 440 320 450 320 Q 440 320 440 330 Q 440 320 430 320 Z" 
+    fill="url(#primaryGold)" 
+  />
+
+  <!-- R J Monogram -->
+  <text 
+    x="210" 
+    y="370" 
+    font-family="Georgia, 'Times New Roman', serif" 
+    font-size="260" 
+    fill="url(#primaryGold)" 
+    text-anchor="middle"
+  >
+    R
+  </text>
+  <text 
+    x="320" 
+    y="420" 
+    font-family="Georgia, 'Times New Roman', serif" 
+    font-size="300" 
+    fill="url(#primaryGold)" 
+    text-anchor="middle"
+  >
+    J
+  </text>
+</svg>
