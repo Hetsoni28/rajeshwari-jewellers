@@ -11,6 +11,7 @@
   --font-serif: var(--font-playfair-display), serif;
   --font-sans: var(--font-montserrat), sans-serif;
   --font-cinzel: var(--font-cinzel), serif;
+  --font-script: var(--font-script), cursive;
   
   --color-gray-200: #e5e7eb;
 }
@@ -27,6 +28,10 @@ h1, h2, h3, h4, h5, h6 {
 
 .font-cinzel {
   font-family: var(--font-cinzel);
+}
+
+.font-script {
+  font-family: var(--font-script);
 }
 
 @layer utilities {

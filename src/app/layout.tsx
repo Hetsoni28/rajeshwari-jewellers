@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Playfair_Display, Montserrat, Cinzel } from "next/font/google";
+import { Playfair_Display, Montserrat, Cinzel, Great_Vibes } from "next/font/google";
 import "./globals.css";
 import { WishlistProvider } from "@/context/WishlistContext";
 
@@ -18,6 +18,12 @@ const cinzel = Cinzel({
   variable: "--font-cinzel",
 });
 
+const greatVibes = Great_Vibes({
+  weight: "400",
+  subsets: ["latin"],
+  variable: "--font-script",
+});
+
 export const metadata: Metadata = {
   title: "Rajeshwari Jewellers",
   description: "Ahmedabad's Premier Wholesaler Of Gold Ornaments",
@@ -30,7 +36,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" className="scroll-smooth" data-scroll-behavior="smooth">
-      <body className={`${playfair.variable} ${montserrat.variable} ${cinzel.variable} antialiased bg-neutral-light text-brown min-h-screen flex flex-col`}>
+      <body className={`${playfair.variable} ${montserrat.variable} ${cinzel.variable} ${greatVibes.variable} antialiased bg-neutral-light text-brown min-h-screen flex flex-col`}>
         <WishlistProvider>
           {children}
         </WishlistProvider>

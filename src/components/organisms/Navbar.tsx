@@ -74,14 +74,6 @@ export const Navbar = () => {
               }`}
             >
               {link.name}
-              {/* Animated underline indicator */}
-              <motion.span
-                className="absolute -bottom-1 left-0 h-px bg-gold"
-                initial={false}
-                animate={{ width: activeLink === link.href ? '100%' : '0%' }}
-                transition={{ duration: duration.base, ease: luxuryEasing }}
-              />
-              <span className="absolute -bottom-1 left-0 h-px w-0 bg-gold/50 group-hover:w-full transition-all duration-300" />
             </Link>
           ))}
           <div className="flex items-center space-x-5">
