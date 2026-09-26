@@ -1,4 +1,5 @@
 import Link from "next/link";
+import Image from "next/image";
 import { LogoSVG } from "@/components/atoms/LogoSVG";
 import { LogoText } from "@/components/atoms/LogoText";
 
@@ -81,10 +82,11 @@ export const Footer = () => {
         </div>
 
         {/* Bottom Bar */}
-        <div className="mt-8 sm:mt-10 pt-4 border-t border-gray-300 flex flex-col sm:flex-row justify-between items-center gap-2 sm:gap-4 text-[10px] md:text-xs tracking-wider text-gray-400 uppercase font-light">
+        <div className="mt-8 sm:mt-10 pt-4 border-t border-gray-300 flex flex-col sm:flex-row justify-between items-center gap-4 sm:gap-4 text-[10px] md:text-xs tracking-wider text-gray-400 uppercase font-light">
           <p>© {new Date().getFullYear()} Rajeshwari Jewellers. All rights reserved.</p>
-          <div className="flex gap-4 sm:gap-6">
-            <span className="hover:text-gray-600 transition-colors">Design by Soni Het Vishal</span>
+          <div className="flex items-center gap-2">
+            <Image src="/hn-logo.jpg" alt="HN Solutions Logo" width={24} height={24} className="rounded-full shadow-sm" />
+            <span className="hover:text-gray-600 transition-colors">Designed and Developed by HN Solutions</span>
           </div>
         </div>
       </div>
