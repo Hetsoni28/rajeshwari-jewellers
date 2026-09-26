@@ -99,6 +99,7 @@ export const OccasionsSection = () => {
 // Sub-component for the hover-reveal cards
 const OccasionCard = ({ data, isHovered, onHover, onLeave, height }: any) => {
   return (
+    <Link href={`/catalog?occasion=${encodeURIComponent(data.title)}`}>
     <div 
       className={`relative w-full ${height} border border-[#E57A44]/60 bg-[#FFFDD0] cursor-pointer overflow-hidden transition-all duration-300 group`}
       onMouseEnter={onHover}
@@ -143,5 +144,6 @@ const OccasionCard = ({ data, isHovered, onHover, onLeave, height }: any) => {
         )}
       </AnimatePresence>
     </div>
+    </Link>
   );
 };

@@ -2,6 +2,7 @@
 
 import * as React from 'react';
 import Image from 'next/image';
+import Link from 'next/link';
 import { motion } from 'framer-motion';
 
 export const CollectionHighlightSection = () => {
@@ -55,15 +56,17 @@ export const CollectionHighlightSection = () => {
             >
               Be the bride of your dreams adorned in a 22KT gold masterpiece carrying countless tales of pride and glory. Through its regal layers, the Rajeshwari Signature celebrates the bride you dreamt of becoming, proudly rooted in the history and legacy of our finest craftsmanship.
             </motion.p>
+            <Link href="/catalog">
             <motion.button 
               initial={{ opacity: 0 }}
               whileInView={{ opacity: 1 }}
               viewport={{ once: true }}
               transition={{ delay: 0.2 }}
-              className="bg-[#D4AF37] text-[#3E2723] px-8 py-3 font-semibold hover:bg-[#E5C158] transition-colors shadow-md"
+              className="bg-[#D4AF37] text-[#3E2723] px-8 py-3 font-semibold shadow-md"
             >
               See Our Category
             </motion.button>
+            </Link>
           </div>
 
           {/* Right Image with Custom Dome Frame */}
