@@ -39,3 +39,14 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# IDE and tool config — never commit these
+.agents/
+.cursor/
+.jetro/
+.refact/
+.github/
+
+# Temp/scratch assets
+public/images/arch-mask-test.svg
+public/images/bg-floral-temp.svg
