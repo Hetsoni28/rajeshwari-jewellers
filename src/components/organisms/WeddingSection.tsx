@@ -37,14 +37,14 @@ export const WeddingSection = () => {
         </div>
 
         <h2 className="font-montserrat font-light text-4xl sm:text-5xl md:text-6xl text-[#3E2723] mb-12 leading-[1.4]">
-          Where two souls meet, a <br/>
-          <span className="font-script text-[#DAB852] text-6xl sm:text-7xl md:text-8xl drop-shadow-sm pr-3">beautiful</span> journey <br/>
-          begins.
+          Elevate your showroom with our <br/>
+          <span className="font-script text-[#DAB852] text-6xl sm:text-7xl md:text-8xl drop-shadow-sm pr-3">premium</span> bridal sets for <br/>
+          bulk sourcing.
         </h2>
 
         <Link href="/catalog?category=Bridal">
           <button className="bg-[#DAB852] text-[#3E2723] px-12 py-4 font-semibold text-sm hover:bg-[#c9a744] transition-colors">
-            Explore Wedding Jewellery Collection
+            Explore Wholesale Bridal Collection
           </button>
         </Link>
       </motion.div>

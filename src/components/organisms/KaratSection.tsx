@@ -7,9 +7,9 @@ import { motion } from 'framer-motion';
 import { ArrowRight } from 'lucide-react';
 
 const grids = [
-  { id: '18kt', title: '18KT', desc: 'Made for milestones', img: '/images/catalog_earrings.png' },
-  { id: '22kt', title: '22KT', desc: 'Rooted in Tradition', img: '/images/catalog_necklace.png' },
-  { id: '24kt', title: '24KT', desc: 'Timeless love. Forever yours.', img: '/images/bangles_kadas.png' },
+  { id: '18kt', title: '18KT', desc: 'High-margin lightweight', img: '/images/catalog_earrings.png' },
+  { id: '22kt', title: '22KT', desc: 'Fast-moving traditional', img: '/images/catalog_necklace.png' },
+  { id: '24kt', title: '24KT', desc: 'Pure bullion & investments', img: '/images/bangles_kadas.png' },
 ];
 
 export const KaratSection = () => {
@@ -61,8 +61,8 @@ export const KaratSection = () => {
               transition={{ duration: 0.8 }}
               className="font-cinzel text-4xl sm:text-5xl md:text-6xl text-[#3E2723] leading-tight mb-8"
             >
-              From everyday wear to <br/>
-              <span className="font-script text-[#D4AF37] text-6xl md:text-8xl -ml-2 mr-2">heirloom,</span> explore designs <br/>
+              Sourcing made easy... <br/>
+              Explore bulk <span className="font-script text-[#D4AF37] text-6xl md:text-8xl -ml-2 mr-2">inventory</span> <br/>
               by <span className="font-script text-[#D4AF37] text-6xl md:text-8xl">karat</span>
             </motion.h2>
             
@@ -73,7 +73,7 @@ export const KaratSection = () => {
               transition={{ duration: 0.8, delay: 0.2 }}
               className="text-[#3E2723]/80 font-montserrat font-light text-base sm:text-lg max-w-lg leading-relaxed"
             >
-              From everyday wear to heirloom pieces, explore our curated collection in 18kt, 22kt, and 24kt gold
+              From everyday lightweight 18KT ornaments to traditional 22KT bridal sets and 24KT bullion, source your showroom inventory with ease.
             </motion.p>
           </div>
 

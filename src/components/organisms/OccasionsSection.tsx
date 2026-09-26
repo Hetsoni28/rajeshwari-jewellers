@@ -7,11 +7,11 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { ArrowRight } from 'lucide-react';
 
 const occasions = [
-  { id: 'engagement', title: 'Engagement', image: '/images/catalog_ring.png' },
-  { id: 'sangeet', title: 'Sangeet', image: '/images/catalog_earrings.png' },
-  { id: 'mehendi', title: 'Mehendi', image: '/images/antique_side_earrings.png' },
-  { id: 'reception', title: 'Reception', image: '/images/bridal_necklace_sets.png' },
-  { id: 'wedding-day', title: 'Wedding Day', image: '/images/antique_main_necklace.png' }
+  { id: 'lightweight', title: 'Lightweight Ornaments', image: '/images/catalog_ring.png' },
+  { id: 'bridal', title: 'Heavy Bridal Sets', image: '/images/catalog_earrings.png' },
+  { id: 'festive', title: 'Festive Wear', image: '/images/antique_side_earrings.png' },
+  { id: 'daily', title: 'Daily Wear', image: '/images/bridal_necklace_sets.png' },
+  { id: 'antique', title: 'Antique & Polki', image: '/images/antique_main_necklace.png' }
 ];
 
 export const OccasionsSection = () => {
@@ -30,7 +30,7 @@ export const OccasionsSection = () => {
               viewport={{ once: true }}
               className="text-[#3E2723] text-4xl sm:text-5xl font-cinzel mb-12"
             >
-              Choose the right jewellery for each occasion
+              High-margin collections for every market demand
             </motion.h2>
 
             <div className="grid grid-cols-2 gap-4">

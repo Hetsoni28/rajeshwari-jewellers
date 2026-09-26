@@ -42,8 +42,8 @@ export const GoldExchangeSection = () => {
               viewport={{ once: true }}
               className="text-4xl sm:text-5xl md:text-6xl text-[#3E2723] font-cinzel leading-tight mb-6"
             >
-              Exchange your old gold into a <br/>
-              <span className="font-script text-[#D4AF37] text-6xl md:text-8xl -ml-2">Smarter Investment</span>
+              Exchange your scrap gold into <br/>
+              <span className="font-script text-[#D4AF37] text-6xl md:text-8xl -ml-2">Fresh Inventory</span>
             </motion.h2>
             <motion.p 
               initial={{ opacity: 0, x: -20 }}
@@ -52,9 +52,9 @@ export const GoldExchangeSection = () => {
               transition={{ delay: 0.1 }}
               className="text-[#3E2723]/80 font-montserrat text-sm sm:text-base leading-relaxed mb-10 max-w-md"
             >
-              Enter your old gold's weight and purity to get an instant estimate
+              Enter your scrap gold's weight and purity to estimate trade-in value against bulk sourcing.
               <br/><br/>
-              <span className="text-xs opacity-70">*Final exchange value will be determined after purity & weight verification at a Rajeshwari Jewellers store.</span>
+              <span className="text-xs opacity-70">*Final wholesale exchange value determined after XRF melting & testing at our facility.</span>
             </motion.p>
             <motion.button 
               initial={{ opacity: 0 }}

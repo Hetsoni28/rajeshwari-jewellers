@@ -18,8 +18,8 @@ export const CollectionHighlightSection = () => {
             viewport={{ once: true }}
             className="text-3xl sm:text-4xl md:text-5xl text-[#3E2723] font-cinzel leading-relaxed"
           >
-            Shimmering <span className="font-script text-[#D4AF37] text-5xl md:text-7xl">jewels,</span> like the stars above; <br/>
-            Hear them whisper tales of <span className="font-script text-[#D4AF37] text-5xl md:text-7xl">endless</span> love
+            Exquisite <span className="font-script text-[#D4AF37] text-5xl md:text-7xl">craftsmanship,</span> for your showroom; <br/>
+            Discover our exclusive <span className="font-script text-[#D4AF37] text-5xl md:text-7xl">wholesale</span> collections
           </motion.h2>
           
           <div className="mt-8 flex justify-center">
@@ -45,7 +45,7 @@ export const CollectionHighlightSection = () => {
               viewport={{ once: true }}
               className="text-4xl sm:text-5xl text-[#3E2723] font-playfair mb-6"
             >
-              The Rajeshwari <br/> Signature
+              Signature <br/> Wholesale
             </motion.h3>
             <motion.p 
               initial={{ opacity: 0, x: -30 }}
@@ -54,7 +54,7 @@ export const CollectionHighlightSection = () => {
               transition={{ delay: 0.1 }}
               className="text-[#3E2723]/80 font-montserrat text-sm sm:text-base leading-relaxed mb-8"
             >
-              Be the bride of your dreams adorned in a 22KT gold masterpiece carrying countless tales of pride and glory. Through its regal layers, the Rajeshwari Signature celebrates the bride you dreamt of becoming, proudly rooted in the history and legacy of our finest craftsmanship.
+              Stock your showroom with our 22KT gold masterpieces. Designed for high turnover and premium margins, the Rajeshwari Signature collection offers bulk buyers the finest craftsmanship, 100% hallmarked purity, and exclusive B2B trade rates trusted by leading jewellers across India.
             </motion.p>
             <Link href="/catalog">
             <motion.button 
