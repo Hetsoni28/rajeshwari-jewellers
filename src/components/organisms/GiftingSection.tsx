@@ -27,13 +27,13 @@ export const GiftingSection = () => {
             style={{ borderRadius: '4px 20px 4px 20px' }} // Custom subtle corner shaping
           >
             <h2 className="font-cinzel text-3xl sm:text-4xl text-[#922D30] font-medium mb-6">
-              Give a gift they will <br/> treasure forever
+              Bulk Orders & <br/> Wholesale Enquiries
             </h2>
             <p className="text-[#3E2723] font-montserrat font-light text-sm sm:text-base mb-10 leading-relaxed">
-              From milestones to quiet everyday moments, celebrate the people who matter the most with timeless jewels.
+              We supply premium gold and diamond ornaments to retailers, jewellers, and bulk buyers across India. Competitive rates, hallmarked purity, and exclusive designs available for trade.
             </p>
             <Link href="/catalog" className="inline-block border-b-2 border-[#3E2723] text-[#3E2723] font-semibold uppercase tracking-wider text-sm pb-1 hover:text-[#D4AF37] hover:border-[#D4AF37] transition-colors">
-              Explore Rajeshwari's Gifting Edit
+              View Wholesale Catalogue
             </Link>
           </motion.div>
         </div>

@@ -9,17 +9,17 @@ import Image from 'next/image';
 const slides = [
   {
     id: 1,
-    image: '/images/hero_bg.png',
-    titleMain: 'Effortless',
-    titleScript: 'Style',
-    link: '/catalog?category=DailyWear'
+    image: '/images/hero_bridal_16x9.jpg',
+    titleMain: 'Wholesale',
+    titleScript: 'Ornaments',
+    link: '/catalog?category=Wholesale'
   },
   {
     id: 2,
-    image: '/images/bridal_collection.png',
-    titleMain: 'Bridal',
-    titleScript: 'Elegance',
-    link: '/catalog?category=Bridal'
+    image: '/images/hero_modern_8k.jpg',
+    titleMain: 'Retail',
+    titleScript: 'Jewellery',
+    link: '/catalog?category=DailyWear'
   }
 ];
 
@@ -37,7 +37,7 @@ export const HeroSection = () => {
   const prevSlide = () => setCurrentSlide((prev) => (prev - 1 + slides.length) % slides.length);
 
   return (
-    <section className="relative w-full h-[85vh] min-h-[650px] overflow-hidden bg-[#3E2723]">
+    <section className="relative w-full h-screen min-h-[700px] overflow-hidden bg-[#3E2723]">
       
       {/* Background Slider */}
       {slides.map((slide, index) => (
@@ -49,11 +49,11 @@ export const HeroSection = () => {
             src={slide.image}
             alt={slide.titleMain}
             fill
-            className="object-cover object-center"
+            className="object-cover object-top"
             priority={index === 0}
           />
           {/* Subtle gradient overlay to ensure text readability */}
-          <div className="absolute inset-0 bg-gradient-to-r from-[#3E2723]/80 via-[#3E2723]/30 to-transparent" />
+          <div className="absolute inset-0 bg-gradient-to-r from-[#3E2723]/60 via-[#3E2723]/20 to-transparent" />
         </div>
       ))}
 
@@ -76,7 +76,7 @@ export const HeroSection = () => {
 
             {/* CTA Button */}
             <Link href={slide.link}>
-              <button className="bg-[#D4AF37] text-[#3E2723] px-10 py-3 rounded-full uppercase tracking-[2px] text-xs font-bold hover:bg-[#E5C158] transition-colors shadow-lg ml-4 pointer-events-auto">
+              <button className="bg-[#D4AF37] text-[#3E2723] px-10 py-3 rounded-full uppercase tracking-[2px] text-xs font-bold shadow-lg ml-4 pointer-events-auto">
                 EXPLORE
               </button>
             </Link>
@@ -105,13 +105,13 @@ export const HeroSection = () => {
       {/* Navigation Arrows */}
       <button 
         onClick={prevSlide}
-        className="absolute left-6 top-1/2 -translate-y-1/2 w-12 h-12 flex items-center justify-center rounded-full bg-white text-[#1A1A1A] hover:bg-gray-200 transition-colors z-20 shadow-lg"
+        className="absolute left-6 top-1/2 -translate-y-1/2 w-12 h-12 flex items-center justify-center rounded-full bg-white text-[#1A1A1A] z-20 shadow-lg"
       >
         <ChevronLeft className="w-5 h-5" />
       </button>
       <button 
         onClick={nextSlide}
-        className="absolute right-6 top-1/2 -translate-y-1/2 w-12 h-12 flex items-center justify-center rounded-full bg-white text-[#1A1A1A] hover:bg-gray-200 transition-colors z-20 shadow-lg"
+        className="absolute right-6 top-1/2 -translate-y-1/2 w-12 h-12 flex items-center justify-center rounded-full bg-white text-[#1A1A1A] z-20 shadow-lg"
       >
         <ChevronRight className="w-5 h-5" />
       </button>
