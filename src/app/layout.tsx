@@ -27,6 +27,11 @@ const greatVibes = Great_Vibes({
 export const metadata: Metadata = {
   title: "Rajeshwari Jewellers",
   description: "Ahmedabad's Premier Wholesaler Of Gold Ornaments",
+  icons: {
+    icon: "/images/logo.svg",
+    shortcut: "/images/logo.svg",
+    apple: "/images/logo.svg",
+  },
 };
 
 export default function RootLayout({
