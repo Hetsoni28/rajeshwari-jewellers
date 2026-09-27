@@ -8,10 +8,10 @@ import { motion } from 'framer-motion';
 export const GiftingSection = () => {
   return (
     <section className="bg-white">
-      <div className="flex flex-col lg:flex-row w-full">
+      <div className="flex flex-col lg:flex-row w-full min-h-screen">
         
         {/* Left Side (Text Box) */}
-        <div className="w-full lg:w-1/2 relative bg-[#FFFDF5] flex items-center justify-center min-h-[480px] sm:min-h-[520px] overflow-hidden">
+        <div className="w-full lg:w-1/2 relative bg-[#FFFDF5] flex items-center justify-center min-h-[520px] lg:min-h-screen overflow-hidden">
 
           {/* Gift ribbon — horizontal bar */}
           <div className="absolute inset-0 z-0 pointer-events-none">
@@ -70,13 +70,14 @@ export const GiftingSection = () => {
           </motion.div>
         </div>
 
-        {/* Right Side (Image) */}
-        <div className="w-full lg:w-1/2 relative min-h-[320px] sm:min-h-[480px] lg:min-h-[520px]">
+        {/* Right Side (Image) — full height */}
+        <div className="w-full lg:w-1/2 relative min-h-[420px] sm:min-h-[560px] lg:min-h-screen">
           <Image
             src="/images/bridal_necklace.png"
             alt="Wholesale Ornaments"
             fill
-            className="object-cover"
+            className="object-cover object-center"
+            sizes="(max-width: 1024px) 100vw, 50vw"
           />
         </div>
 
