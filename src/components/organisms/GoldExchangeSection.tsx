@@ -40,10 +40,10 @@ export const GoldExchangeSection = () => {
               initial={{ opacity: 0, x: -20 }}
               whileInView={{ opacity: 1, x: 0 }}
               viewport={{ once: true }}
-              className="text-4xl sm:text-5xl md:text-6xl text-[#3E2723] font-cinzel leading-tight mb-6"
+              className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl text-[#3E2723] font-cinzel leading-tight mb-6"
             >
               Exchange your scrap gold into <br/>
-              <span className="font-script text-[#D4AF37] text-6xl md:text-8xl -ml-2">Fresh Inventory</span>
+              <span className="font-script text-[#D4AF37] text-5xl sm:text-6xl md:text-7xl lg:text-8xl -ml-2">Fresh Inventory</span>
             </motion.h2>
             <motion.p 
               initial={{ opacity: 0, x: -20 }}

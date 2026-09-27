@@ -11,7 +11,7 @@ export const GiftingSection = () => {
       <div className="flex flex-col lg:flex-row w-full">
         
         {/* Left Side (Text Box) */}
-        <div className="w-full lg:w-1/2 relative bg-[#FFFDD0] flex items-center justify-center p-12 sm:p-24 min-h-[500px]">
+        <div className="w-full lg:w-1/2 relative bg-[#FFFDD0] flex items-center justify-center p-6 sm:p-12 lg:p-24 min-h-[420px] sm:min-h-[500px]">
           {/* Blue cross graphic */}
           <div className="absolute inset-0 z-0 flex flex-col justify-center items-center">
              <div className="w-full h-24 bg-[#D4AF37] opacity-10 absolute top-1/2 -translate-y-1/2" />
@@ -23,8 +23,8 @@ export const GiftingSection = () => {
             whileInView={{ opacity: 1, scale: 1 }}
             viewport={{ once: true }}
             transition={{ duration: 0.8 }}
-            className="relative z-10 border border-[#D4AF37] bg-[#FFFDD0] p-10 sm:p-16 text-center max-w-lg shadow-2xl"
-            style={{ borderRadius: '4px 20px 4px 20px' }} // Custom subtle corner shaping
+            className="relative z-10 border border-[#D4AF37] bg-[#FFFDD0] p-6 sm:p-10 lg:p-16 text-center max-w-lg shadow-2xl"
+            style={{ borderRadius: '4px 20px 4px 20px' }}
           >
             <h2 className="font-cinzel text-3xl sm:text-4xl text-[#922D30] font-medium mb-6">
               Bulk Orders & <br/> Wholesale Enquiries

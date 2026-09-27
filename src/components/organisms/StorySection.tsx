@@ -25,8 +25,8 @@ export const StorySection = () => {
           </div>
 
           {/* Heading */}
-          <h2 className="text-4xl sm:text-5xl md:text-6xl text-[#3E2723] font-cinzel mb-8">
-            Every <span className="font-script text-[#D4AF37] text-6xl sm:text-7xl md:text-8xl mx-2">Ornament</span> Tells a Story
+          <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl text-[#3E2723] font-cinzel mb-8 flex flex-wrap justify-center items-center gap-x-3 gap-y-1">
+            Every <span className="font-script text-[#D4AF37] text-5xl sm:text-6xl md:text-7xl lg:text-8xl">Ornament</span> Tells a Story
           </h2>
 
           {/* Text */}

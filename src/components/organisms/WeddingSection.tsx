@@ -36,9 +36,9 @@ export const WeddingSection = () => {
           <div className="h-[1px] w-12 sm:w-20 bg-[#DAB852]"></div>
         </div>
 
-        <h2 className="font-montserrat font-light text-4xl sm:text-5xl md:text-6xl text-[#3E2723] mb-12 leading-[1.4]">
+        <h2 className="font-montserrat font-light text-3xl sm:text-4xl md:text-5xl lg:text-6xl text-[#3E2723] mb-10 sm:mb-12 leading-[1.4]">
           Elevate your showroom with our <br/>
-          <span className="font-script text-[#DAB852] text-6xl sm:text-7xl md:text-8xl drop-shadow-sm pr-3">premium</span> bridal sets for <br/>
+          <span className="font-script text-[#DAB852] text-5xl sm:text-6xl md:text-7xl lg:text-8xl drop-shadow-sm pr-3">premium</span> bridal sets for <br/>
           bulk sourcing.
         </h2>
 

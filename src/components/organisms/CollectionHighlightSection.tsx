@@ -16,10 +16,10 @@ export const CollectionHighlightSection = () => {
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            className="text-3xl sm:text-4xl md:text-5xl text-[#3E2723] font-cinzel leading-relaxed"
+            className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl text-[#3E2723] font-cinzel leading-relaxed"
           >
-            Exquisite <span className="font-script text-[#D4AF37] text-5xl md:text-7xl">craftsmanship,</span> for your showroom; <br/>
-            Discover our exclusive <span className="font-script text-[#D4AF37] text-5xl md:text-7xl">wholesale</span> collections
+            Exquisite <span className="font-script text-[#D4AF37] text-4xl sm:text-5xl md:text-6xl lg:text-7xl">craftsmanship,</span> for your showroom; <br/>
+            Discover our exclusive <span className="font-script text-[#D4AF37] text-4xl sm:text-5xl md:text-6xl lg:text-7xl">wholesale</span> collections
           </motion.h2>
           
           <div className="mt-8 flex justify-center">
@@ -35,15 +35,15 @@ export const CollectionHighlightSection = () => {
         </div>
 
         {/* Split Layout */}
-        <div className="flex flex-col lg:flex-row items-center gap-16 mt-16">
+        <div className="flex flex-col lg:flex-row items-center gap-10 lg:gap-16 mt-10 lg:mt-16">
           
           {/* Left Text */}
-          <div className="w-full lg:w-1/3 flex flex-col items-start lg:pl-12">
+          <div className="w-full lg:w-1/3 flex flex-col items-center lg:items-start text-center lg:text-left lg:pl-12">
             <motion.h3 
               initial={{ opacity: 0, x: -30 }}
               whileInView={{ opacity: 1, x: 0 }}
               viewport={{ once: true }}
-              className="text-4xl sm:text-5xl text-[#3E2723] font-playfair mb-6"
+              className="text-3xl sm:text-4xl lg:text-5xl text-[#3E2723] font-playfair mb-6"
             >
               Signature <br/> Wholesale
             </motion.h3>
@@ -70,13 +70,13 @@ export const CollectionHighlightSection = () => {
           </div>
 
           {/* Right Image with Custom Dome Frame */}
-          <div className="w-full lg:w-2/3 relative h-[600px] flex justify-end">
+          <div className="w-full lg:w-2/3 relative h-[300px] sm:h-[450px] lg:h-[600px] flex justify-end">
              {/* The Dome shape mask */}
              <div 
-                className="relative w-full max-w-[800px] h-full overflow-hidden shadow-2xl"
+                className="relative w-full max-w-full lg:max-w-[800px] h-full overflow-hidden shadow-2xl"
                 style={{
                   clipPath: 'polygon(20% 0%, 80% 0%, 100% 20%, 100% 100%, 0% 100%, 0% 20%)',
-                  borderRadius: '150px 150px 0 0'
+                  borderRadius: '80px 80px 0 0'
                 }}
              >
                 <Image

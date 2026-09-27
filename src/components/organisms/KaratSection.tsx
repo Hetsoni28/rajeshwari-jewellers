@@ -59,11 +59,11 @@ export const KaratSection = () => {
               whileInView={{ opacity: 1, x: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.8 }}
-              className="font-cinzel text-4xl sm:text-5xl md:text-6xl text-[#3E2723] leading-tight mb-8"
+              className="font-cinzel text-3xl sm:text-4xl md:text-5xl lg:text-6xl text-[#3E2723] leading-tight mb-8"
             >
               Sourcing made easy... <br/>
-              Explore bulk <span className="font-script text-[#D4AF37] text-6xl md:text-8xl -ml-2 mr-2">inventory</span> <br/>
-              by <span className="font-script text-[#D4AF37] text-6xl md:text-8xl">karat</span>
+              Explore bulk <span className="font-script text-[#D4AF37] text-5xl sm:text-6xl md:text-7xl lg:text-8xl -ml-2 mr-2">inventory</span> <br/>
+              by <span className="font-script text-[#D4AF37] text-5xl sm:text-6xl md:text-7xl lg:text-8xl">karat</span>
             </motion.h2>
             
             <motion.p 

@@ -46,18 +46,17 @@ export const ShopByCategory = () => {
       <div className="container mx-auto px-4 sm:px-6 lg:px-8 max-w-7xl relative z-10">
         <div className="flex flex-col lg:flex-row items-center gap-16 lg:gap-24">
           
-          {/* Left Text Content */}
-          <div className="w-full lg:w-5/12 flex flex-col items-start lg:pr-8">
+          <div className="w-full lg:w-5/12 flex flex-col items-center lg:items-start lg:pr-8 text-center lg:text-left">
             <motion.h2 
               initial={{ opacity: 0, x: -30 }}
               whileInView={{ opacity: 1, x: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.8 }}
-              className="text-[#3E2723] font-cinzel text-5xl sm:text-6xl md:text-7xl leading-tight mb-6"
+              className="text-[#3E2723] font-cinzel text-4xl sm:text-5xl md:text-6xl lg:text-7xl leading-tight mb-6"
             >
               How would you <br/>
               like to <br className="hidden sm:block"/>
-              <span className="font-script text-[#D4AF37] text-7xl md:text-8xl mt-2 block">Sparkle?</span>
+              <span className="font-script text-[#D4AF37] text-5xl sm:text-6xl md:text-7xl lg:text-8xl mt-2 block">Sparkle?</span>
             </motion.h2>
             
             <motion.p 
@@ -65,7 +64,7 @@ export const ShopByCategory = () => {
               whileInView={{ opacity: 1, x: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.8, delay: 0.2 }}
-              className="text-[#3E2723]/80 font-montserrat text-base sm:text-lg leading-relaxed max-w-md"
+              className="text-[#3E2723]/80 font-montserrat text-sm sm:text-base leading-relaxed max-w-md"
             >
               From timeless essentials to bold statement designs, explore over 200+ designs each intricately crafted to elevate your everyday style
             </motion.p>
