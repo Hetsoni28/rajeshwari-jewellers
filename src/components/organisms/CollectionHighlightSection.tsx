@@ -54,7 +54,7 @@ export const CollectionHighlightSection = () => {
               transition={{ delay: 0.1 }}
               className="text-[#3E2723]/80 font-montserrat text-sm sm:text-base leading-relaxed mb-8"
             >
-              Stock your showroom with our 22KT gold masterpieces. Designed for high turnover and premium margins, the Rajeshwari Signature collection offers bulk buyers the finest craftsmanship, certified purity, and exclusive B2B trade rates trusted by leading jewellers across India.
+              Stock your showroom with our 22KT gold masterpieces. Designed for high turnover and premium margins, the Rajeshwari Signature collection offers bulk buyers the finest craftsmanship, certified purity, and exclusive trade rates trusted by leading jewellers across India.
             </motion.p>
             <Link href="/catalog">
             <motion.button 
