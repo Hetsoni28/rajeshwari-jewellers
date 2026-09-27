@@ -54,11 +54,15 @@ export const Navbar = () => {
       <div className="container mx-auto px-6 md:px-12 flex justify-between items-center">
         <Link href="/" className="flex items-center group">
           <motion.div
-            className={`flex-shrink-0 transition-all duration-500 ${isSolidBg ? 'w-[110px] h-[70px]' : 'w-[160px] h-[101px]'}`}
+            className={`flex-shrink-0 transition-all duration-500 ${
+              isSolidBg
+                ? 'w-[120px] h-[76px] sm:w-[140px] sm:h-[89px]'
+                : 'w-[140px] h-[89px] sm:w-[170px] sm:h-[108px] md:w-[200px] md:h-[127px]'
+            }`}
             whileHover={{ scale: 1.03 }}
             transition={{ duration: duration.fast, ease: luxuryEasing }}
           >
-            <LogoSVG size={isSolidBg ? "sm" : "lg"} />
+            <LogoSVG size={isSolidBg ? "md" : "xl"} />
           </motion.div>
         </Link>
 
@@ -147,6 +151,10 @@ export const Navbar = () => {
             className="md:hidden absolute top-full left-0 w-full bg-white/98 backdrop-blur-lg shadow-[0_8px_40px_rgba(0,0,0,0.10)] overflow-hidden"
           >
             <div className="flex flex-col items-center py-10 space-y-7">
+              {/* Logo in mobile menu */}
+              <div className="w-[160px] h-[101px] mb-2">
+                <LogoSVG size="lg" />
+              </div>
               {navLinks.map((link, i) => (
                 <motion.div
                   key={link.name}
