@@ -59,7 +59,7 @@ export const GiftingSection = () => {
               Bulk Orders &amp; <br/> Wholesale Enquiries
             </h2>
             <p className="text-[#3E2723] font-montserrat font-light text-sm sm:text-base mb-7 sm:mb-10 leading-relaxed">
-              We supply premium gold and diamond ornaments to retailers, jewellers, and bulk buyers across India. Competitive rates, hallmarked purity, and exclusive designs available for trade.
+              We supply premium gold and diamond ornaments to retailers, jewellers, and bulk buyers across India. Competitive rates, certified purity, and exclusive designs available for trade.
             </p>
             <Link
               href="/catalog"

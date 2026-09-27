@@ -28,7 +28,7 @@ const values = [
     ),
   },
   {
-    title: "Hallmarked Purity",
+    title: "Certified Purity",
     icon: (
       <svg viewBox="0 0 48 48" fill="none" stroke="#D4AF37" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" className="w-12 h-12 mx-auto">
         <path d="M24 4l4 8 9 1.3-6.5 6.3 1.5 9L24 24l-8 4.6 1.5-9L11 13.3 20 12z"/>
@@ -60,8 +60,8 @@ const values = [
 
 const promises = [
   {
-    title: "100% BIS Hallmarked Gold",
-    desc: "Every ornament we supply is BIS hallmarked — 22KT, 18KT or 24KT — guaranteeing authentic purity you can pass on to your customers with confidence.",
+    title: "Certified Gold Purity",
+    desc: "Every ornament we supply undergoes strict quality checks — 22KT, 18KT or 24KT — guaranteeing authentic purity you can pass on to your customers with confidence.",
     icon: (
       <svg viewBox="0 0 56 56" fill="none" stroke="#D4AF37" strokeWidth="1.4" strokeLinecap="round" strokeLinejoin="round" className="w-14 h-14 mx-auto">
         <rect x="10" y="8" width="36" height="42" rx="2"/>
@@ -96,7 +96,7 @@ const promises = [
   },
   {
     title: "Exchange & Buyback",
-    desc: "We offer a genuine old-gold exchange programme for retailers — get fair market value for scrap gold and convert it into fresh hallmarked inventory.",
+    desc: "We offer a genuine old-gold exchange programme for retailers — get fair market value for scrap gold and convert it into fresh certified inventory.",
     icon: (
       <svg viewBox="0 0 56 56" fill="none" stroke="#D4AF37" strokeWidth="1.4" strokeLinecap="round" strokeLinejoin="round" className="w-14 h-14 mx-auto">
         <path d="M12 20a16 16 0 0 1 28-4M44 36a16 16 0 0 1-28 4"/>
@@ -170,7 +170,7 @@ export const AboutClient = () => {
           <motion.div variants={fadeUp} className="w-14 h-[2px] bg-[#D4AF37] mb-8" />
           <motion.p variants={fadeUp} className="font-montserrat text-gray-500 text-sm sm:text-base leading-relaxed max-w-md">
             Rajeshwari Jewellers is a leading wholesale and retail gold ornaments house based in Ahmedabad.
-            We supply hallmarked 22KT, 18KT and 24KT jewellery — diamonds, polki, kundan, antique and gemstone ornaments —
+            We supply 22KT, 18KT and 24KT jewellery — diamonds, polki, kundan, antique and gemstone ornaments —
             to retailers, jewellers, and bulk buyers across India. Every piece reflects our commitment to
             purity, craftsmanship, and competitive trade value.
           </motion.p>
