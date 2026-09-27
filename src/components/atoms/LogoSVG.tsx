@@ -18,14 +18,13 @@ export const LogoSVG = ({ size = "md", className }: LogoSVGProps) => {
   const { w, h } = sizeMap[size] ?? sizeMap.md;
 
   return (
-    // Plain <img> handles SVGs with embedded base64 PNG far more reliably than next/image
     // eslint-disable-next-line @next/next/no-img-element
     <img
       src="/images/logo.svg"
       alt="Rajeshwari Jewellers Logo"
       width={w}
       height={h}
-      style={{ objectFit: "contain", display: "block" }}
+      style={{ width: "100%", height: "auto", display: "block", margin: "0 auto" }}
       className={className}
     />
   );
