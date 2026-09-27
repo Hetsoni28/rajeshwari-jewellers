@@ -7,7 +7,7 @@ import { Menu, X, Phone, Heart } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { mobileMenuReveal, navbarReveal, luxuryEasing, duration } from '@/lib/motion';
 import { LogoSVG } from '@/components/atoms/LogoSVG';
-import { LogoText } from '@/components/atoms/LogoText';
+
 import { useWishlist } from '@/context/WishlistContext';
 
 export const Navbar = () => {
@@ -60,7 +60,6 @@ export const Navbar = () => {
           >
             <LogoSVG size={isSolidBg ? "sm" : "md"} />
           </motion.div>
-          <LogoText solidBg={isSolidBg} darkText={useDarkText} size={isSolidBg ? "sm" : "md"} />
         </Link>
 
         {/* Desktop Nav */}

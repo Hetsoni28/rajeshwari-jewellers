@@ -1,7 +1,6 @@
 import Link from "next/link";
 import Image from "next/image";
 import { LogoSVG } from "@/components/atoms/LogoSVG";
-import { LogoText } from "@/components/atoms/LogoText";
 
 export const Footer = () => {
   return (
@@ -15,7 +14,6 @@ export const Footer = () => {
               <div className="flex-shrink-0 w-[46px] h-[46px] sm:w-[52px] sm:h-[52px]">
                 <LogoSVG size="md" />
               </div>
-              <LogoText solidBg={true} size="sm" />
             </Link>
             <p className="text-gray-600 text-sm leading-relaxed font-light pr-4 mb-5 max-w-sm">
               Crafting timeless fine jewelry for over three decades. Every piece tells a story of heritage, craftsmanship, and luxury. Visit our showroom or inquire online.
