@@ -196,8 +196,6 @@ export const AboutClient = () => {
               variants={fadeUp}
               className="bg-[#FFFDF5] border border-[#D4AF37]/25 flex flex-col items-center text-center py-8 px-4 sm:px-6 shadow-sm"
             >
-              {/* Top accent bar */}
-              <div className="w-full h-1 bg-[#3E2723] mb-6 -mt-[1px] mx-0 absolute top-0 left-0" style={{position:'relative',top:0,left:0,width:'100%'}} />
               <div className="mb-5">{v.icon}</div>
               <p className="font-cinzel text-sm sm:text-base text-[#3E2723] font-medium leading-snug">{v.title}</p>
             </motion.div>
