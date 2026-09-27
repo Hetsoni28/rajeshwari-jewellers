@@ -10,9 +10,9 @@ export const Footer = () => {
 
           {/* Column 1 — Brand & About */}
           <div className="sm:col-span-2 lg:col-span-1">
-            <Link href="/" className="flex items-center gap-3 mb-4">
-              <div className="flex-shrink-0 w-[46px] h-[46px] sm:w-[52px] sm:h-[52px]">
-                <LogoSVG size="md" />
+            <Link href="/" className="flex items-center mb-4">
+              <div className="flex-shrink-0 w-[110px] h-[70px]">
+                <LogoSVG size="sm" />
               </div>
             </Link>
             <p className="text-gray-600 text-sm leading-relaxed font-light pr-4 mb-5 max-w-sm">

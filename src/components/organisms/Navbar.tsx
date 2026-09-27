@@ -52,13 +52,13 @@ export const Navbar = () => {
       }`}
     >
       <div className="container mx-auto px-6 md:px-12 flex justify-between items-center">
-        <Link href="/" className="flex items-center gap-3 group">
+        <Link href="/" className="flex items-center group">
           <motion.div
-            className={`flex-shrink-0 transition-all duration-500 ${isSolidBg ? 'w-[40px] h-[40px]' : 'w-[50px] h-[50px]'}`}
-            whileHover={{ rotate: 2, scale: 1.05 }}
+            className={`flex-shrink-0 transition-all duration-500 ${isSolidBg ? 'w-[110px] h-[70px]' : 'w-[160px] h-[101px]'}`}
+            whileHover={{ scale: 1.03 }}
             transition={{ duration: duration.fast, ease: luxuryEasing }}
           >
-            <LogoSVG size={isSolidBg ? "sm" : "md"} />
+            <LogoSVG size={isSolidBg ? "sm" : "lg"} />
           </motion.div>
         </Link>
 
