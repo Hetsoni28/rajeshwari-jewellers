@@ -133,8 +133,34 @@ export const AboutClient = () => {
         {/* Left — text on white */}
         <motion.div
           variants={stagger} initial="hidden" whileInView="show" viewport={vp}
-          className="w-full lg:w-1/2 flex flex-col justify-center px-8 sm:px-14 lg:px-20 py-16 lg:py-28 bg-white"
+          className="w-full lg:w-1/2 flex flex-col justify-center px-8 sm:px-14 lg:px-20 py-16 lg:py-28 bg-white relative overflow-hidden"
         >
+          {/* Decorative SVG background */}
+          <svg className="absolute inset-0 w-full h-full pointer-events-none opacity-[0.04]" viewBox="0 0 600 700" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg">
+            <defs>
+              <pattern id="hero-about-pat" x="0" y="0" width="120" height="150" patternUnits="userSpaceOnUse">
+                {/* Lotus/mandala motif */}
+                <circle cx="60" cy="75" r="28" fill="none" stroke="#D4AF37" strokeWidth="1"/>
+                <circle cx="60" cy="75" r="18" fill="none" stroke="#D4AF37" strokeWidth="0.8"/>
+                <circle cx="60" cy="75" r="6" fill="#D4AF37"/>
+                {/* Petal shapes */}
+                <ellipse cx="60" cy="50" rx="5" ry="12" fill="#D4AF37" transform="rotate(0 60 75)"/>
+                <ellipse cx="60" cy="50" rx="5" ry="12" fill="#D4AF37" transform="rotate(45 60 75)"/>
+                <ellipse cx="60" cy="50" rx="5" ry="12" fill="#D4AF37" transform="rotate(90 60 75)"/>
+                <ellipse cx="60" cy="50" rx="5" ry="12" fill="#D4AF37" transform="rotate(135 60 75)"/>
+                <ellipse cx="60" cy="50" rx="5" ry="12" fill="#D4AF37" transform="rotate(180 60 75)"/>
+                <ellipse cx="60" cy="50" rx="5" ry="12" fill="#D4AF37" transform="rotate(225 60 75)"/>
+                <ellipse cx="60" cy="50" rx="5" ry="12" fill="#D4AF37" transform="rotate(270 60 75)"/>
+                <ellipse cx="60" cy="50" rx="5" ry="12" fill="#D4AF37" transform="rotate(315 60 75)"/>
+                {/* Corner diamonds */}
+                <polygon points="60,2 63,8 60,14 57,8" fill="#D4AF37"/>
+                <polygon points="60,136 63,142 60,148 57,142" fill="#D4AF37"/>
+                <polygon points="2,75 8,72 14,75 8,78" fill="#D4AF37"/>
+                <polygon points="106,75 112,72 118,75 112,78" fill="#D4AF37"/>
+              </pattern>
+            </defs>
+            <rect width="100%" height="100%" fill="url(#hero-about-pat)"/>
+          </svg>
           <motion.p variants={fadeUp} className="font-cinzel text-xs tracking-[0.25em] text-[#D4AF37] uppercase mb-4">
             Est. in Ahmedabad
           </motion.p>
@@ -237,7 +263,21 @@ export const AboutClient = () => {
       </section>
 
       {/* ── SECTION 4: Promises ────────────────────────────────────────────── */}
-      <section className="py-16 sm:py-20 lg:py-24 bg-[#F9F6F0]">
+      <section className="py-16 sm:py-20 lg:py-24 bg-[#F9F6F0] relative overflow-hidden">
+        {/* Decorative SVG */}
+        <svg className="absolute inset-0 w-full h-full pointer-events-none opacity-[0.05]" viewBox="0 0 1200 700" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg">
+          <defs>
+            <pattern id="promise-pat" x="0" y="0" width="100" height="100" patternUnits="userSpaceOnUse">
+              <path d="M50 10 C60 20 70 30 60 45 C50 60 40 55 40 45 C30 35 38 18 50 10Z" fill="#D4AF37"/>
+              <path d="M50 90 C40 80 30 70 40 55 C50 40 60 45 60 55 C70 65 62 82 50 90Z" fill="#D4AF37"/>
+              <path d="M10 50 C20 40 30 35 40 45 C50 55 45 65 35 60 C25 55 15 62 10 50Z" fill="#D4AF37"/>
+              <path d="M90 50 C80 60 70 65 60 55 C50 45 55 35 65 40 C75 45 85 38 90 50Z" fill="#D4AF37"/>
+              <circle cx="50" cy="50" r="5" fill="#D4AF37"/>
+              <circle cx="50" cy="50" r="12" fill="none" stroke="#D4AF37" strokeWidth="0.6"/>
+            </pattern>
+          </defs>
+          <rect width="100%" height="100%" fill="url(#promise-pat)"/>
+        </svg>
         <div className="container mx-auto px-4 sm:px-8 max-w-6xl">
           <motion.div variants={stagger} initial="hidden" whileInView="show" viewport={vp} className="text-center mb-12 sm:mb-16">
             <motion.h2 variants={fadeUp} className="font-cinzel text-3xl sm:text-4xl lg:text-5xl text-[#1A1A1A] mb-2">
@@ -267,7 +307,36 @@ export const AboutClient = () => {
       </section>
 
       {/* ── SECTION 5: Contact CTA ─────────────────────────────────────────── */}
-      <section className="py-16 sm:py-20 bg-white border-t border-gray-100 text-center">
+      <section className="py-16 sm:py-20 bg-white border-t border-gray-100 text-center relative overflow-hidden">
+        {/* Large corner decorations */}
+        <svg className="absolute top-0 left-0 w-40 h-40 sm:w-56 sm:h-56 opacity-[0.06] pointer-events-none" viewBox="0 0 200 200" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M0 0 L120 0 Q80 0 80 40 L80 120 Q80 160 40 160 L0 160 Z" fill="#D4AF37"/>
+          <path d="M0 0 L80 0 Q50 0 50 30 L50 80 Q50 110 20 110 L0 110 Z" fill="#D4AF37"/>
+          <circle cx="10" cy="10" r="6" fill="#D4AF37"/>
+          <circle cx="30" cy="30" r="4" fill="#D4AF37"/>
+          <path d="M0 50 Q25 50 25 75 Q25 100 50 100" stroke="#D4AF37" strokeWidth="1.5" fill="none"/>
+          <path d="M0 80 Q35 80 35 115 Q35 150 70 150" stroke="#D4AF37" strokeWidth="1" fill="none"/>
+        </svg>
+        <svg className="absolute top-0 right-0 w-40 h-40 sm:w-56 sm:h-56 opacity-[0.06] pointer-events-none" viewBox="0 0 200 200" fill="none" xmlns="http://www.w3.org/2000/svg" style={{transform:'scaleX(-1)'}}>
+          <path d="M0 0 L120 0 Q80 0 80 40 L80 120 Q80 160 40 160 L0 160 Z" fill="#D4AF37"/>
+          <path d="M0 0 L80 0 Q50 0 50 30 L50 80 Q50 110 20 110 L0 110 Z" fill="#D4AF37"/>
+          <circle cx="10" cy="10" r="6" fill="#D4AF37"/>
+          <circle cx="30" cy="30" r="4" fill="#D4AF37"/>
+          <path d="M0 50 Q25 50 25 75 Q25 100 50 100" stroke="#D4AF37" strokeWidth="1.5" fill="none"/>
+          <path d="M0 80 Q35 80 35 115 Q35 150 70 150" stroke="#D4AF37" strokeWidth="1" fill="none"/>
+        </svg>
+        <svg className="absolute bottom-0 left-0 w-40 h-40 sm:w-56 sm:h-56 opacity-[0.06] pointer-events-none" viewBox="0 0 200 200" fill="none" xmlns="http://www.w3.org/2000/svg" style={{transform:'scaleY(-1)'}}>
+          <path d="M0 0 L120 0 Q80 0 80 40 L80 120 Q80 160 40 160 L0 160 Z" fill="#D4AF37"/>
+          <path d="M0 0 L80 0 Q50 0 50 30 L50 80 Q50 110 20 110 L0 110 Z" fill="#D4AF37"/>
+          <circle cx="10" cy="10" r="6" fill="#D4AF37"/>
+          <circle cx="30" cy="30" r="4" fill="#D4AF37"/>
+        </svg>
+        <svg className="absolute bottom-0 right-0 w-40 h-40 sm:w-56 sm:h-56 opacity-[0.06] pointer-events-none" viewBox="0 0 200 200" fill="none" xmlns="http://www.w3.org/2000/svg" style={{transform:'scale(-1,-1)'}}>
+          <path d="M0 0 L120 0 Q80 0 80 40 L80 120 Q80 160 40 160 L0 160 Z" fill="#D4AF37"/>
+          <path d="M0 0 L80 0 Q50 0 50 30 L50 80 Q50 110 20 110 L0 110 Z" fill="#D4AF37"/>
+          <circle cx="10" cy="10" r="6" fill="#D4AF37"/>
+          <circle cx="30" cy="30" r="4" fill="#D4AF37"/>
+        </svg>
         <div className="container mx-auto px-6 max-w-3xl">
           <div className="flex items-center justify-center gap-4 mb-6">
             <div className="w-16 h-[1px] bg-[#D4AF37]" />
