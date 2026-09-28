@@ -83,8 +83,8 @@ export const Footer = () => {
         <div className="mt-8 sm:mt-10 pt-4 border-t border-gray-300 flex flex-col sm:flex-row justify-between items-center gap-4 sm:gap-4 text-[10px] md:text-xs tracking-wider text-gray-400 uppercase font-light">
           <p>© {new Date().getFullYear()} Rajeshwari Jewellers. All rights reserved.</p>
           <div className="flex items-center gap-2">
-            <Image src="/hn-logo.jpg" alt="HN Solutions Logo" width={24} height={24} className="rounded-full shadow-sm" />
-            <span className="hover:text-gray-600 transition-colors">Designed and Developed by HN Solutions</span>
+            <Image src="/hn-logo.jpg" alt="HN Logo" width={24} height={24} className="rounded-full shadow-sm" />
+            <span className="hover:text-gray-600 transition-colors">Designed and Developed by HN</span>
           </div>
         </div>
       </div>
