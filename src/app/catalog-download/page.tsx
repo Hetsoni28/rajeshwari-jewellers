@@ -17,7 +17,7 @@ export default async function CatalogDownloadPage() {
   const products = await fetchAllProducts();
 
   return (
-    <main className="min-h-screen bg-[#F5F5F5]">
+    <main id="main-content" tabIndex={-1} className="min-h-screen bg-[#F5F5F5]">
       <Navbar />
       
       {/* Client component that handles the actual PDF generation logic and UI */}

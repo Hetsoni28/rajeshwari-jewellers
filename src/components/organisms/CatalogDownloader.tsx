@@ -2,11 +2,17 @@
 
 import { useState } from "react";
 import { Download } from "lucide-react";
-import { PdfCatalogTemplate } from "@/components/templates/PdfCatalogTemplate";
+import dynamic from "next/dynamic";
 import { Product } from "@/data/products";
 import { Spinner } from "@/components/atoms/Spinner";
 import { Heading } from "@/components/atoms/Heading";
 import { Button } from "@/components/atoms/Button";
+
+// The off-screen PDF layout is only needed once a download starts — keep it out of the initial bundle
+const PdfCatalogTemplate = dynamic(
+  () => import("@/components/templates/PdfCatalogTemplate").then((m) => m.PdfCatalogTemplate),
+  { ssr: false }
+);
 
 export const CatalogDownloader = ({ products }: { products: Product[] }) => {
   const [isGenerating, setIsGenerating] = useState(false);
@@ -45,7 +51,7 @@ export const CatalogDownloader = ({ products }: { products: Product[] }) => {
     <div className="relative pt-16 sm:pt-20 md:pt-24 pb-16 sm:pb-20 overflow-hidden">
 
       {/* Hidden PDF Templates */}
-      <div className="absolute top-[-9999px] left-[-9999px] opacity-0 pointer-events-none">
+      <div className="absolute -top-2499.75 -left-2499.75 opacity-0 pointer-events-none">
         {activeCategory && <PdfCatalogTemplate category={activeCategory} products={products} />}
       </div>
 
@@ -63,7 +69,7 @@ export const CatalogDownloader = ({ products }: { products: Product[] }) => {
             variant="custom"
             onClick={() => handleDownload("full", "Full_Catalog")}
             disabled={isGenerating}
-            className="group relative flex items-center justify-center gap-3 bg-[#B5952F] hover:bg-[#D4AF37] text-white px-6 sm:px-8 py-4 font-bold tracking-[0.1em] uppercase transition-all shadow-lg hover:shadow-xl w-full sm:w-auto overflow-hidden disabled:opacity-80 min-h-[52px]"
+            className="group relative flex items-center justify-center gap-3 bg-gold-deep hover:bg-brown text-white px-6 sm:px-8 py-4 font-bold tracking-widest uppercase transition-all shadow-lg hover:shadow-xl w-full sm:w-auto overflow-hidden disabled:opacity-80 min-h-13"
           >
             {isGenerating && activeCategory === "full" ? (
               <>
@@ -72,11 +78,11 @@ export const CatalogDownloader = ({ products }: { products: Product[] }) => {
               </>
             ) : (
               <>
-                <Download size={20} className="transition-transform group-hover:-translate-y-1 flex-shrink-0" />
+                <Download size={20} className="transition-transform group-hover:-translate-y-1 shrink-0" />
                 <span className="text-xs">Download Full Catalog PDF</span>
               </>
             )}
-            <div className="absolute inset-0 -translate-x-full bg-gradient-to-r from-transparent via-white/20 to-transparent group-hover:animate-shimmer" />
+            <div className="absolute inset-0 -translate-x-full bg-linear-to-r from-transparent via-white/20 to-transparent group-hover:animate-shimmer" />
           </Button>
         </div>
       </div>
@@ -95,7 +101,7 @@ export const CatalogDownloader = ({ products }: { products: Product[] }) => {
               <div key={cat.id} className="bg-white shadow-[0_2px_15px_-4px_rgba(0,0,0,0.04)] border border-gray-100/60">
                 {/* Header */}
                 <div className="px-6 sm:px-8 py-5 border-b border-gray-50/80 bg-white">
-                  <Heading level={3} className="text-[#B38728] text-lg sm:text-xl font-bold tracking-[0.15em] uppercase">
+                  <Heading level={3} className="text-gold-deep text-lg sm:text-xl font-bold tracking-[0.15em] uppercase">
                     {cat.title}
                   </Heading>
                 </div>
@@ -113,15 +119,15 @@ export const CatalogDownloader = ({ products }: { products: Product[] }) => {
                           onClick={() => handleDownload(downloadId, `${cat.title}_${sub.replace(/\s+/g, '_')}`)}
                           // Nothing to export for empty sub-categories (would produce a cover-only PDF)
                           disabled={isGenerating || getCount(cat.id, sub) === 0}
-                          className="group flex items-center justify-between px-5 py-3.5 border border-gray-100 hover:border-[#D4AF37] hover:shadow-[0_4px_12px_rgba(212,175,55,0.12)] bg-white transition-all text-left disabled:opacity-50 min-h-[52px]"
+                          className="group flex items-center justify-between px-5 py-3.5 border border-gray-100 hover:border-gold hover:shadow-[0_4px_12px_rgba(212,175,55,0.12)] bg-white transition-all text-left disabled:opacity-50 min-h-13"
                         >
-                          <span className="text-[10px] uppercase tracking-widest font-bold text-[#1A1A1A] group-hover:text-[#B38728] transition-colors mt-0.5">
+                          <span className="text-[10px] uppercase tracking-widest font-bold text-[#1A1A1A] group-hover:text-gold-deep transition-colors mt-0.5">
                             {sub} <span className="text-gray-400 font-medium ml-1.5">({getCount(cat.id, sub)})</span>
                           </span>
                           {isThisGenerating ? (
-                            <Spinner size={15} className="text-[#B5952F] flex-shrink-0" />
+                            <Spinner size={15} className="text-gold-deep shrink-0" />
                           ) : (
-                            <Download size={15} className="text-gray-300 group-hover:text-[#B38728] flex-shrink-0 transition-colors" />
+                            <Download size={15} className="text-gray-300 group-hover:text-gold-deep shrink-0 transition-colors" />
                           )}
                         </Button>
                       );

@@ -12,7 +12,7 @@ export const Badge = ({ children, size = "sm", className = "", ...props }: Badge
 
   return (
     <span 
-      className={`bg-white font-bold tracking-widest text-gold-dark uppercase shadow-sm ${sizeClasses} ${className}`}
+      className={`bg-white font-bold tracking-widest text-gold-deep uppercase shadow-sm ${sizeClasses} ${className}`}
       {...props}
     >
       {children}

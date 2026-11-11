@@ -4,7 +4,12 @@
   --color-gold: #D4AF37;
   --color-gold-light: #E5C158;
   --color-gold-dark: #B5952F;
+  /* Accessible gold for TEXT and for gold buttons with white text — 4.7:1 on the site's light backgrounds
+     (gold-dark #B5952F is only 2.75:1, so it stays for borders, lines and decoration) */
+  --color-gold-deep: #866E23;
   --color-brown: #3E2723;
+  /* Deepest brand brown — footer background */
+  --color-ink: #2A1A17;
   --color-cream: #FFFDD0;
   --color-neutral-light: #F2F2F2;
 
@@ -14,6 +19,61 @@
   --font-script: var(--font-script), cursive;
   
   --color-gray-200: #e5e7eb;
+  /* gray-400 is used for small labels; the default (#9CA3AF, 2.4:1) fails WCAG AA. #6B7280 = 4.6:1 */
+  --color-gray-400: #6b7280;
+}
+
+/* ── Accessibility ─────────────────────────────────────────────── */
+
+/* Visible keyboard focus everywhere (mouse clicks don't show it) */
+:where(a, button, input, select, textarea, summary, [tabindex]):focus-visible {
+  outline: 2px solid #866E23;
+  outline-offset: 3px;
+  border-radius: 1px;
+}
+/* The skip-link target receives focus programmatically — no ring around the whole page */
+main:focus {
+  outline: none;
+}
+/* On dark backgrounds the ring switches to bright gold */
+:where(.bg-brown, .bg-\[\#3E2723\], .bg-\[\#1A1A1A\]) :where(a, button):focus-visible,
+#welcome-intro :where(a, button):focus-visible {
+  outline-color: #E5C158;
+}
+
+/* "Skip to content" — hidden until focused with the keyboard */
+.skip-link {
+  position: fixed;
+  top: 12px;
+  left: 12px;
+  z-index: 300;
+  transform: translateY(-160%);
+  background: #3E2723;
+  color: #fff;
+  padding: 12px 18px;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  transition: transform 0.2s ease;
+}
+.skip-link:focus {
+  transform: translateY(0);
+}
+
+/* Respect "reduce motion": stop non-essential CSS animation and smooth scrolling */
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto !important;
+  }
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
 }
 
 body {

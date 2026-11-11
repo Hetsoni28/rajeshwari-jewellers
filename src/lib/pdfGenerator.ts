@@ -16,9 +16,22 @@ const waitForImages = async (element: HTMLElement) => {
   );
 };
 
+/** The template is loaded on demand, so wait for it to mount (up to 8s) before capturing. */
+const waitForElement = (id: string, timeoutMs = 8000) =>
+  new Promise<HTMLElement | null>((resolve) => {
+    const start = performance.now();
+    const check = () => {
+      const el = document.getElementById(id);
+      if (el) return resolve(el);
+      if (performance.now() - start > timeoutMs) return resolve(null);
+      requestAnimationFrame(check);
+    };
+    check();
+  });
+
 export const generateCatalogPdf = async (_category: string, title: string) => {
   try {
-    const container = document.getElementById("pdf-catalog-container");
+    const container = await waitForElement("pdf-catalog-container");
     if (!container) {
       throw new Error("PDF Template element not found");
     }

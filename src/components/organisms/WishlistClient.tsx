@@ -51,12 +51,12 @@ export const WishlistClient = () => {
           {/* Right Side: Stats & Actions */}
           <div className="flex items-center gap-6 sm:gap-10 self-start lg:self-auto">
             <div className="text-center flex flex-col items-center">
-              <span className="text-3xl sm:text-4xl font-bold text-[#B38728] leading-none mb-1">{items.length}</span>
-              <span className="text-[10px] sm:text-[11px] font-bold tracking-[0.2em] uppercase text-[#B38728]">Items Saved</span>
+              <span className="text-3xl sm:text-4xl font-bold text-gold-deep leading-none mb-1">{items.length}</span>
+              <span className="text-[10px] sm:text-[11px] font-bold tracking-[0.2em] uppercase text-gold-deep">Items Saved</span>
             </div>
             <button
               onClick={handleShare}
-              className="flex items-center gap-2 sm:gap-3 border border-gray-300 px-5 sm:px-6 py-2.5 sm:py-3 text-[10px] sm:text-xs font-bold tracking-widest uppercase text-gray-600 hover:border-[#B38728] hover:text-[#B38728] transition-colors min-h-[44px]"
+              className="flex items-center gap-2 sm:gap-3 border border-gray-300 px-5 sm:px-6 py-2.5 sm:py-3 text-[10px] sm:text-xs font-bold tracking-widest uppercase text-gray-600 hover:border-[#B38728] hover:text-gold-deep transition-colors min-h-11"
             >
               {shareText === "Copied!" ? <Check size={16} /> : <Share2 size={16} />}
               {shareText}
@@ -80,7 +80,7 @@ export const WishlistClient = () => {
             </p>
             <Link
               href="/catalog"
-              className="inline-flex bg-[#B38728] text-white px-8 sm:px-10 py-3.5 sm:py-4 text-[10px] sm:text-xs font-bold uppercase tracking-[0.2em] hover:bg-[#8A671D] transition-colors shadow-md min-h-[48px] items-center justify-center w-fit mx-auto"
+              className="inline-flex bg-gold-deep text-white px-8 sm:px-10 py-3.5 sm:py-4 text-[10px] sm:text-xs font-bold uppercase tracking-[0.2em] hover:bg-brown transition-colors shadow-md min-h-12 items-center justify-center w-fit mx-auto"
             >
               Browse Catalog
             </Link>
@@ -108,7 +108,7 @@ export const WishlistClient = () => {
             ].map(({ icon: Icon, label }) => (
               <div key={label} className="flex flex-col items-center gap-2 sm:gap-3">
                 <Icon className="text-gold" size={22} />
-                <span className="text-[9px] font-bold tracking-widest text-gold-dark uppercase">{label}</span>
+                <span className="text-[9px] font-bold tracking-widest text-gold-deep uppercase">{label}</span>
               </div>
             ))}
           </div>

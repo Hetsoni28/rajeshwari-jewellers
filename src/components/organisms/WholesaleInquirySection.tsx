@@ -7,11 +7,28 @@ import { buildWhatsAppLink } from '@/lib/contact';
 export const WholesaleInquirySection = () => {
   const [form, setForm] = React.useState({ name: '', phone: '', email: '' });
   const [submitted, setSubmitted] = React.useState(false);
+  const [errors, setErrors] = React.useState<Partial<Record<'name' | 'phone' | 'email', string>>>({});
+  const formRef = React.useRef<HTMLFormElement>(null);
 
   // Previously the form only showed "Thank you" and the details were discarded.
   // Send the inquiry to the trade desk via WhatsApp so it actually reaches the team.
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
+
+    // Validate, show messages (announced via role="alert") and focus the first invalid field
+    const found: typeof errors = {};
+    if (!form.name.trim()) found.name = 'Please enter your name.';
+    const digits = form.phone.replace(/\D/g, '');
+    if (!digits) found.phone = 'Please enter your phone number.';
+    else if (digits.length < 10) found.phone = 'Please enter a valid phone number (at least 10 digits).';
+    if (!form.email.trim()) found.email = 'Please enter your email address.';
+    else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(form.email.trim())) found.email = 'Please enter a valid email address, e.g. name@example.com.';
+    setErrors(found);
+    const firstInvalid = (['name', 'phone', 'email'] as const).find((k) => found[k]);
+    if (firstInvalid) {
+      formRef.current?.querySelector<HTMLInputElement>(`[name="${firstInvalid}"]`)?.focus();
+      return;
+    }
     const message = [
       'New wholesale inquiry from the website',
       `Name: ${form.name.trim()}`,
@@ -124,40 +141,48 @@ export const WholesaleInquirySection = () => {
           className="w-full"
         >
           {/* Heading */}
-          <h2 className="font-cinzel text-3xl sm:text-4xl md:text-5xl text-[#3E2723] mb-4 font-light tracking-wide">
+          <h2 className="font-cinzel text-3xl sm:text-4xl md:text-5xl text-brown mb-4 font-light tracking-wide">
             More beautiful ornaments await...
           </h2>
 
           {/* Subheading */}
-          <p className="font-montserrat text-lg sm:text-xl text-[#3E2723]/80 mb-10">
+          <p className="font-montserrat text-lg sm:text-xl text-brown/80 mb-10">
             Let us connect with our{' '}
-            <span className="font-script text-[#D4AF37] text-3xl sm:text-4xl">team</span>{' '}
+            <span className="font-script text-gold text-3xl sm:text-4xl">team</span>{' '}
             for you
           </p>
 
           {/* Inquiry Form */}
           {!submitted ? (
-            <form onSubmit={handleSubmit} className="w-full max-w-2xl mx-auto">
+            <form ref={formRef} onSubmit={handleSubmit} noValidate className="w-full max-w-2xl mx-auto">
               <div className="flex flex-col sm:flex-row gap-3 mb-3">
                 <input
                   type="text"
                   placeholder="Your name"
                   aria-label="Your name"
+                  name="name"
+                  aria-required="true"
+                  aria-invalid={errors.name ? true : undefined}
+                  aria-describedby={errors.name ? 'inquiry-name-error' : undefined}
                   autoComplete="name"
                   required
                   value={form.name}
                   onChange={e => setForm({ ...form, name: e.target.value })}
-                  className="flex-1 px-5 py-3.5 border border-[#D4AF37]/50 bg-white/80 text-[#3E2723] placeholder-[#3E2723]/50 focus:outline-none focus:border-[#D4AF37] text-sm font-montserrat"
+                  className="flex-1 px-5 py-3.5 border border-gold/50 bg-white/80 text-brown placeholder-brown/60 focus:outline-none focus:border-gold text-sm font-montserrat"
                 />
                 <input
                   type="tel"
                   placeholder="Phone number"
                   aria-label="Phone number"
+                  name="phone"
+                  aria-required="true"
+                  aria-invalid={errors.phone ? true : undefined}
+                  aria-describedby={errors.phone ? 'inquiry-phone-error' : undefined}
                   autoComplete="tel"
                   required
                   value={form.phone}
                   onChange={e => setForm({ ...form, phone: e.target.value })}
-                  className="flex-1 px-5 py-3.5 border border-[#D4AF37]/50 bg-white/80 text-[#3E2723] placeholder-[#3E2723]/50 focus:outline-none focus:border-[#D4AF37] text-sm font-montserrat"
+                  className="flex-1 px-5 py-3.5 border border-gold/50 bg-white/80 text-brown placeholder-brown/60 focus:outline-none focus:border-gold text-sm font-montserrat"
                 />
               </div>
               <div className="flex flex-col sm:flex-row gap-3">
@@ -165,20 +190,31 @@ export const WholesaleInquirySection = () => {
                   type="email"
                   placeholder="Email address"
                   aria-label="Email address"
+                  name="email"
+                  aria-required="true"
+                  aria-invalid={errors.email ? true : undefined}
+                  aria-describedby={errors.email ? 'inquiry-email-error' : undefined}
                   autoComplete="email"
                   required
                   value={form.email}
                   onChange={e => setForm({ ...form, email: e.target.value })}
-                  className="flex-1 px-5 py-3.5 border border-[#D4AF37]/50 bg-white/80 text-[#3E2723] placeholder-[#3E2723]/50 focus:outline-none focus:border-[#D4AF37] text-sm font-montserrat"
+                  className="flex-1 px-5 py-3.5 border border-gold/50 bg-white/80 text-brown placeholder-brown/60 focus:outline-none focus:border-gold text-sm font-montserrat"
                 />
                 <button
                   type="submit"
-                  className="bg-[#D4AF37] text-[#3E2723] px-10 py-3.5 font-cinzel font-semibold tracking-widest text-sm uppercase shadow-md"
+                  className="bg-gold text-brown px-10 py-3.5 font-cinzel font-semibold tracking-widest text-sm uppercase shadow-md"
                 >
                   Send Inquiry
                 </button>
               </div>
-              <p className="text-[#3E2723]/40 text-xs mt-4 font-montserrat">
+              {(errors.name || errors.phone || errors.email) && (
+                <ul role="alert" className="mt-3 space-y-1 text-left text-xs text-red-700">
+                  {(['name', 'phone', 'email'] as const).map((k) =>
+                    errors[k] ? <li key={k} id={`inquiry-${k}-error`}>{errors[k]}</li> : null
+                  )}
+                </ul>
+              )}
+              <p className="text-brown/75 text-xs mt-4 font-montserrat">
                 We typically respond within 24 hours. All enquiries are kept confidential.
               </p>
             </form>
@@ -187,9 +223,10 @@ export const WholesaleInquirySection = () => {
               initial={{ opacity: 0, scale: 0.95 }}
               animate={{ opacity: 1, scale: 1 }}
               className="py-8"
+              role="status"
             >
-              <p className="font-cinzel text-2xl text-[#3E2723] mb-2">Thank you!</p>
-              <p className="font-montserrat text-[#3E2723]/70">
+              <p className="font-cinzel text-2xl text-brown mb-2">Thank you!</p>
+              <p className="font-montserrat text-brown/70">
                 Please press send in WhatsApp — our team will reach out to you shortly.
               </p>
             </motion.div>

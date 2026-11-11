@@ -12,7 +12,7 @@ export const metadata = pageMetadata({
 
 export default function WishlistPage() {
   return (
-    <main className="min-h-screen bg-white">
+    <main id="main-content" tabIndex={-1} className="min-h-screen bg-white">
       <Navbar />
       <WishlistClient />
       <Footer />

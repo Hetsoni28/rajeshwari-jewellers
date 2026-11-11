@@ -23,7 +23,7 @@ export const metadata = pageMetadata({
 
 export default function Home() {
   return (
-    <main className="min-h-screen bg-white overflow-x-hidden">
+    <main id="main-content" tabIndex={-1} className="min-h-screen bg-white overflow-x-hidden">
       <WelcomeIntro />
       <Navbar />
       <HeroSection />

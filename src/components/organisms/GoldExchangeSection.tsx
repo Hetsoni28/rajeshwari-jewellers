@@ -42,17 +42,17 @@ export const GoldExchangeSection = () => {
               initial={{ opacity: 0, x: -20 }}
               whileInView={{ opacity: 1, x: 0 }}
               viewport={{ once: true }}
-              className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl text-[#3E2723] font-cinzel leading-tight mb-6"
+              className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl text-brown font-cinzel leading-tight mb-6"
             >
               Exchange your scrap gold into <br/>
-              <span className="font-script text-[#D4AF37] text-5xl sm:text-6xl md:text-7xl lg:text-8xl -ml-2">Fresh Inventory</span>
+              <span className="font-script text-gold text-5xl sm:text-6xl md:text-7xl lg:text-8xl -ml-2">Fresh Inventory</span>
             </motion.h2>
             <motion.p
               initial={{ opacity: 0, x: -20 }}
               whileInView={{ opacity: 1, x: 0 }}
               viewport={{ once: true }}
               transition={{ delay: 0.1 }}
-              className="text-[#3E2723]/80 font-montserrat text-sm sm:text-base leading-relaxed mb-10 max-w-md"
+              className="text-brown/80 font-montserrat text-sm sm:text-base leading-relaxed mb-10 max-w-md"
             >
               Enter your scrap gold&apos;s weight and purity to estimate trade-in value against bulk sourcing.
               <br/><br/>
@@ -66,7 +66,7 @@ export const GoldExchangeSection = () => {
             >
               <Link
                 href="/contact"
-                className="inline-block bg-[#D4AF37] text-[#3E2723] px-10 py-3 font-semibold hover:bg-[#E5C158] transition-colors shadow-md"
+                className="inline-block bg-gold text-brown px-10 py-3 font-semibold hover:bg-gold-light transition-colors shadow-md"
               >
                 Know More
               </Link>
@@ -74,7 +74,7 @@ export const GoldExchangeSection = () => {
           </div>
 
           {/* Right Image + Calculator UI Card */}
-          <div className="w-full lg:w-7/12 relative h-[500px] sm:h-[600px] flex justify-end items-center">
+          <div className="w-full lg:w-7/12 relative h-125 sm:h-150 flex justify-end items-center">
 
             {/* Background Image */}
             <div className="absolute right-0 w-3/4 h-full">
@@ -94,42 +94,42 @@ export const GoldExchangeSection = () => {
               whileInView={{ opacity: 1, x: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.8, ease: "easeOut", delay: 0.2 }}
-              className="relative z-20 bg-[#FFFDD0] p-8 sm:p-10 shadow-2xl w-[90%] sm:w-[450px] mr-auto lg:mr-0 lg:absolute lg:left-0"
+              className="relative z-20 bg-cream p-8 sm:p-10 shadow-2xl w-[90%] sm:w-112.5 mr-auto lg:mr-0 lg:absolute lg:left-0"
             >
-              <h3 className="text-xl text-[#3E2723] font-semibold font-montserrat mb-8">Exchange Programme</h3>
+              <h3 className="text-xl text-brown font-semibold font-montserrat mb-8">Exchange Programme</h3>
 
               <div className="space-y-6">
                 <div>
-                  <label htmlFor="exchange-weight" className="block text-xs text-[#3E2723]/70 mb-2 font-medium uppercase tracking-wider">Weight of Gold</label>
-                  <div className="border-b border-[#3E2723]/30 pb-2 flex items-center relative">
+                  <label htmlFor="exchange-weight" className="block text-xs text-brown/70 mb-2 font-medium uppercase tracking-wider">Weight of Gold</label>
+                  <div className="border-b border-brown/30 pb-2 flex items-center relative">
                     <input
                       id="exchange-weight"
                       type="number"
                       inputMode="decimal"
                       value={weight}
                       onChange={(e) => setWeight(e.target.value)}
-                      className="text-lg font-medium text-[#3E2723] bg-transparent outline-none w-20 appearance-none"
+                      className="text-lg font-medium text-brown bg-transparent outline-none w-20 appearance-none"
                       min="0"
                       step="0.1"
                     />
-                    <span className="text-sm text-[#3E2723]/80 absolute left-20">grams</span>
+                    <span className="text-sm text-brown/80 absolute left-20">grams</span>
                   </div>
                 </div>
 
                 <div>
-                  <label htmlFor="exchange-purity" className="block text-xs text-[#3E2723]/70 mb-2 font-medium uppercase tracking-wider">Purity (In Karat)</label>
-                  <div className="border-b border-[#3E2723]/30 pb-2 relative">
+                  <label htmlFor="exchange-purity" className="block text-xs text-brown/70 mb-2 font-medium uppercase tracking-wider">Purity (In Karat)</label>
+                  <div className="border-b border-brown/30 pb-2 relative">
                     <select
                       id="exchange-purity"
                       value={purity}
                       onChange={(e) => setPurity(e.target.value as PurityKey)}
-                      className="text-lg font-medium text-[#3E2723] bg-transparent outline-none w-full appearance-none cursor-pointer pr-8"
+                      className="text-lg font-medium text-brown bg-transparent outline-none w-full appearance-none cursor-pointer pr-8"
                     >
                       {Object.keys(BOARD_RATES).map((key) => (
                         <option key={key} value={key} className="bg-white">{key}</option>
                       ))}
                     </select>
-                    <svg width="12" height="8" viewBox="0 0 12 8" fill="none" stroke="currentColor" className="text-[#3E2723] absolute right-2 top-1/2 -translate-y-1/2 pointer-events-none">
+                    <svg width="12" height="8" viewBox="0 0 12 8" fill="none" stroke="currentColor" className="text-brown absolute right-2 top-1/2 -translate-y-1/2 pointer-events-none">
                       <path d="M1 1.5L6 6.5L11 1.5" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
                     </svg>
                   </div>
@@ -140,10 +140,10 @@ export const GoldExchangeSection = () => {
                     <p className="text-xs text-[#E57A44] font-medium">Today&apos;s {purity.split(' ')[0]} Gold Board Rate {formatCurrency(currentRate)}/gram</p>
                   </div>
                   <div className="border border-[#E57A44]/30 bg-white p-4 sm:p-5 flex flex-col sm:flex-row sm:items-center justify-between shadow-inner gap-2 sm:gap-0">
-                     <span className="text-xs sm:text-sm font-bold text-[#3E2723]/60 uppercase tracking-widest">Approx. Value</span>
-                     <span className="text-[#3E2723] text-2xl sm:text-3xl font-bold">{formatCurrency(calculatedValue)}</span>
+                     <span className="text-xs sm:text-sm font-bold text-brown/60 uppercase tracking-widest">Approx. Value</span>
+                     <span className="text-brown text-2xl sm:text-3xl font-bold">{formatCurrency(calculatedValue)}</span>
                   </div>
-                  <p className="text-[10px] text-[#3E2723]/60 mt-2">*Actual value determined after testing</p>
+                  <p className="text-[10px] text-brown/60 mt-2">*Actual value determined after testing</p>
                 </div>
               </div>
             </motion.div>

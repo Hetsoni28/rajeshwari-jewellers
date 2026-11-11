@@ -6,7 +6,7 @@ import { LogoSVG } from '@/components/atoms/LogoSVG';
 
 export const StorySection = () => {
   return (
-    <section className="bg-[#FFFDD0] pt-6 pb-16 sm:pb-24 relative text-center">
+    <section className="bg-cream pt-6 pb-16 sm:pb-24 relative text-center">
       <div className="container mx-auto px-4">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
@@ -17,18 +17,18 @@ export const StorySection = () => {
         >
           {/* Logo centred */}
           <div className="flex justify-center mb-6">
-            <div className="w-[200px] sm:w-[240px] md:w-[280px]">
+            <div className="w-50 sm:w-60 md:w-70">
               <LogoSVG size="lg" />
             </div>
           </div>
 
           {/* Heading */}
-          <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl text-[#3E2723] font-cinzel mb-8 flex flex-wrap justify-center items-center gap-x-3 gap-y-1">
-            Every <span className="font-script text-[#D4AF37] text-5xl sm:text-6xl md:text-7xl lg:text-8xl">Ornament</span> Tells a Story
+          <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl text-brown font-cinzel mb-8 flex flex-wrap justify-center items-center gap-x-3 gap-y-1">
+            Every <span className="font-script text-gold text-5xl sm:text-6xl md:text-7xl lg:text-8xl">Ornament</span> Tells a Story
           </h2>
 
           {/* Text */}
-          <p className="text-[#3E2723]/80 font-montserrat font-light text-base sm:text-lg max-w-2xl mx-auto leading-relaxed">
+          <p className="text-brown/80 font-montserrat font-light text-base sm:text-lg max-w-2xl mx-auto leading-relaxed">
             Your trusted source for retail &amp; wholesale gold ornaments — diamonds, polki, kundan and gemstone jewellery. <br className="hidden sm:block" />
             Crafted for every occasion, priced for every trade.
           </p>

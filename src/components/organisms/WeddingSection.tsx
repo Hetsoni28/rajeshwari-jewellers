@@ -29,15 +29,15 @@ export const WeddingSection = () => {
       >
         {/* Double Rings Icon with Horizontal Lines */}
         <div className="mb-10 flex items-center justify-center w-full gap-4 text-[#DAB852]">
-          <div className="h-[1px] w-12 sm:w-20 bg-[#DAB852]"></div>
+          <div className="h-px w-12 sm:w-20 bg-[#DAB852]"></div>
           <svg width="32" height="20" viewBox="0 0 40 30" fill="none" stroke="currentColor" strokeWidth="2">
             <circle cx="16" cy="15" r="7" />
             <circle cx="24" cy="15" r="7" />
           </svg>
-          <div className="h-[1px] w-12 sm:w-20 bg-[#DAB852]"></div>
+          <div className="h-px w-12 sm:w-20 bg-[#DAB852]"></div>
         </div>
 
-        <h2 className="font-montserrat font-light text-3xl sm:text-4xl md:text-5xl lg:text-6xl text-[#3E2723] mb-10 sm:mb-12 leading-[1.4]">
+        <h2 className="font-montserrat font-light text-3xl sm:text-4xl md:text-5xl lg:text-6xl text-brown mb-10 sm:mb-12 leading-[1.4]">
           Elevate your showroom with our <br/>
           <span className="font-script text-[#DAB852] text-5xl sm:text-6xl md:text-7xl lg:text-8xl drop-shadow-sm pr-3">premium</span> bridal sets for <br/>
           bulk sourcing.
@@ -45,7 +45,7 @@ export const WeddingSection = () => {
 
         <Link
           href="/catalog?category=Antique&sub=Set"
-          className="inline-block bg-[#DAB852] text-[#3E2723] px-8 sm:px-12 py-4 font-semibold text-sm hover:bg-[#c9a744] transition-colors"
+          className="inline-block bg-[#DAB852] text-brown px-8 sm:px-12 py-4 font-semibold text-sm hover:bg-[#c9a744] transition-colors"
         >
           Explore Wholesale Bridal Collection
         </Link>

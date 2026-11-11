@@ -76,32 +76,32 @@ export const PdfCatalogTemplate = ({ category, products }: PdfCatalogTemplatePro
   let globalPageIndex = 1;
 
   return (
-    <div id="pdf-catalog-container" className="w-[794px] min-h-[1123px] bg-[#ffffff] flex flex-col font-sans">
+    <div id="pdf-catalog-container" className="w-198.5 min-h-280.75 bg-[#ffffff] flex flex-col font-sans">
       
       {/* Cover Page */}
-      <div className="pdf-page w-[794px] h-[1123px] relative flex flex-col items-center justify-center p-12 overflow-hidden border-[12px] border-[#ffffff] outline outline-1 outline-[#e5e7eb]">
+      <div className="pdf-page w-198.5 h-280.75 relative flex flex-col items-center justify-center p-12 overflow-hidden border-[12px] border-[#ffffff] outline outline-1 outline-[#e5e7eb]">
         
         {/* Clean Background */}
         <div className="absolute inset-0 z-0 bg-[#ffffff]">
-          <div className="absolute inset-0 bg-gradient-to-b from-white/30 via-transparent to-white/90" />
+          <div className="absolute inset-0 bg-linear-to-b from-white/30 via-transparent to-white/90" />
         </div>
 
         {/* Elegant Frame */}
-        <div className="absolute inset-8 border-2 border-[#D4AF37] z-10 pointer-events-none" />
-        <div className="absolute inset-10 border border-[#D4AF37]/40 z-10 pointer-events-none" />
+        <div className="absolute inset-8 border-2 border-gold z-10 pointer-events-none" />
+        <div className="absolute inset-10 border border-gold/40 z-10 pointer-events-none" />
         
         {/* Decorative corner brackets */}
-        <div className="absolute top-6 left-6 w-12 h-12 border-t-[3px] border-l-[3px] border-[#D4AF37] z-10" />
-        <div className="absolute top-6 right-6 w-12 h-12 border-t-[3px] border-r-[3px] border-[#D4AF37] z-10" />
-        <div className="absolute bottom-6 left-6 w-12 h-12 border-b-[3px] border-l-[3px] border-[#D4AF37] z-10" />
-        <div className="absolute bottom-6 right-6 w-12 h-12 border-b-[3px] border-r-[3px] border-[#D4AF37] z-10" />
+        <div className="absolute top-6 left-6 w-12 h-12 border-t-[3px] border-l-[3px] border-gold z-10" />
+        <div className="absolute top-6 right-6 w-12 h-12 border-t-[3px] border-r-[3px] border-gold z-10" />
+        <div className="absolute bottom-6 left-6 w-12 h-12 border-b-[3px] border-l-[3px] border-gold z-10" />
+        <div className="absolute bottom-6 right-6 w-12 h-12 border-b-[3px] border-r-[3px] border-gold z-10" />
         
         {/* Top Shop Name in Golden Font */}
         <div className="absolute top-16 left-0 w-full z-20 flex flex-col items-center text-center">
-          <p className="font-cinzel text-5xl tracking-[0.3em] text-[#D4AF37] font-bold ml-[0.3em]">
+          <p className="font-cinzel text-5xl tracking-[0.3em] text-gold font-bold ml-[0.3em]">
             RAJESHWARI
           </p>
-          <p className="text-xs tracking-[0.6em] uppercase text-[#B5952F] mt-2 font-bold ml-[0.6em]">
+          <p className="text-xs tracking-[0.6em] uppercase text-gold-deep mt-2 font-bold ml-[0.6em]">
             Jewellers
           </p>
         </div>
@@ -112,16 +112,16 @@ export const PdfCatalogTemplate = ({ category, products }: PdfCatalogTemplatePro
           {/* Brand Logo - Enlarged since it contains the text */}
           <div className="mb-20 flex flex-col items-center justify-center text-center">
             <div className="relative w-48 h-48 rounded-full shadow-[0_10px_40px_rgb(0,0,0,0.15)] bg-white p-2">
-              <div className="relative w-full h-full rounded-full overflow-hidden border-[3px] border-[#D4AF37]">
+              <div className="relative w-full h-full rounded-full overflow-hidden border-[3px] border-gold">
                 <LogoSVG size="custom" className="w-full h-full scale-105" />
               </div>
             </div>
           </div>
 
           <div className="flex items-center gap-4 mb-16 opacity-80">
-            <div className="w-16 h-[1px] bg-[#D4AF37]" />
-            <div className="w-2 h-2 rotate-45 bg-[#D4AF37]" />
-            <div className="w-16 h-[1px] bg-[#D4AF37]" />
+            <div className="w-16 h-px bg-gold" />
+            <div className="w-2 h-2 rotate-45 bg-gold" />
+            <div className="w-16 h-px bg-gold" />
           </div>
 
           {/* Title */}
@@ -129,14 +129,14 @@ export const PdfCatalogTemplate = ({ category, products }: PdfCatalogTemplatePro
             <h2 className="font-cinzel text-4xl text-[#1A1A1A] leading-tight tracking-[0.15em] font-bold">
               {isFull ? "THE HERITAGE COLLECTION" : title.toUpperCase()}
             </h2>
-            <p className="text-[#B5952F] uppercase tracking-[0.4em] text-[11px] mt-6 font-bold">
+            <p className="text-gold-deep uppercase tracking-[0.4em] text-[11px] mt-6 font-bold">
               Exclusive Edition
             </p>
           </div>
         </div>
         
         <div className="absolute bottom-16 left-0 w-full z-20 flex flex-col items-center gap-3">
-          <div className="w-12 h-[1px] bg-[#D4AF37] mb-2 opacity-60" />
+          <div className="w-12 h-px bg-gold mb-2 opacity-60" />
           <p className="text-[11px] text-[#6b7280] tracking-[0.3em] uppercase font-bold">Wholesale Catalog</p>
           <p className="text-[9px] text-[#9ca3af] tracking-[0.4em] uppercase font-medium">Private & Confidential</p>
         </div>
@@ -152,21 +152,21 @@ export const PdfCatalogTemplate = ({ category, products }: PdfCatalogTemplatePro
           const currentPageNum = globalPageIndex++;
           
           return (
-            <div key={`${sectionIdx}-${pageIndex}`} className="pdf-page w-[794px] h-[1123px] bg-[#ffffff] p-16 relative shrink-0 overflow-hidden">
+            <div key={`${sectionIdx}-${pageIndex}`} className="pdf-page w-198.5 h-280.75 bg-[#ffffff] p-16 relative shrink-0 overflow-hidden">
               
               {/* Header */}
-              <div className="flex justify-between items-end border-b-2 border-[#D4AF37] pb-4 mb-12">
+              <div className="flex justify-between items-end border-b-2 border-gold pb-4 mb-12">
                 <div>
                   <h3 className="font-cinzel text-3xl font-bold tracking-wider text-[#1A1A1A]">{section.title}</h3>
                 </div>
                 <div className="flex flex-col items-end">
                   <div className="flex items-center gap-3">
-                    <div className="relative w-10 h-10 rounded-full overflow-hidden border border-[#D4AF37] shadow-sm">
+                    <div className="relative w-10 h-10 rounded-full overflow-hidden border border-gold shadow-sm">
                       <LogoSVG size="custom" className="w-full h-full scale-105" />
                     </div>
                     <div className="flex flex-col items-start">
-                      <p className="font-cinzel text-2xl tracking-[0.2em] text-[#D4AF37] font-bold">RAJESHWARI</p>
-                      <p className="text-[9px] tracking-[0.6em] uppercase text-[#B5952F] font-bold mt-0.5">Jewellers</p>
+                      <p className="font-cinzel text-2xl tracking-[0.2em] text-gold font-bold">RAJESHWARI</p>
+                      <p className="text-[9px] tracking-[0.6em] uppercase text-gold-deep font-bold mt-0.5">Jewellers</p>
                     </div>
                   </div>
                 </div>
@@ -193,7 +193,7 @@ export const PdfCatalogTemplate = ({ category, products }: PdfCatalogTemplatePro
                       </div>
                       <div className="text-right flex flex-col justify-end">
                         <p className="text-xs text-[#6b7280] tracking-wider mb-0.5">Approx. Wt.</p>
-                        <p className="text-xl font-bold text-[#D4AF37]">{item.approxWeight ? `${Number(item.approxWeight).toFixed(3)}g` : 'N/A'}</p>
+                        <p className="text-xl font-bold text-gold">{item.approxWeight ? `${Number(item.approxWeight).toFixed(3)}g` : 'N/A'}</p>
                       </div>
                     </div>
                   </div>

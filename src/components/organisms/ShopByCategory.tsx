@@ -53,11 +53,11 @@ export const ShopByCategory = () => {
               whileInView={{ opacity: 1, x: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.8 }}
-              className="text-[#3E2723] font-cinzel text-4xl sm:text-5xl md:text-6xl lg:text-7xl leading-tight mb-6"
+              className="text-brown font-cinzel text-4xl sm:text-5xl md:text-6xl lg:text-7xl leading-tight mb-6"
             >
               How would you <br/>
               like to <br className="hidden sm:block"/>
-              <span className="font-script text-[#D4AF37] text-5xl sm:text-6xl md:text-7xl lg:text-8xl mt-2 block">Sparkle?</span>
+              <span className="font-script text-gold text-5xl sm:text-6xl md:text-7xl lg:text-8xl mt-2 block">Sparkle?</span>
             </motion.h2>
 
             <motion.p
@@ -65,7 +65,7 @@ export const ShopByCategory = () => {
               whileInView={{ opacity: 1, x: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.8, delay: 0.2 }}
-              className="text-[#3E2723]/80 font-montserrat text-sm sm:text-base leading-relaxed max-w-md"
+              className="text-brown/80 font-montserrat text-sm sm:text-base leading-relaxed max-w-md"
             >
               From timeless essentials to bold statement designs, explore over 200+ designs each intricately crafted to elevate your everyday style
             </motion.p>
@@ -80,7 +80,7 @@ export const ShopByCategory = () => {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.6, delay: index * 0.15 }}
-                className="relative aspect-[4/3] group overflow-hidden bg-gray-100 shadow-lg"
+                className="relative aspect-4/3 group overflow-hidden bg-gray-100 shadow-lg"
               >
                 {/* Image */}
                 <Image
@@ -92,7 +92,7 @@ export const ShopByCategory = () => {
                 />
 
                 {/* Deep dark gradient overlay */}
-                <div className="absolute inset-0 bg-gradient-to-t from-[#3E2723]/90 via-[#3E2723]/20 to-transparent opacity-80 group-hover:opacity-100 transition-opacity duration-500" />
+                <div className="absolute inset-0 bg-linear-to-t from-brown/90 via-brown/20 to-transparent opacity-80 group-hover:opacity-100 transition-opacity duration-500" />
 
                 {/* Content */}
                 <div className="absolute bottom-6 left-6 right-6 flex justify-between items-end">
@@ -105,7 +105,7 @@ export const ShopByCategory = () => {
 
                   {/* Circle Arrow Button */}
                   <Link href={`/catalog?category=${item.title}`} aria-label={`Shop ${item.title}`} className="shrink-0">
-                    <div className="w-10 h-10 shrink-0 rounded-full border border-white/40 flex items-center justify-center text-white hover:bg-white hover:text-[#3E2723] transition-all duration-300">
+                    <div className="w-10 h-10 shrink-0 rounded-full border border-white/40 flex items-center justify-center text-white hover:bg-white hover:text-brown transition-all duration-300">
                       <ArrowRight className="w-4 h-4" strokeWidth={1.5} />
                     </div>
                   </Link>

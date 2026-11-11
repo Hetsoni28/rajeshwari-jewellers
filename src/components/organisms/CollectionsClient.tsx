@@ -55,7 +55,7 @@ const collections = [
 export const CollectionsClient = () => {
   return (
     <>
-      <div className="absolute top-0 left-0 w-full h-32 bg-gradient-to-b from-black/40 to-transparent pointer-events-none" />
+      <div className="absolute top-0 left-0 w-full h-32 bg-linear-to-b from-black/40 to-transparent pointer-events-none" />
 
       <div className="pt-28 sm:pt-32 md:pt-40 pb-16 sm:pb-20 md:pb-24 px-4 sm:px-6 md:px-12 container mx-auto relative z-10">
 
@@ -74,7 +74,7 @@ export const CollectionsClient = () => {
               <Heading level={2} className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-semibold">{col.title}</Heading>
               <Link
                 href={col.href}
-                className="text-gold-dark text-xs font-bold tracking-[0.1em] uppercase hover:text-brown transition-colors whitespace-nowrap min-h-[44px] flex items-center"
+                className="text-gold-deep text-xs font-bold tracking-widest uppercase hover:text-brown transition-colors whitespace-nowrap min-h-11 flex items-center"
               >
                 View All &rarr;
               </Link>
@@ -84,15 +84,16 @@ export const CollectionsClient = () => {
             <div className="grid grid-cols-1 lg:grid-cols-3 gap-4 sm:gap-5 md:gap-6">
               {/* Main banner */}
               <CollectionBanner
+                priority={i === 0}
                 href={col.href}
                 imageSrc={col.banner.src}
                 title={col.banner.title}
                 description={col.banner.desc}
-                className="lg:col-span-2 h-[280px] sm:h-[380px] md:h-[480px] lg:h-auto"
+                className="lg:col-span-2 h-70 sm:h-95 md:h-120 lg:h-auto"
               />
 
               {/* Side items — stacked horizontally on mobile, vertically on lg+ */}
-              <div className="grid grid-cols-2 lg:grid-cols-1 gap-3 sm:gap-4 lg:h-[500px] xl:h-[600px]">
+              <div className="grid grid-cols-2 lg:grid-cols-1 gap-3 sm:gap-4 lg:h-125 xl:h-150">
                 {col.sides.map((side) => (
                   <CollectionSideItem
                     key={side.title}

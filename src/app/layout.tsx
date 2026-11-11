@@ -3,6 +3,7 @@ import { Playfair_Display, Montserrat, Cinzel, Great_Vibes } from "next/font/goo
 import "./globals.css";
 import Script from "next/script";
 import { WishlistProvider } from "@/context/WishlistContext";
+import { MotionProvider } from "@/components/atoms/MotionProvider";
 import { INTRO_BOOT_SCRIPT } from "@/lib/intro";
 import { BUSINESS, DEFAULT_DESCRIPTION, DEFAULT_OG_IMAGE, SITE_NAME, SITE_URL, absoluteUrl, jsonLd } from "@/lib/seo";
 
@@ -69,11 +70,7 @@ export const metadata: Metadata = {
     googleBot: { index: true, follow: true, "max-image-preview": "large", "max-snippet": -1, "max-video-preview": -1 },
   },
   formatDetection: { telephone: true, address: true, email: true },
-  icons: {
-    icon: "/images/logo.svg",
-    shortcut: "/images/logo.svg",
-    apple: "/images/logo.svg",
-  },
+  // Favicon and Apple touch icon come from src/app/icon.png and src/app/apple-icon.png (small, optimised)
   // Paste the code from Google Search Console → Settings → Ownership verification (HTML tag)
   ...(process.env.NEXT_PUBLIC_GOOGLE_SITE_VERIFICATION
     ? { verification: { google: process.env.NEXT_PUBLIC_GOOGLE_SITE_VERIFICATION } }
@@ -146,9 +143,15 @@ export default function RootLayout({
           {INTRO_BOOT_SCRIPT}
         </Script>
         <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: jsonLd(businessJsonLd) }} />
-        <WishlistProvider>
-          {children}
-        </WishlistProvider>
+        {/* First Tab stop on every page: jump past the navigation */}
+        <a href="#main-content" className="skip-link">
+          Skip to content
+        </a>
+        <MotionProvider>
+          <WishlistProvider>
+            {children}
+          </WishlistProvider>
+        </MotionProvider>
       </body>
     </html>
   );

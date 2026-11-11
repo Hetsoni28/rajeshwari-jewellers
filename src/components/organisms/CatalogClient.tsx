@@ -54,11 +54,11 @@ const plural = (n: number, one: string, many: string) => `${n} ${n === 1 ? one :
 /** Small faceted-stone divider used under the page title. */
 const Divider = () => (
   <div className="flex items-center justify-center gap-3" aria-hidden="true">
-    <span className="h-px w-12 sm:w-16 bg-gradient-to-r from-transparent to-gold/70" />
+    <span className="h-px w-12 sm:w-16 bg-linear-to-r from-transparent to-gold/70" />
     <svg viewBox="0 0 12 12" className="w-2.5 h-2.5 text-gold">
       <path d="M6 0 12 6 6 12 0 6Z" fill="currentColor" />
     </svg>
-    <span className="h-px w-12 sm:w-16 bg-gradient-to-l from-transparent to-gold/70" />
+    <span className="h-px w-12 sm:w-16 bg-linear-to-l from-transparent to-gold/70" />
   </div>
 );
 
@@ -84,6 +84,24 @@ export const CatalogClient = ({ initialProducts }: { initialProducts: Product[] 
   const [isDropdownOpen, setIsDropdownOpen]       = useState(false);
   const dropdownRef = useRef<HTMLDivElement>(null);
   const dropdownButtonRef = useRef<HTMLButtonElement>(null);
+  const dropdownListRef = useRef<HTMLUListElement>(null);
+
+  /** Arrow keys / Home / End move between the enabled options (WAI-ARIA menu pattern). */
+  const handleListKeyDown = (event: React.KeyboardEvent<HTMLUListElement>) => {
+    const options = Array.from(dropdownListRef.current?.querySelectorAll<HTMLButtonElement>("button:not([disabled])") ?? []);
+    if (!options.length) return;
+    const index = options.indexOf(document.activeElement as HTMLButtonElement);
+    let next: number | null = null;
+    if (event.key === "ArrowDown") next = index < options.length - 1 ? index + 1 : 0;
+    if (event.key === "ArrowUp") next = index > 0 ? index - 1 : options.length - 1;
+    if (event.key === "Home") next = 0;
+    if (event.key === "End") next = options.length - 1;
+    if (event.key === "Tab") setIsDropdownOpen(false);
+    if (next !== null) {
+      event.preventDefault();
+      options[next].focus();
+    }
+  };
 
   // Close the type menu on outside click or Escape
   useEffect(() => {
@@ -101,7 +119,13 @@ export const CatalogClient = ({ initialProducts }: { initialProducts: Product[] 
     };
     document.addEventListener("mousedown", handleClickOutside);
     document.addEventListener("keydown", handleKey);
+    // Focus the currently selected option when the menu opens
+    const frame = requestAnimationFrame(() => {
+      const list = dropdownListRef.current;
+      (list?.querySelector<HTMLButtonElement>('[aria-checked="true"]') ?? list?.querySelector<HTMLButtonElement>("button:not([disabled])"))?.focus();
+    });
     return () => {
+      cancelAnimationFrame(frame);
       document.removeEventListener("mousedown", handleClickOutside);
       document.removeEventListener("keydown", handleKey);
     };
@@ -191,14 +215,14 @@ export const CatalogClient = ({ initialProducts }: { initialProducts: Product[] 
   );
 
   return (
-    <main className="min-h-screen bg-[#FAFAFA]">
+    <main id="main-content" tabIndex={-1} className="min-h-screen bg-[#FAFAFA]">
       <Navbar />
 
       <div className="pt-28 sm:pt-32 md:pt-40 pb-16 sm:pb-20 md:pb-24 px-4 sm:px-6 md:px-12 container mx-auto relative z-10">
 
         {/* ── Header ── */}
         <header className="text-center max-w-3xl mx-auto mb-10 sm:mb-12 md:mb-14">
-          <p className="text-[10px] sm:text-[11px] font-bold tracking-[0.32em] uppercase text-gold-dark mb-4 sm:mb-5">
+          <p className="text-[10px] sm:text-[11px] font-bold tracking-[0.32em] uppercase text-gold-deep mb-4 sm:mb-5">
             Wholesale Catalogue
           </p>
           <Heading level={1} className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl mb-5 sm:mb-6 font-bold tracking-wide leading-tight">
@@ -210,12 +234,12 @@ export const CatalogClient = ({ initialProducts }: { initialProducts: Product[] 
             <span className="mx-2 text-gold" aria-hidden="true">·</span>
             weights shown are approximate
           </p>
-          <div className="mt-6 flex flex-wrap items-center justify-center gap-x-7 gap-y-3 text-[10px] sm:text-[11px] font-bold tracking-[0.2em] uppercase">
-            <Link href="/catalog-download" className="group inline-flex items-center gap-2 text-brown hover:text-gold-dark transition-colors">
+          <div className="mt-6 flex flex-wrap items-center justify-center gap-x-7 gap-y-0 text-[10px] sm:text-[11px] font-bold tracking-[0.2em] uppercase">
+            <Link href="/catalog-download" className="group inline-flex min-h-11 items-center gap-2 text-brown hover:text-gold-deep transition-colors">
               <Download size={13} strokeWidth={1.8} className="transition-transform group-hover:translate-y-0.5" />
               <span className="border-b border-current/30 pb-0.5">PDF Catalogue</span>
             </Link>
-            <a href={enquiryLink} target="_blank" rel="noreferrer" className="inline-flex items-center gap-2 text-brown hover:text-gold-dark transition-colors">
+            <a href={enquiryLink} target="_blank" rel="noreferrer" className="inline-flex min-h-11 items-center gap-2 text-brown hover:text-gold-deep transition-colors">
               <span className="border-b border-current/30 pb-0.5">Ask for Current Stock</span>
             </a>
           </div>
@@ -232,18 +256,18 @@ export const CatalogClient = ({ initialProducts }: { initialProducts: Product[] 
                   type="button"
                   onClick={() => changeCategory(cat)}
                   aria-pressed={active}
-                  className={`relative shrink-0 min-h-[48px] flex items-end gap-1.5 pb-3 sm:pb-4 text-[10px] sm:text-xs font-bold tracking-[0.2em] uppercase whitespace-nowrap transition-colors duration-300 ${
-                    active ? "text-gold-dark" : "text-gray-400 hover:text-gray-700"
+                  className={`relative shrink-0 min-h-12 flex items-end gap-1.5 pb-3 sm:pb-4 text-[10px] sm:text-xs font-bold tracking-[0.2em] uppercase whitespace-nowrap transition-colors duration-300 ${
+                    active ? "text-gold-deep" : "text-gray-400 hover:text-gray-700"
                   }`}
                 >
                   {cat === "All" ? "All Designs" : cat}
-                  <span className={`text-[9px] sm:text-[10px] font-semibold tracking-normal tabular-nums ${active ? "text-gold-dark/70" : "text-gray-300"}`}>
+                  <span className={`text-[9px] sm:text-[10px] font-semibold tracking-normal tabular-nums ${active ? "text-gold-deep/70" : "text-gray-300"}`}>
                     {categoryCounts[cat] ?? 0}
                   </span>
                   {active && (
                     <motion.span
                       layoutId="catalog-tab-underline"
-                      className="absolute left-0 right-0 -bottom-px h-[2px] bg-gold-dark"
+                      className="absolute left-0 right-0 -bottom-px h-0.5 bg-gold-dark"
                       transition={{ type: "spring", stiffness: 420, damping: 36 }}
                     />
                   )}
@@ -265,8 +289,15 @@ export const CatalogClient = ({ initialProducts }: { initialProducts: Product[] 
                 ref={dropdownButtonRef}
                 type="button"
                 onClick={() => setIsDropdownOpen((open) => !open)}
-                aria-haspopup="true"
+                aria-haspopup="menu"
                 aria-expanded={isDropdownOpen}
+                aria-controls="type-filter-menu"
+                onKeyDown={(e) => {
+                  if ((e.key === "ArrowDown" || e.key === "ArrowUp") && !isDropdownOpen) {
+                    e.preventDefault();
+                    setIsDropdownOpen(true);
+                  }
+                }}
                 aria-labelledby="type-filter-label type-filter-value"
                 className={`w-full flex items-center justify-between gap-3 bg-white border px-4 h-12 text-left transition-colors ${
                   isDropdownOpen ? "border-gold-dark" : "border-[#B38728]/60 hover:border-[#B38728]"
@@ -284,20 +315,27 @@ export const CatalogClient = ({ initialProducts }: { initialProducts: Product[] 
               <AnimatePresence>
                 {isDropdownOpen && (
                   <motion.ul
+                    id="type-filter-menu"
+                    ref={dropdownListRef}
+                    role="menu"
+                    aria-label="Jewellery type"
+                    onKeyDown={handleListKeyDown}
                     initial={{ opacity: 0, y: -6 }}
                     animate={{ opacity: 1, y: 0 }}
                     exit={{ opacity: 0, y: -6 }}
                     transition={{ duration: 0.15 }}
-                    className="absolute left-0 right-0 mt-1.5 bg-white border border-[#B38728]/60 shadow-[0_18px_40px_-18px_rgba(62,39,35,0.35)] max-h-72 overflow-y-auto z-[60] py-1.5"
+                    className="absolute left-0 right-0 mt-1.5 bg-white border border-[#B38728]/60 shadow-[0_18px_40px_-18px_rgba(62,39,35,0.35)] max-h-72 overflow-y-auto z-60 py-1.5"
                   >
                     {subCategories.map((sub) => {
                       const count = subcategoryCounts[sub] ?? 0;
                       const selected = activeSubcategory === sub;
                       const empty = count === 0 && sub !== "All" && !selected;
                       return (
-                        <li key={sub}>
+                        <li key={sub} role="none">
                           <button
                             type="button"
+                            role="menuitemradio"
+                            aria-checked={selected}
                             disabled={empty}
                             onClick={() => {
                               changeSubcategory(sub);
@@ -305,7 +343,7 @@ export const CatalogClient = ({ initialProducts }: { initialProducts: Product[] 
                             }}
                             className={`w-full flex items-center justify-between gap-3 px-4 py-2.5 text-left text-[11px] sm:text-xs font-semibold tracking-[0.12em] uppercase transition-colors ${
                               selected
-                                ? "bg-[#F9F5EE] text-gold-dark"
+                                ? "bg-[#F9F5EE] text-gold-deep"
                                 : empty
                                   ? "text-gray-300 cursor-not-allowed"
                                   : "text-gray-700 hover:bg-[#F9F5EE]"
@@ -332,7 +370,7 @@ export const CatalogClient = ({ initialProducts }: { initialProducts: Product[] 
                   <button
                     type="button"
                     onClick={() => changeCategory("All")}
-                    className="inline-flex items-center gap-1.5 h-8 pl-3 pr-2 bg-white border border-gray-200 text-[10px] font-bold tracking-[0.15em] uppercase text-gray-600 hover:border-gold-dark hover:text-gold-dark transition-colors"
+                    className="inline-flex items-center gap-1.5 h-8 pl-3 pr-2 bg-white border border-gray-200 text-[10px] font-bold tracking-[0.15em] uppercase text-gray-600 hover:border-gold-dark hover:text-gold-deep transition-colors"
                     aria-label={`Remove filter: ${activeCategory}`}
                   >
                     {activeCategory} <X size={12} />
@@ -342,7 +380,7 @@ export const CatalogClient = ({ initialProducts }: { initialProducts: Product[] 
                   <button
                     type="button"
                     onClick={() => changeSubcategory("All")}
-                    className="inline-flex items-center gap-1.5 h-8 pl-3 pr-2 bg-white border border-gray-200 text-[10px] font-bold tracking-[0.15em] uppercase text-gray-600 hover:border-gold-dark hover:text-gold-dark transition-colors"
+                    className="inline-flex items-center gap-1.5 h-8 pl-3 pr-2 bg-white border border-gray-200 text-[10px] font-bold tracking-[0.15em] uppercase text-gray-600 hover:border-gold-dark hover:text-gold-deep transition-colors"
                     aria-label={`Remove filter: ${activeSubcategory}`}
                   >
                     {activeSubcategory} <X size={12} />
@@ -351,7 +389,7 @@ export const CatalogClient = ({ initialProducts }: { initialProducts: Product[] 
                 <button
                   type="button"
                   onClick={clearFilters}
-                  className="h-8 px-1 text-[10px] font-bold tracking-[0.15em] uppercase text-gray-400 underline-offset-4 hover:text-gold-dark hover:underline"
+                  className="h-8 px-1 text-[10px] font-bold tracking-[0.15em] uppercase text-gray-400 underline-offset-4 hover:text-gold-deep hover:underline"
                 >
                   Clear all
                 </button>
@@ -416,7 +454,7 @@ export const CatalogClient = ({ initialProducts }: { initialProducts: Product[] 
                   <button
                     type="button"
                     onClick={clearFilters}
-                    className="inline-flex items-center justify-center h-12 px-8 border border-gray-300 text-[11px] font-bold tracking-[0.2em] uppercase text-gray-700 hover:border-gold-dark hover:text-gold-dark transition-colors"
+                    className="inline-flex items-center justify-center h-12 px-8 border border-gray-300 text-[11px] font-bold tracking-[0.2em] uppercase text-gray-700 hover:border-gold-dark hover:text-gold-deep transition-colors"
                   >
                     View All {plural(initialProducts.length, "Design", "Designs")}
                   </button>
@@ -437,7 +475,7 @@ export const CatalogClient = ({ initialProducts }: { initialProducts: Product[] 
               <button
                 onClick={() => goToPage(safePage - 1)}
                 disabled={safePage === 1}
-                className={`flex items-center gap-1 px-3 sm:px-4 py-2.5 text-[10px] sm:text-xs font-bold tracking-[0.15em] uppercase border transition-all duration-300 min-h-[44px] min-w-[44px] ${
+                className={`flex items-center gap-1 px-3 sm:px-4 py-2.5 text-[10px] sm:text-xs font-bold tracking-[0.15em] uppercase border transition-all duration-300 min-h-11 min-w-11 ${
                   safePage === 1
                     ? "border-gray-200 text-gray-300 cursor-not-allowed"
                     : "border-gray-300 text-gray-600 hover:border-gold hover:text-gold bg-white"
@@ -461,7 +499,7 @@ export const CatalogClient = ({ initialProducts }: { initialProducts: Product[] 
                   <button
                     key={page}
                     onClick={() => goToPage(page as number)}
-                    className={`flex items-center justify-center w-10 h-11 text-[11px] sm:text-xs font-bold tracking-[0.1em] border transition-all duration-300 min-h-[44px] min-w-[40px] tabular-nums ${
+                    className={`flex items-center justify-center w-10 h-11 text-[11px] sm:text-xs font-bold tracking-widest border transition-all duration-300 min-h-11 min-w-10 tabular-nums ${
                       page === safePage
                         ? "bg-gold border-gold text-brown shadow-[0_4px_14px_rgba(212,175,55,0.35)]"
                         : "border-gray-200 text-gray-500 hover:border-gold hover:text-gold bg-white"
@@ -478,7 +516,7 @@ export const CatalogClient = ({ initialProducts }: { initialProducts: Product[] 
               <button
                 onClick={() => goToPage(safePage + 1)}
                 disabled={safePage === totalPages}
-                className={`flex items-center gap-1 px-3 sm:px-4 py-2.5 text-[10px] sm:text-xs font-bold tracking-[0.15em] uppercase border transition-all duration-300 min-h-[44px] min-w-[44px] ${
+                className={`flex items-center gap-1 px-3 sm:px-4 py-2.5 text-[10px] sm:text-xs font-bold tracking-[0.15em] uppercase border transition-all duration-300 min-h-11 min-w-11 ${
                   safePage === totalPages
                     ? "border-gray-200 text-gray-300 cursor-not-allowed"
                     : "border-gray-300 text-gray-600 hover:border-gold hover:text-gold bg-white"

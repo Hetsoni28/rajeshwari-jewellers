@@ -16,7 +16,7 @@ export const metadata = pageMetadata({
 
 export default function CollectionsPage() {
   return (
-    <main className="min-h-screen bg-[#FAFAFA]">
+    <main id="main-content" tabIndex={-1} className="min-h-screen bg-[#FAFAFA]">
       <Navbar />
       <CollectionsClient />
       <Footer />

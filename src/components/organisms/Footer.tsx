@@ -1,91 +1,200 @@
 import Link from "next/link";
 import Image from "next/image";
+import { Clock, Mail, MapPin, Phone, ShieldCheck, Store, Truck } from "lucide-react";
 import { LogoSVG } from "@/components/atoms/LogoSVG";
 
+const EXPLORE = [
+  { label: "Home", href: "/" },
+  { label: "Collections", href: "/collections" },
+  { label: "Catalog", href: "/catalog" },
+  { label: "Download Catalogue", href: "/catalog-download" },
+  { label: "Wishlist", href: "/wishlist" },
+  { label: "About Us", href: "/about" },
+  { label: "Contact", href: "/contact" },
+];
+
+const COLLECTIONS = [
+  { label: "Antique Jewellery", href: "/catalog?category=Antique" },
+  { label: "Women's Jewellery", href: "/catalog?category=Female" },
+  { label: "Men's Jewellery", href: "/catalog?category=Male" },
+  { label: "Kids' Jewellery", href: "/catalog?category=Kids" },
+  { label: "Mangalsutra", href: "/catalog?category=Female&sub=Mangalsutra" },
+  { label: "Bridal Sets", href: "/catalog?category=Antique&sub=Set" },
+];
+
+const PHONES = [
+  { name: "Dixit Soni", display: "+91 98259 53334", href: "tel:+919825953334" },
+  { name: "Harshil Soni", display: "+91 99255 11134", href: "tel:+919925511134" },
+  { name: "Jimil Soni", display: "+91 83206 47040", href: "tel:+918320647040" },
+];
+
+const EMAIL = "rajeshwarijewewllers13@gmail.com";
+const DIRECTIONS = "https://www.google.com/maps/search/?api=1&query=Spectrum+Tower+Shahibaug+Ahmedabad";
+const WHATSAPP = "https://wa.me/919825953334";
+
+const ASSURANCES = [
+  { icon: ShieldCheck, title: "Certified Purity", note: "22K, 18K & 24K gold" },
+  { icon: Store, title: "Wholesale & Retail", note: "Showroom in Shahibaug" },
+  { icon: Truck, title: "Pan-India Supply", note: "For retailers & jewellers" },
+];
+
+/** Hairline–diamond–hairline divider */
+const Ornament = () => (
+  <div className="flex items-center justify-center gap-3" aria-hidden="true">
+    <span className="h-px w-16 bg-linear-to-r from-transparent to-gold/70" />
+    <svg viewBox="0 0 10 10" className="h-2 w-2 text-gold">
+      <path d="M5 0 10 5 5 10 0 5Z" fill="currentColor" />
+    </svg>
+    <span className="h-px w-16 bg-linear-to-l from-transparent to-gold/70" />
+  </div>
+);
+
+const columnTitle = "mb-5 font-cinzel text-sm tracking-[0.22em] uppercase text-gold";
+const listLink =
+  "group inline-flex min-h-9 items-center gap-2 text-sm text-cream/80 transition-colors duration-300 hover:text-gold";
+
 export const Footer = () => {
+  const year = new Date().getFullYear();
+
   return (
-    <footer className="bg-[#EAEAEA] border-t border-gray-300 pt-10 sm:pt-12 pb-5 sm:pb-6">
-      <div className="container mx-auto px-4 sm:px-6 lg:px-12">
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 sm:gap-10 lg:gap-8">
+    <footer className="relative bg-ink text-cream" aria-labelledby="footer-heading">
+      <h2 id="footer-heading" className="sr-only">
+        Rajeshwari Jewellers — contact and site links
+      </h2>
 
-          {/* Column 1 — Brand & About */}
-          <div className="sm:col-span-2 lg:col-span-1">
-            <Link href="/" className="flex items-center mb-4">
-              <div className="flex-shrink-0 w-[110px] h-[70px]">
-                <LogoSVG size="sm" />
-              </div>
-            </Link>
-            <p className="text-gray-600 text-sm leading-relaxed font-light pr-4 mb-5 max-w-sm">
-              Crafting timeless fine jewelry for over three decades. Every piece tells a story of heritage, craftsmanship, and luxury. Visit our showroom or inquire online.
-            </p>
-          </div>
+      {/* Gold hairline crown */}
+      <div aria-hidden="true" className="h-px bg-linear-to-r from-transparent via-gold/70 to-transparent" />
 
-          {/* Column 2 — Quick Links */}
-          <div>
-            <h2 className="font-cinzel text-base sm:text-lg font-bold tracking-wide text-[#1A1A1A] mb-3 sm:mb-4">Quick Links</h2>
-            <div className="flex flex-col gap-2.5 sm:gap-3 text-sm text-gray-600 font-light">
-              <Link href="/" className="hover:text-gold-dark transition-colors py-0.5">Home</Link>
-              <Link href="/collections" className="hover:text-gold-dark transition-colors py-0.5">Collections</Link>
-              <Link href="/catalog" className="hover:text-gold-dark transition-colors py-0.5">Catalog</Link>
-              <Link href="/about" className="hover:text-gold-dark transition-colors py-0.5">About Us</Link>
-              <Link href="/contact" className="hover:text-gold-dark transition-colors py-0.5">Contact</Link>
-            </div>
-          </div>
+      {/* ── Brand + showroom band ── */}
+      <div className="container mx-auto px-5 sm:px-6 lg:px-12 pt-14 sm:pt-16 pb-12 text-center">
+        <Link href="/" aria-label="Rajeshwari Jewellers — Home" className="mx-auto mb-6 block w-40 sm:w-48">
+          <LogoSVG size="lg" />
+        </Link>
+        <p className="mx-auto mb-7 max-w-xl text-sm sm:text-[15px] font-light leading-relaxed text-cream/75">
+          Wholesale &amp; retail gold ornaments from Ahmedabad — antique, bridal and everyday 22K jewellery,
+          supplied to retailers and families across India.
+        </p>
+        <Ornament />
 
-          {/* Column 3 — Contact */}
-          <div>
-            <h2 className="font-cinzel text-base sm:text-lg font-bold tracking-wide text-[#1A1A1A] mb-3 sm:mb-4">Contact Us</h2>
-            <div className="flex flex-col gap-3 sm:gap-4 text-sm text-gray-600 font-light">
-
-              {/* Address */}
-              <div className="flex gap-3 items-start">
-                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#D4AF37" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" className="mt-0.5 flex-shrink-0">
-                  <path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/>
-                </svg>
-                <p className="leading-relaxed text-[13px]">E-13, Spectrum Tower, Opp. Police Stadium, Shahibaug, Ahmedabad - 380 004</p>
-              </div>
-
-              {/* Phone */}
-              <div className="flex gap-3 items-start">
-                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#D4AF37" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" className="mt-0.5 flex-shrink-0">
-                  <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/>
-                </svg>
-                <div className="flex flex-col gap-1 text-[13px]">
-                  <span>+91 98259 53334 (Dixit Soni)</span>
-                  <span>+91 99255 11134 (Harshil Soni)</span>
-                  <span>+91 83206 47040 (Jimil Soni)</span>
-                </div>
-              </div>
-
-              {/* Email */}
-              <div className="flex gap-3 items-start">
-                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#D4AF37" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" className="mt-0.5 flex-shrink-0">
-                  <rect width="20" height="16" x="2" y="4" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/>
-                </svg>
-                <a href="mailto:RAJESHWARIJEWEWLLERS13@GMAIL.COM" className="uppercase text-[11px] tracking-wider break-all hover:text-gold-dark transition-colors mt-0.5">
-                  RAJESHWARIJEWEWLLERS13@GMAIL.COM
-                </a>
-              </div>
-
-              {/* Hours */}
-              <div className="flex gap-3 items-start">
-                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#D4AF37" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" className="mt-0.5 flex-shrink-0">
-                  <circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/>
-                </svg>
-                <p className="text-[13px] mt-0.5">Mon–Sat: 10:30am – 7:30pm</p>
+        <div className="mx-auto mt-9 grid max-w-4xl grid-cols-1 sm:grid-cols-3 gap-px overflow-hidden border border-gold/25 bg-gold/25">
+          {ASSURANCES.map(({ icon: Icon, title, note }) => (
+            <div key={title} className="flex items-center gap-4 bg-ink px-6 py-5 text-left sm:flex-col sm:text-center sm:gap-2">
+              <Icon size={22} strokeWidth={1.3} className="shrink-0 text-gold" aria-hidden="true" />
+              <div>
+                <p className="font-cinzel text-[13px] tracking-[0.15em] uppercase text-cream">{title}</p>
+                <p className="mt-0.5 text-xs text-cream/60">{note}</p>
               </div>
             </div>
-          </div>
-
+          ))}
         </div>
+      </div>
 
-        {/* Bottom Bar */}
-        <div className="mt-8 sm:mt-10 pt-4 border-t border-gray-300 flex flex-col sm:flex-row justify-between items-center gap-4 sm:gap-4 text-[10px] md:text-xs tracking-wider text-gray-400 uppercase font-light">
-          <p>© {new Date().getFullYear()} Rajeshwari Jewellers. All rights reserved.</p>
-          <div className="flex items-center gap-2">
-            <Image src="/hn-logo.jpg" alt="HN — website design and development" width={24} height={24} className="rounded-full shadow-sm" />
-            <span className="hover:text-gray-600 transition-colors">Designed and Developed by HN</span>
+      {/* ── Columns ── */}
+      <div className="border-t border-cream/10">
+        <div className="container mx-auto grid grid-cols-1 gap-10 px-5 sm:px-6 lg:px-12 py-12 sm:grid-cols-2 lg:grid-cols-4 lg:gap-8">
+          <nav aria-label="Explore">
+            <p className={columnTitle}>Explore</p>
+            <ul className="space-y-0.5">
+              {EXPLORE.map((l) => (
+                <li key={l.href}>
+                  <Link href={l.href} className={listLink}>
+                    <span aria-hidden="true" className="h-px w-0 bg-gold transition-all duration-300 group-hover:w-3" />
+                    {l.label}
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          </nav>
+
+          <nav aria-label="Collections">
+            <p className={columnTitle}>Collections</p>
+            <ul className="space-y-0.5">
+              {COLLECTIONS.map((l) => (
+                <li key={l.href}>
+                  <Link href={l.href} className={listLink}>
+                    <span aria-hidden="true" className="h-px w-0 bg-gold transition-all duration-300 group-hover:w-3" />
+                    {l.label}
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          </nav>
+
+          <div>
+            <p className={columnTitle}>Trade Desk</p>
+            <ul className="space-y-1">
+              {PHONES.map((p) => (
+                <li key={p.href}>
+                  <a href={p.href} className="group flex min-h-11 items-center gap-3 text-sm transition-colors hover:text-gold">
+                    <Phone size={14} strokeWidth={1.5} className="shrink-0 text-gold" aria-hidden="true" />
+                    <span className="flex flex-col leading-tight">
+                      <span className="text-cream tabular-nums group-hover:text-gold">{p.display}</span>
+                      <span className="text-xs text-cream/55">{p.name}</span>
+                    </span>
+                  </a>
+                </li>
+              ))}
+              <li>
+                <a href={`mailto:${EMAIL}`} className="flex min-h-11 items-center gap-3 text-sm text-cream/80 transition-colors hover:text-gold break-all">
+                  <Mail size={14} strokeWidth={1.5} className="shrink-0 text-gold" aria-hidden="true" />
+                  {EMAIL}
+                </a>
+              </li>
+            </ul>
           </div>
+
+          <div>
+            <p className={columnTitle}>Showroom</p>
+            <address className="not-italic space-y-4 text-sm text-cream/80">
+              <p className="flex items-start gap-3 leading-relaxed">
+                <MapPin size={14} strokeWidth={1.5} className="mt-1 shrink-0 text-gold" aria-hidden="true" />
+                <span>
+                  E-13, Spectrum Tower,
+                  <br />
+                  Opp. Police Stadium, Shahibaug,
+                  <br />
+                  Ahmedabad – 380 004, Gujarat
+                </span>
+              </p>
+              <p className="flex items-start gap-3 leading-relaxed">
+                <Clock size={14} strokeWidth={1.5} className="mt-1 shrink-0 text-gold" aria-hidden="true" />
+                <span>
+                  Mon–Sat · 10:30 am – 7:30 pm
+                  <br />
+                  <span className="text-cream/55">Sunday closed</span>
+                </span>
+              </p>
+            </address>
+            <div className="mt-6 flex flex-wrap gap-3">
+              <a
+                href={DIRECTIONS}
+                target="_blank"
+                rel="noreferrer"
+                className="inline-flex min-h-11 items-center border border-gold/60 px-5 text-[10px] font-bold uppercase tracking-[0.2em] text-cream transition-colors hover:bg-gold hover:text-brown"
+              >
+                Get Directions
+              </a>
+              <a
+                href={WHATSAPP}
+                target="_blank"
+                rel="noreferrer"
+                className="inline-flex min-h-11 items-center bg-gold px-5 text-[10px] font-bold uppercase tracking-[0.2em] text-brown transition-colors hover:bg-gold-light"
+              >
+                WhatsApp
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      {/* ── Bottom bar ── */}
+      <div className="border-t border-cream/10">
+        <div className="container mx-auto flex flex-col items-center justify-between gap-4 px-5 sm:px-6 lg:px-12 py-6 text-[11px] uppercase tracking-[0.18em] text-cream/55 sm:flex-row">
+          <p>© {year} Rajeshwari Jewellers. All rights reserved.</p>
+          <p className="flex items-center gap-2.5">
+            <Image src="/hn-logo.jpg" alt="" width={22} height={22} className="rounded-full opacity-90" />
+            <span>Designed &amp; developed by HN</span>
+          </p>
         </div>
       </div>
     </footer>

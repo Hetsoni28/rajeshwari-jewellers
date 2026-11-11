@@ -162,13 +162,13 @@ export const AboutClient = () => {
             </defs>
             <rect width="100%" height="100%" fill="url(#hero-about-pat)"/>
           </svg>
-          <motion.p variants={fadeUp} className="font-cinzel text-xs tracking-[0.25em] text-[#D4AF37] uppercase mb-4">
+          <motion.p variants={fadeUp} className="font-cinzel text-xs tracking-[0.25em] text-gold uppercase mb-4">
             Est. in Ahmedabad
           </motion.p>
           <motion.h1 variants={fadeUp} className="font-cinzel text-4xl sm:text-5xl lg:text-6xl text-[#1A1A1A] mb-6 leading-tight">
             About Rajeshwari <br/>Jewellers
           </motion.h1>
-          <motion.div variants={fadeUp} className="w-14 h-[2px] bg-[#D4AF37] mb-8" />
+          <motion.div variants={fadeUp} className="w-14 h-0.5 bg-gold mb-8" />
           <motion.p variants={fadeUp} className="font-montserrat text-gray-500 text-sm sm:text-base leading-relaxed max-w-md">
             Rajeshwari Jewellers is a leading wholesale and retail gold ornaments house based in Ahmedabad.
             We supply 22KT, 18KT and 24KT jewellery — diamonds, polki, kundan, antique and gemstone ornaments —
@@ -178,7 +178,7 @@ export const AboutClient = () => {
           <motion.div variants={fadeUp} className="mt-10">
             <Link
               href="/contact"
-              className="inline-block bg-[#D4AF37] text-white font-cinzel font-semibold tracking-widest text-xs uppercase px-8 py-3.5 shadow-md hover:bg-[#c9a744] transition-colors"
+              className="inline-block bg-gold text-white font-cinzel font-semibold tracking-widest text-xs uppercase px-8 py-3.5 shadow-md hover:bg-[#c9a744] transition-colors"
             >
               Get in Touch
             </Link>
@@ -186,7 +186,7 @@ export const AboutClient = () => {
         </motion.div>
 
         {/* Right — image */}
-        <div className="w-full lg:w-1/2 relative min-h-[340px] sm:min-h-[440px] lg:min-h-0">
+        <div className="w-full lg:w-1/2 relative min-h-85 sm:min-h-110 lg:min-h-0">
           <Image
             src="/images/hero_bridal_16x9.jpg"
             alt={altFor("/images/hero_bridal_16x9.jpg", "Gold bridal necklace set")}
@@ -197,7 +197,7 @@ export const AboutClient = () => {
           />
           {/* Gold overlay with logo */}
           <div className="absolute inset-0 bg-black/30 flex flex-col items-center justify-center gap-4">
-            <div className="w-20 h-20 sm:w-28 sm:h-28 text-[#D4AF37] drop-shadow-lg">
+            <div className="w-20 h-20 sm:w-28 sm:h-28 text-gold drop-shadow-lg">
               <LogoSVG size="md" />
             </div>
             <p className="font-cinzel text-xl sm:text-2xl tracking-[0.2em] text-white font-bold drop-shadow">RAJESHWARI</p>
@@ -226,9 +226,9 @@ export const AboutClient = () => {
       </section>
 
       {/* ── SECTION 3: Heritage Split ──────────────────────────────────────── */}
-      <section className="flex flex-col lg:flex-row min-h-[420px] sm:min-h-[500px]">
+      <section className="flex flex-col lg:flex-row min-h-105 sm:min-h-125">
         {/* Left — image */}
-        <div className="w-full lg:w-1/2 relative min-h-[300px] sm:min-h-[420px] lg:min-h-0 order-2 lg:order-1">
+        <div className="w-full lg:w-1/2 relative min-h-75 sm:min-h-105 lg:min-h-0 order-2 lg:order-1">
           <Image
             src="/images/heritage_necklaces.png"
             alt={altFor("/images/heritage_necklaces.png", "Gold temple necklace")}
@@ -243,13 +243,13 @@ export const AboutClient = () => {
           variants={stagger} initial="hidden" whileInView="show" viewport={vp}
           className="w-full lg:w-1/2 flex flex-col justify-center px-8 sm:px-14 lg:px-16 py-14 lg:py-20 bg-white order-1 lg:order-2"
         >
-          <motion.p variants={fadeUp} className="font-cinzel text-xs tracking-[0.25em] text-[#D4AF37] uppercase mb-4">
+          <motion.p variants={fadeUp} className="font-cinzel text-xs tracking-[0.25em] text-gold uppercase mb-4">
             Our Story
           </motion.p>
           <motion.h2 variants={fadeUp} className="font-cinzel text-3xl sm:text-4xl lg:text-5xl text-[#1A1A1A] mb-6 leading-tight">
             Rooted in<br/>Ahmedabad
           </motion.h2>
-          <motion.div variants={fadeUp} className="w-12 h-[2px] bg-[#D4AF37] mb-8" />
+          <motion.div variants={fadeUp} className="w-12 h-0.5 bg-gold mb-8" />
           <motion.p variants={fadeUp} className="font-montserrat text-gray-500 text-sm sm:text-base leading-relaxed mb-5">
             Our showroom is located at E-13, Spectrum Tower, opposite Police Stadium, Shahibaug —
             at the heart of Ahmedabad&apos;s jewellery trade corridor. We have spent years building relationships
@@ -283,9 +283,9 @@ export const AboutClient = () => {
           <motion.div variants={stagger} initial="hidden" whileInView="show" viewport={vp} className="text-center mb-12 sm:mb-16">
             <motion.h2 variants={fadeUp} className="font-cinzel text-3xl sm:text-4xl lg:text-5xl text-[#1A1A1A] mb-2">
               The Rajeshwari{" "}
-              <span className="font-script text-[#D4AF37] text-4xl sm:text-5xl lg:text-6xl">Promises</span>
+              <span className="font-script text-gold text-4xl sm:text-5xl lg:text-6xl">Promises</span>
             </motion.h2>
-            <motion.div variants={fadeUp} className="w-12 h-[2px] bg-[#D4AF37] mx-auto mt-5" />
+            <motion.div variants={fadeUp} className="w-12 h-0.5 bg-gold mx-auto mt-5" />
           </motion.div>
 
           <motion.div
@@ -340,11 +340,11 @@ export const AboutClient = () => {
         </svg>
         <div className="container mx-auto px-6 max-w-3xl">
           <div className="flex items-center justify-center gap-4 mb-6">
-            <div className="w-16 h-[1px] bg-[#D4AF37]" />
+            <div className="w-16 h-px bg-gold" />
             <svg width="20" height="20" viewBox="0 0 24 24" fill="#D4AF37"><path d="M12 2L15 8L22 9L17 14L18 21L12 17L6 21L7 14L2 9L9 8L12 2Z"/></svg>
-            <div className="w-16 h-[1px] bg-[#D4AF37]" />
+            <div className="w-16 h-px bg-gold" />
           </div>
-          <p className="font-cinzel text-xs tracking-[0.3em] text-[#D4AF37] uppercase mb-4">Visit Us</p>
+          <p className="font-cinzel text-xs tracking-[0.3em] text-gold uppercase mb-4">Visit Us</p>
           <h2 className="font-cinzel text-2xl sm:text-3xl lg:text-4xl text-[#1A1A1A] mb-5">
             E-13, Spectrum Tower, Shahibaug, Ahmedabad
           </h2>
@@ -355,7 +355,7 @@ export const AboutClient = () => {
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <Link
               href="/contact"
-              className="inline-block bg-[#D4AF37] text-white font-cinzel font-semibold tracking-widest text-xs uppercase px-10 py-4 shadow-md hover:bg-[#c9a744] transition-colors"
+              className="inline-block bg-gold text-white font-cinzel font-semibold tracking-widest text-xs uppercase px-10 py-4 shadow-md hover:bg-[#c9a744] transition-colors"
             >
               Send an Enquiry
             </Link>
@@ -363,7 +363,7 @@ export const AboutClient = () => {
               href="https://wa.me/919825953334"
               target="_blank"
               rel="noreferrer"
-              className="inline-block border border-[#D4AF37] text-[#D4AF37] font-cinzel font-semibold tracking-widest text-xs uppercase px-10 py-4 hover:bg-[#D4AF37]/5 transition-colors"
+              className="inline-block border border-gold text-gold font-cinzel font-semibold tracking-widest text-xs uppercase px-10 py-4 hover:bg-gold/5 transition-colors"
             >
               WhatsApp Us
             </a>

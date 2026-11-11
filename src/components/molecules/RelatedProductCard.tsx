@@ -11,7 +11,7 @@ export type RelatedProductCardProps = {
 export const RelatedProductCard = ({ id, name, category, imageSrc }: RelatedProductCardProps) => {
   return (
     <Link href={`/catalog/${id}`} className="bg-white p-5 shadow-sm flex flex-col group hover:shadow-md transition-all cursor-pointer">
-      <div className="relative h-[250px] md:h-[320px] w-full mb-6 overflow-hidden bg-gray-50">
+      <div className="relative h-62.5 md:h-80 w-full mb-6 overflow-hidden bg-gray-50">
         <Image 
           src={imageSrc} 
           fill 

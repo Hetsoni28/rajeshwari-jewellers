@@ -20,11 +20,11 @@ export const Breadcrumbs = ({ paths, className = "" }: BreadcrumbsProps) => {
         return (
           <React.Fragment key={path.label}>
             {path.href && !isLast ? (
-              <Link href={path.href} className="hover:text-gold-dark transition-colors">
+              <Link href={path.href} className="inline-flex min-h-8 items-center hover:text-gold-deep transition-colors">
                 {path.label}
               </Link>
             ) : (
-              <span className="text-gold-dark">{path.label}</span>
+              <span className="text-gold-deep">{path.label}</span>
             )}
             
             {!isLast && (

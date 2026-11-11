@@ -28,18 +28,18 @@ export const KaratSection = () => {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.6, delay: index * 0.1 }}
-                className={`relative group overflow-hidden bg-gray-100 ${index === 2 ? 'col-span-2 aspect-[2/1] sm:aspect-[2.5/1]' : 'aspect-square'}`}
+                className={`relative group overflow-hidden bg-gray-100 ${index === 2 ? 'col-span-2 aspect-2/1 sm:aspect-2.5/1' : 'aspect-square'}`}
               >
                 <Image src={item.img} alt={altFor(item.img, `${item.title} gold jewellery`)} fill sizes="(max-width: 1024px) 100vw, 50vw" className="object-cover transition-transform duration-700 group-hover:scale-110" />
 
                 {/* Gradient overlay */}
-                <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent" />
+                <div className="absolute inset-0 bg-linear-to-t from-black/80 via-black/20 to-transparent" />
 
                 {/* Content */}
                 <div className="absolute bottom-4 left-4 right-4 flex justify-between items-end">
                   <div>
                     <h3 className="text-white font-bold text-lg sm:text-xl mb-1">{item.title}</h3>
-                    <p className="text-white/90 text-xs sm:text-sm font-light max-w-[120px] sm:max-w-[200px] leading-tight">
+                    <p className="text-white/90 text-xs sm:text-sm font-light max-w-30 sm:max-w-50 leading-tight">
                       {item.desc}
                     </p>
                   </div>
@@ -60,11 +60,11 @@ export const KaratSection = () => {
               whileInView={{ opacity: 1, x: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.8 }}
-              className="font-cinzel text-3xl sm:text-4xl md:text-5xl lg:text-6xl text-[#3E2723] leading-tight mb-8"
+              className="font-cinzel text-3xl sm:text-4xl md:text-5xl lg:text-6xl text-brown leading-tight mb-8"
             >
               Sourcing made easy... <br/>
-              Explore bulk <span className="font-script text-[#D4AF37] text-5xl sm:text-6xl md:text-7xl lg:text-8xl -ml-2 mr-2">inventory</span> <br/>
-              by <span className="font-script text-[#D4AF37] text-5xl sm:text-6xl md:text-7xl lg:text-8xl">karat</span>
+              Explore bulk <span className="font-script text-gold text-5xl sm:text-6xl md:text-7xl lg:text-8xl -ml-2 mr-2">inventory</span> <br/>
+              by <span className="font-script text-gold text-5xl sm:text-6xl md:text-7xl lg:text-8xl">karat</span>
             </motion.h2>
 
             <motion.p
@@ -72,7 +72,7 @@ export const KaratSection = () => {
               whileInView={{ opacity: 1, x: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.8, delay: 0.2 }}
-              className="text-[#3E2723]/80 font-montserrat font-light text-base sm:text-lg max-w-lg leading-relaxed"
+              className="text-brown/80 font-montserrat font-light text-base sm:text-lg max-w-lg leading-relaxed"
             >
               From everyday lightweight 18KT ornaments to traditional 22KT bridal sets and 24KT bullion, source your showroom inventory with ease.
             </motion.p>

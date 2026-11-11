@@ -19,7 +19,7 @@ export const OccasionsSection = () => {
   const [hovered, setHovered] = React.useState<string | null>(null);
 
   return (
-    <section className="bg-[#FFFDD0] py-24 overflow-hidden relative">
+    <section className="bg-cream py-24 overflow-hidden relative">
       <div className="container mx-auto px-4 sm:px-6 lg:px-8 max-w-7xl">
         <div className="flex flex-col lg:flex-row gap-16">
 
@@ -29,7 +29,7 @@ export const OccasionsSection = () => {
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
-              className="text-[#3E2723] text-4xl sm:text-5xl font-cinzel mb-12"
+              className="text-brown text-4xl sm:text-5xl font-cinzel mb-12"
             >
               High-margin collections for every market demand
             </motion.h2>
@@ -73,7 +73,7 @@ export const OccasionsSection = () => {
           </div>
 
           {/* Right Side - Image with Golden Circles */}
-          <div className="w-full lg:w-1/2 relative min-h-[500px]">
+          <div className="w-full lg:w-1/2 relative min-h-125">
              {/* Golden Geometric Circles */}
              <div className="absolute top-0 right-0 w-full h-full pointer-events-none opacity-40">
                 <svg viewBox="0 0 400 400" className="absolute right-0 top-1/4 w-[150%] h-[150%] -translate-y-1/4 translate-x-1/4">
@@ -88,7 +88,7 @@ export const OccasionsSection = () => {
                 alt={altFor("/images/bridal_collection.png", "Gold bridal jewellery")}
                 fill
                 sizes="(max-width: 1024px) 100vw, 50vw"
-                className="object-contain object-right-bottom z-10 drop-shadow-2xl"
+                className="object-contain object-bottom-right z-10 drop-shadow-2xl"
              />
           </div>
 
@@ -113,7 +113,7 @@ const OccasionCard = ({ data, isHovered, onHover, onLeave, height }: OccasionCar
   return (
     <Link href={data.href} className="block" onFocus={onHover} onBlur={onLeave}>
     <div
-      className={`relative w-full ${height} border border-[#E57A44]/60 bg-[#FFFDD0] cursor-pointer overflow-hidden transition-all duration-300 group`}
+      className={`relative w-full ${height} border border-[#E57A44]/60 bg-cream cursor-pointer overflow-hidden transition-all duration-300 group`}
       onMouseEnter={onHover}
       onMouseLeave={onLeave}
     >
@@ -141,7 +141,7 @@ const OccasionCard = ({ data, isHovered, onHover, onLeave, height }: OccasionCar
             exit={{ opacity: 0 }}
             className="absolute inset-0 z-10 flex p-4"
           >
-            <span className="text-[#3E2723] font-medium font-montserrat z-10 relative">
+            <span className="text-brown font-medium font-montserrat z-10 relative">
               {data.title}
             </span>
             {/* Floral SVG graphic on the right edge */}

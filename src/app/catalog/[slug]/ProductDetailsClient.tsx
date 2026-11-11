@@ -21,13 +21,10 @@ import { Product } from "@/data/products";
 import { Breadcrumbs } from "@/components/molecules/Breadcrumbs";
 import { ProductCard } from "@/components/molecules/ProductCard";
 import { buildWhatsAppLink } from "@/lib/contact";
+import { isSanityCdnUrl, sanityImageLoader } from "@/sanity/loader";
 import { productAlt } from "@/lib/seo";
 
 const PLACEHOLDER = "/images/placeholder.svg";
-
-/** Full, uncropped photo from Sanity's CDN at display size (Sanity resizes and serves WebP/AVIF). */
-const sanityPhoto = (url: string | undefined, width: number) =>
-  url ? `${url}?w=${width}&fit=max&auto=format&q=85` : PLACEHOLDER;
 
 export const ProductDetailsClient = ({ product, related = [] }: { product: Product; related?: Product[] }) => {
   const router = useRouter();
@@ -71,9 +68,10 @@ export const ProductDetailsClient = ({ product, related = [] }: { product: Produ
     if (toastTimer.current) clearTimeout(toastTimer.current);
   }, []);
 
-  const photo = sanityPhoto(product.image, 1400);
-  const largePhoto = sanityPhoto(product.image, 2400);
-  const isRemote = photo.startsWith("http");
+  // Responsive srcset from Sanity's CDN (uncropped, resized and WebP/AVIF there)
+  const photo = product.image ?? PLACEHOLDER;
+  const fromSanity = isSanityCdnUrl(photo);
+  const loader = fromSanity ? sanityImageLoader : undefined;
   // Sanity asset URLs end in "-<width>x<height>.<ext>" — size the frame to the photo's real shape
   const dims = product.image?.match(/-(\d+)x(\d+)\.\w+$/);
   const photoRatio = dims ? Number(dims[1]) / Number(dims[2]) : 4 / 5;
@@ -135,10 +133,17 @@ export const ProductDetailsClient = ({ product, related = [] }: { product: Produ
   // Lightbox: Escape closes, page doesn't scroll behind it, focus starts on the close button
   useEffect(() => {
     if (!lightbox) return;
+    // Remember what opened the dialog so focus can return there on close
+    const opener = document.activeElement as HTMLElement | null;
     const onKey = (e: KeyboardEvent) => {
       if (e.key === "Escape") {
         setLightbox(false);
         setLightboxZoom(null);
+      }
+      // Focus trap: the close button is the dialog's only control, so Tab stays on it
+      if (e.key === "Tab") {
+        e.preventDefault();
+        closeRef.current?.focus();
       }
     };
     const previousOverflow = document.body.style.overflow;
@@ -148,6 +153,7 @@ export const ProductDetailsClient = ({ product, related = [] }: { product: Produ
     return () => {
       document.body.style.overflow = previousOverflow;
       document.removeEventListener("keydown", onKey);
+      opener?.focus?.();
     };
   }, [lightbox]);
 
@@ -159,7 +165,7 @@ export const ProductDetailsClient = ({ product, related = [] }: { product: Produ
   ];
 
   return (
-    <main className="min-h-screen bg-[#FAFAFA]">
+    <main id="main-content" tabIndex={-1} className="min-h-screen bg-[#FAFAFA]">
       <Navbar />
 
       {/* Top Bar with Back Button & Breadcrumbs */}
@@ -172,7 +178,7 @@ export const ProductDetailsClient = ({ product, related = [] }: { product: Produ
         <button
           // router.back() leaves the site when the product page was opened directly (shared link)
           onClick={() => (window.history.length > 1 ? router.back() : router.push("/catalog"))}
-          className="flex items-center gap-2 text-gray-500 hover:text-gold-dark transition-colors duration-300 w-fit group"
+          className="flex min-h-11 items-center gap-2 text-gray-500 hover:text-gold-deep transition-colors duration-300 w-fit group"
         >
           <svg className="w-4 h-4 sm:w-5 sm:h-5 transform group-hover:-translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.6} d="M10 19l-7-7m0 0l7-7m-7 7h18" />
@@ -223,7 +229,7 @@ export const ProductDetailsClient = ({ product, related = [] }: { product: Produ
                 alt={productAlt(product)}
                 fill
                 priority
-                unoptimized={isRemote}
+                loader={loader}
                 sizes="(max-width: 1024px) 100vw, 50vw"
                 // object-contain: the whole piece is always visible, never cropped
                 className="object-contain transition-transform duration-300 ease-out"
@@ -245,7 +251,7 @@ export const ProductDetailsClient = ({ product, related = [] }: { product: Produ
 
           {/* Right Column — Product Info */}
           <motion.div className="w-full lg:w-1/2 flex flex-col pt-0 sm:pt-2 md:pt-4" variants={staggerContainerSlow}>
-            <motion.p variants={fadeUpVariant} className="text-[10px] font-bold tracking-[0.25em] text-gold-dark uppercase mb-3 sm:mb-4">
+            <motion.p variants={fadeUpVariant} className="text-[10px] font-bold tracking-[0.25em] text-gold-deep uppercase mb-3 sm:mb-4">
               {product.subcategory}
               <span className="mx-2 text-gold/60" aria-hidden="true">·</span>
               <span className="text-gray-400">{product.category} Collection</span>
@@ -278,7 +284,7 @@ export const ProductDetailsClient = ({ product, related = [] }: { product: Produ
 
             {/* Trade note */}
             <motion.div variants={fadeUpVariant} className="mb-8 sm:mb-10 bg-[#F9F5EE] border-l-2 border-gold-dark/50 px-4 sm:px-5 py-4">
-              <p className="text-[9px] font-bold tracking-[0.2em] uppercase text-gold-dark mb-1.5">Pricing &amp; Availability</p>
+              <p className="text-[9px] font-bold tracking-[0.2em] uppercase text-gold-deep mb-1.5">Pricing &amp; Availability</p>
               <p className="text-xs sm:text-[13px] text-gray-600 leading-relaxed">
                 Priced on the day&apos;s gold rate with making charges itemised on the invoice. Weight is approximate —
                 our trade desk confirms exact weight and stock before you order.
@@ -296,7 +302,7 @@ export const ProductDetailsClient = ({ product, related = [] }: { product: Produ
                   onClick={() => changeQty(qty - 1)}
                   disabled={qty <= 1}
                   aria-label="Decrease quantity"
-                  className="w-11 flex items-center justify-center text-gray-600 hover:text-gold-dark disabled:text-gray-300 disabled:cursor-not-allowed transition-colors"
+                  className="w-11 flex items-center justify-center text-gray-600 hover:text-gold-deep disabled:text-gray-300 disabled:cursor-not-allowed transition-colors"
                 >
                   <Minus size={14} strokeWidth={1.8} />
                 </button>
@@ -315,7 +321,7 @@ export const ProductDetailsClient = ({ product, related = [] }: { product: Produ
                   onClick={() => changeQty(qty + 1)}
                   disabled={qty >= 999}
                   aria-label="Increase quantity"
-                  className="w-11 flex items-center justify-center text-gray-600 hover:text-gold-dark disabled:text-gray-300 disabled:cursor-not-allowed transition-colors"
+                  className="w-11 flex items-center justify-center text-gray-600 hover:text-gold-deep disabled:text-gray-300 disabled:cursor-not-allowed transition-colors"
                 >
                   <Plus size={14} strokeWidth={1.8} />
                 </button>
@@ -329,10 +335,10 @@ export const ProductDetailsClient = ({ product, related = [] }: { product: Produ
                 aria-pressed={isSaved}
                 whileTap={{ scale: 0.98 }}
                 transition={{ duration: duration.fast, ease: luxuryEasing }}
-                className={`flex-1 border px-4 sm:px-6 text-[10px] sm:text-[11px] font-bold tracking-[0.2em] uppercase transition-colors duration-300 flex items-center justify-center gap-2.5 min-h-[52px] ${
+                className={`flex-1 border px-4 sm:px-6 text-[10px] sm:text-[11px] font-bold tracking-[0.2em] uppercase transition-colors duration-300 flex items-center justify-center gap-2.5 min-h-13 ${
                   isSaved
-                    ? "bg-gold-dark text-white border-gold-dark"
-                    : "bg-white text-[#1A1A1A] border-gray-300 hover:border-gold-dark hover:text-gold-dark"
+                    ? "bg-gold-deep text-white border-gold-deep"
+                    : "bg-white text-[#1A1A1A] border-gray-300 hover:border-gold-dark hover:text-gold-deep"
                 }`}
               >
                 <Heart size={15} strokeWidth={1.6} className={isSaved ? "fill-current" : ""} />
@@ -346,17 +352,17 @@ export const ProductDetailsClient = ({ product, related = [] }: { product: Produ
                 rel="noreferrer"
                 whileTap={{ scale: 0.98 }}
                 transition={{ duration: duration.fast, ease: luxuryEasing }}
-                className="flex-1 bg-[#1A1A1A] text-white border border-[#1A1A1A] text-[10px] sm:text-[11px] font-bold tracking-[0.2em] uppercase hover:bg-gold-dark hover:border-gold-dark transition-colors duration-300 flex items-center justify-center gap-2.5 min-h-[52px] shadow-lg"
+                className="flex-1 bg-[#1A1A1A] text-white border border-[#1A1A1A] text-[10px] sm:text-[11px] font-bold tracking-[0.2em] uppercase hover:bg-gold-dark hover:border-gold-dark transition-colors duration-300 flex items-center justify-center gap-2.5 min-h-13 shadow-lg"
               >
                 Inquire on WhatsApp
               </motion.a>
             </motion.div>
 
             <motion.div variants={fadeUpVariant} className="mt-5 flex flex-wrap items-center gap-x-6 gap-y-3 text-[10px] font-bold tracking-[0.18em] uppercase text-gray-500">
-              <a href="tel:+919825953334" className="inline-flex items-center gap-2 hover:text-gold-dark transition-colors">
+              <a href="tel:+919825953334" className="inline-flex min-h-11 items-center gap-2 hover:text-gold-deep transition-colors">
                 <Phone size={13} strokeWidth={1.8} /> +91 98259 53334
               </a>
-              <button type="button" onClick={handleShare} className="inline-flex items-center gap-2 hover:text-gold-dark transition-colors">
+              <button type="button" onClick={handleShare} className="inline-flex min-h-11 items-center gap-2 hover:text-gold-deep transition-colors">
                 {copied ? <Check size={13} strokeWidth={2} /> : <Link2 size={13} strokeWidth={1.8} />}
                 <span aria-live="polite">{copied ? "Link copied" : "Share this piece"}</span>
               </button>
@@ -370,7 +376,7 @@ export const ProductDetailsClient = ({ product, related = [] }: { product: Produ
                 { icon: Truck, title: "Trade Supply", note: "Across India" },
               ].map(({ icon: Icon, title, note }) => (
                 <li key={title} className="flex flex-col items-center text-center gap-1.5 px-2 py-4">
-                  <Icon size={18} strokeWidth={1.4} className="text-gold-dark" />
+                  <Icon size={18} strokeWidth={1.4} className="text-gold-deep" />
                   <span className="text-[9px] sm:text-[10px] font-bold tracking-[0.15em] uppercase text-[#1A1A1A]">{title}</span>
                   <span className="text-[10px] sm:text-[11px] text-gray-400 leading-tight">{note}</span>
                 </li>
@@ -387,7 +393,7 @@ export const ProductDetailsClient = ({ product, related = [] }: { product: Produ
             <h2 className="font-cinzel text-xl sm:text-2xl md:text-3xl text-[#1A1A1A]">More from the {product.category} Collection</h2>
             <Link
               href={`/catalog?category=${encodeURIComponent(product.category)}`}
-              className="shrink-0 text-[10px] sm:text-xs font-bold tracking-[0.15em] uppercase text-gold-dark hover:text-brown transition-colors"
+              className="shrink-0 text-[10px] sm:text-xs font-bold tracking-[0.15em] uppercase text-gold-deep hover:text-brown transition-colors"
             >
               View all &rarr;
             </Link>
@@ -411,7 +417,7 @@ export const ProductDetailsClient = ({ product, related = [] }: { product: Produ
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             transition={{ duration: 0.25 }}
-            className="fixed inset-0 z-[100] bg-[#1A1210]/95 flex items-center justify-center p-4 sm:p-10"
+            className="fixed inset-0 z-100 bg-[#1A1210]/95 flex items-center justify-center p-4 sm:p-10"
             onClick={closeLightbox}
           >
             <button
@@ -444,10 +450,10 @@ export const ProductDetailsClient = ({ product, related = [] }: { product: Produ
               }}
             >
               <Image
-                src={largePhoto}
+                src={photo}
                 alt={productAlt(product)}
                 fill
-                unoptimized={isRemote}
+                loader={loader}
                 sizes="100vw"
                 className="object-contain transition-transform duration-300 ease-out"
                 style={lightboxZoom ? { transform: "scale(2.2)", transformOrigin: `${lightboxZoom.x}% ${lightboxZoom.y}%` } : undefined}
@@ -490,7 +496,7 @@ export const ProductDetailsClient = ({ product, related = [] }: { product: Produ
                 aria-pressed={isSaved}
                 aria-label={isSaved ? "Remove from wishlist" : "Save to wishlist"}
                 className={`h-11 w-11 shrink-0 flex items-center justify-center border transition-colors ${
-                  isSaved ? "bg-gold-dark border-gold-dark text-white" : "border-gray-300 text-gray-600"
+                  isSaved ? "bg-gold-deep border-gold-deep text-white" : "border-gray-300 text-gray-600"
                 }`}
               >
                 <Heart size={16} strokeWidth={1.6} className={isSaved ? "fill-current" : ""} />
@@ -510,7 +516,7 @@ export const ProductDetailsClient = ({ product, related = [] }: { product: Produ
       </AnimatePresence>
 
       {/* Toast */}
-      <div aria-live="polite" className="pointer-events-none fixed inset-x-0 bottom-24 lg:bottom-8 z-[60] flex justify-center px-4">
+      <div aria-live="polite" className="pointer-events-none fixed inset-x-0 bottom-24 lg:bottom-8 z-60 flex justify-center px-4">
         <AnimatePresence>
           {toast && (
             <motion.div

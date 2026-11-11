@@ -17,15 +17,40 @@ const INQUIRY_TYPES = [
   { value: "Other", label: "Other" },
 ];
 
+type FieldErrors = Partial<Record<"firstName" | "phone" | "email", string>>;
+
+/** Same rules for every enquiry form: name required, ≥10-digit phone, email optional but valid. */
+function validate(get: (key: string) => string): FieldErrors {
+  const errors: FieldErrors = {};
+  if (!get("firstName")) errors.firstName = "Please enter your first name.";
+  const digits = get("phone").replace(/\D/g, "");
+  if (!digits) errors.phone = "Please enter your phone number.";
+  else if (digits.length < 10) errors.phone = "Please enter a valid phone number (at least 10 digits).";
+  const email = get("email");
+  if (email && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) errors.email = "Please enter a valid email address, e.g. name@example.com.";
+  return errors;
+}
+
 export const ContactClient = () => {
   const [sent, setSent] = useState(false);
+  const [errors, setErrors] = useState<FieldErrors>({});
 
   // The form previously had no submit handler, so "Send Inquiry" did nothing.
   // Compose the inquiry and hand it to WhatsApp (the shop's primary contact channel).
   const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    const data = new FormData(e.currentTarget);
+    const form = e.currentTarget;
+    const data = new FormData(form);
     const get = (key: string) => String(data.get(key) ?? "").trim();
+
+    // Show errors under the fields (announced by screen readers) and move focus to the first one
+    const found = validate(get);
+    setErrors(found);
+    const firstInvalid = (["firstName", "phone", "email"] as const).find((k) => found[k]);
+    if (firstInvalid) {
+      form.querySelector<HTMLInputElement>(`[name="${firstInvalid}"]`)?.focus();
+      return;
+    }
     const name = [get("firstName"), get("lastName")].filter(Boolean).join(" ");
     const message = [
       "New inquiry from the website",
@@ -42,7 +67,7 @@ export const ContactClient = () => {
   return (
     <>
       {/* Hero Section — 60vh on mobile, 100vh on desktop */}
-      <section className="relative w-full h-[60vh] sm:h-[70vh] md:h-screen flex items-center justify-center min-h-[360px] max-h-[900px]">
+      <section className="relative w-full h-[60vh] sm:h-[70vh] md:h-screen flex items-center justify-center min-h-90 max-h-225">
         <Image
           src="/images/contact_hero_light.png"
           alt=""
@@ -78,7 +103,7 @@ export const ContactClient = () => {
               <div className="flex flex-col gap-6 sm:gap-8">
                 {/* Address */}
                 <div className="flex gap-3 sm:gap-4">
-                  <div className="mt-1 text-gold-dark flex-shrink-0">
+                  <div className="mt-1 text-gold-deep shrink-0">
                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-5 h-5">
                       <path strokeLinecap="round" strokeLinejoin="round" d="M15 10.5a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z" />
                       <path strokeLinecap="round" strokeLinejoin="round" d="M19.5 10.5c0 7.142-7.5 11.25-7.5 11.25S4.5 17.642 4.5 10.5a7.5 7.5 0 1 1 15 0Z" />
@@ -96,7 +121,7 @@ export const ContactClient = () => {
 
                 {/* Contact */}
                 <div className="flex gap-3 sm:gap-4">
-                  <div className="mt-1 text-gold-dark flex-shrink-0">
+                  <div className="mt-1 text-gold-deep shrink-0">
                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-5 h-5">
                       <path strokeLinecap="round" strokeLinejoin="round" d="M2.25 6.75c0 8.284 6.716 15 15 15h2.25a2.25 2.25 0 0 0 2.25-2.25v-1.372c0-.516-.351-.966-.852-1.091l-4.423-1.106c-.44-.11-.902.055-1.173.417l-.97 1.293c-2.896-1.596-5.48-4.18-7.076-7.076l1.293-.97c.362-.271.527-.733.417-1.173L6.963 3.102a1.125 1.125 0 0 0-1.091-.852H4.5A2.25 2.25 0 0 0 2.25 4.5v2.25Z" />
                     </svg>
@@ -113,7 +138,7 @@ export const ContactClient = () => {
                       href="https://wa.me/919825953334"
                       target="_blank"
                       rel="noreferrer"
-                      className="text-[10px] font-bold tracking-[0.1em] text-gold-dark hover:text-brown transition-colors flex items-center gap-2 uppercase min-h-[44px] w-fit"
+                      className="text-[10px] font-bold tracking-widest text-gold-deep hover:text-brown transition-colors flex items-center gap-2 uppercase min-h-11 w-fit"
                     >
                       <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-4 h-4">
                         <path strokeLinecap="round" strokeLinejoin="round" d="M12 20.25c4.97 0 9-3.694 9-8.25s-4.03-8.25-9-8.25S3 7.444 3 11.994c0 2.064.84 3.96 2.235 5.404a1.5 1.5 0 0 1 .374.832l.063 1.155a.75.75 0 0 0 1.127.568l1.62-.843a1.5 1.5 0 0 1 .98-.125c1.107.284 2.31.442 3.565.442Z" />
@@ -125,7 +150,7 @@ export const ContactClient = () => {
 
                 {/* Business Hours */}
                 <div className="flex gap-3 sm:gap-4">
-                  <div className="mt-1 text-gold-dark flex-shrink-0">
+                  <div className="mt-1 text-gold-deep shrink-0">
                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-5 h-5">
                       <path strokeLinecap="round" strokeLinejoin="round" d="M12 6v6h4.5m4.5 0a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
                     </svg>
@@ -146,7 +171,7 @@ export const ContactClient = () => {
             </div>
 
             {/* Map */}
-            <div className="bg-white p-2 shadow-sm h-[200px] sm:h-[240px] md:h-[280px] relative">
+            <div className="bg-white p-2 shadow-sm h-50 sm:h-60 md:h-70 relative">
               <iframe
                 title="Rajeshwari Jewellers showroom location"
                 src="https://maps.google.com/maps?q=Spectrum%20Tower,%20Shahibaug,%20Ahmedabad&t=&z=15&ie=UTF8&iwloc=&output=embed"
@@ -165,19 +190,20 @@ export const ContactClient = () => {
           <div className="w-full lg:w-7/12">
             <div className="bg-white p-6 sm:p-8 md:p-10 lg:p-14 shadow-sm">
               <Heading level={2} className="text-2xl sm:text-3xl md:text-4xl font-semibold mb-3 sm:mb-4">Inquire</Heading>
-              <p className="text-gray-500 text-sm font-light mb-7 sm:mb-10">
+              <p id="contact-form-note" className="text-gray-500 text-sm font-light mb-7 sm:mb-10">
                 Please fill out the form below for bespoke requests, catalog inquiries, or to schedule a private viewing.
+                <span className="block mt-1 text-xs">Fields marked <span className="text-red-700">*</span> are required.</span>
               </p>
 
-              <form className="flex flex-col gap-5 sm:gap-6" onSubmit={handleSubmit}>
+              <form className="flex flex-col gap-5 sm:gap-6" onSubmit={handleSubmit} noValidate aria-describedby="contact-form-note">
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-5 sm:gap-6 md:gap-8">
-                  <Input label="First Name" name="firstName" placeholder="First Name" autoComplete="given-name" required />
+                  <Input label="First Name" name="firstName" placeholder="First Name" autoComplete="given-name" required error={errors.firstName} />
                   <Input label="Last Name" name="lastName" placeholder="Last Name" autoComplete="family-name" />
                 </div>
 
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-5 sm:gap-6 md:gap-8">
-                  <Input label="Email Address" name="email" type="email" placeholder="Email Address" autoComplete="email" />
-                  <Input label="Phone Number" name="phone" type="tel" placeholder="Phone Number" autoComplete="tel" required />
+                  <Input label="Email Address" name="email" type="email" placeholder="Email Address" autoComplete="email" error={errors.email} />
+                  <Input label="Phone Number" name="phone" type="tel" inputMode="tel" placeholder="Phone Number" autoComplete="tel" required error={errors.phone} />
                 </div>
 
                 <Select
@@ -190,7 +216,7 @@ export const ContactClient = () => {
                 <Textarea label="Your Message" name="message" placeholder="Your Message" rows={3} />
 
                 {sent && (
-                  <p className="text-sm text-gold-dark" role="status">
+                  <p className="text-sm text-gold-deep" role="status">
                     WhatsApp has opened with your inquiry — please press send there and our team will respond shortly.
                   </p>
                 )}
@@ -199,7 +225,7 @@ export const ContactClient = () => {
                   <Button
                     variant="custom"
                     type="submit"
-                    className="w-full sm:w-auto bg-[#B5952F] hover:bg-[#D4AF37] transition-colors text-white px-8 sm:px-10 py-4 text-[10px] font-bold tracking-[0.15em] uppercase shadow-md min-h-[52px]"
+                    className="w-full sm:w-auto bg-gold-deep hover:bg-brown transition-colors text-white px-8 sm:px-10 py-4 text-[10px] font-bold tracking-[0.15em] uppercase shadow-md min-h-13"
                   >
                     Send Inquiry
                   </Button>

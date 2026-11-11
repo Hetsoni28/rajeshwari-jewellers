@@ -12,7 +12,7 @@ export const metadata = pageMetadata({
 
 export default function ContactPage() {
   return (
-    <main className="min-h-screen bg-[#FAFAFA]">
+    <main id="main-content" tabIndex={-1} className="min-h-screen bg-[#FAFAFA]">
       <Navbar />
       <ContactClient />
       <Footer />

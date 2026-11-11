@@ -19,7 +19,7 @@ import { INTRO_STORAGE_KEY } from "@/lib/intro";
  */
 
 const STORAGE_KEY = INTRO_STORAGE_KEY;
-const LOGO = "/images/logo.svg";
+const LOGO = "/images/logo-rj.webp";
 const EASE_DRAW: [number, number, number, number] = [0.65, 0, 0.35, 1];
 const EASE_OUT: [number, number, number, number] = [0.22, 1, 0.36, 1];
 
@@ -294,7 +294,7 @@ export const WelcomeIntro = () => {
       <div
         id="welcome-intro"
         ref={scope}
-        className="fixed inset-0 z-[200] pointer-events-none"
+        className="fixed inset-0 z-200 pointer-events-none"
         style={{ ["--iris" as string]: "0px" }}
       >
         {/* Velvet stage — an iris-shaped hole opens in it on exit */}
@@ -367,7 +367,7 @@ export const WelcomeIntro = () => {
 
               {/* Logo */}
               <div className="absolute left-1/2 top-1/2 w-[56%] -translate-x-1/2 -translate-y-1/2">
-                <div className="relative aspect-[542/343]">
+                <div className="relative aspect-542/343">
                   {/* Molten cast: the logo's own silhouette, filled with gold */}
                   <div
                     data-intro-cast
@@ -430,10 +430,10 @@ export const WelcomeIntro = () => {
                     </span>
                   ))}
                 </p>
-                <p data-intro-line className="flex items-center gap-3 font-cinzel text-[11px] sm:text-sm tracking-[0.28em] text-[#D4AF37]" style={{ opacity: 0 }}>
-                  <span className="h-px w-7 bg-gradient-to-r from-transparent to-[#D4AF37]" />
+                <p data-intro-line className="flex items-center gap-3 font-cinzel text-[11px] sm:text-sm tracking-[0.28em] text-gold" style={{ opacity: 0 }}>
+                  <span className="h-px w-7 bg-linear-to-r from-transparent to-gold" />
                   Shahibaug · Ahmedabad
-                  <span className="h-px w-7 bg-gradient-to-l from-transparent to-[#D4AF37]" />
+                  <span className="h-px w-7 bg-linear-to-l from-transparent to-gold" />
                 </p>
               </div>
             </div>
@@ -441,15 +441,15 @@ export const WelcomeIntro = () => {
 
           {/* Chrome: progress hairline + skip */}
           <div data-intro-chrome>
-            <div aria-hidden="true" className="absolute bottom-0 left-0 h-px w-full bg-[#D4AF37]/15">
-              <div data-intro-progress className="h-full w-full origin-left bg-[#D4AF37]/80" style={{ transform: "scaleX(0)" }} />
+            <div aria-hidden="true" className="absolute bottom-0 left-0 h-px w-full bg-gold/15">
+              <div data-intro-progress className="h-full w-full origin-left bg-gold/80" style={{ transform: "scaleX(0)" }} />
             </div>
             <button
               type="button"
               data-intro-skip
               onClick={() => exit(true)}
               style={{ opacity: 0 }}
-              className="absolute bottom-5 right-5 sm:bottom-8 sm:right-10 px-2 py-2 text-[10px] font-bold uppercase tracking-[0.28em] text-[#F3E7C9]/45 hover:text-[#D4AF37] transition-colors"
+              className="absolute bottom-5 right-5 sm:bottom-8 sm:right-10 px-2 py-2 text-[10px] font-bold uppercase tracking-[0.28em] text-[#F3E7C9]/45 hover:text-gold transition-colors"
             >
               Skip Intro
             </button>

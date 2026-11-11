@@ -11,7 +11,7 @@ export const Spinner = ({ size = 24, className = "", color }: SpinnerProps) => {
   return (
     <Loader2 
       size={size} 
-      className={`animate-spin ${!color ? 'text-gold-dark' : ''} ${className}`}
+      className={`animate-spin ${!color ? 'text-gold-deep' : ''} ${className}`}
       color={color?.startsWith('#') ? color : undefined}
     />
   );
