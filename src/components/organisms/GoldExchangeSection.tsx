@@ -4,6 +4,7 @@ import * as React from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 import { motion } from 'framer-motion';
+import { altFor } from "@/lib/imageAlts";
 
 const BOARD_RATES = {
   '24k (99.9% Pure)': 15289,
@@ -79,7 +80,7 @@ export const GoldExchangeSection = () => {
             <div className="absolute right-0 w-3/4 h-full">
                <Image
                  src="/images/product_main.png"
-                 alt="Gold Display"
+                 alt={altFor("/images/product_main.png", "Gold necklace set")}
                  fill
                  sizes="(max-width: 1024px) 75vw, 45vw"
                  className="object-cover rounded-sm shadow-xl"

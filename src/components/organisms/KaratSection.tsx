@@ -5,6 +5,7 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { motion } from 'framer-motion';
 import { ArrowRight } from 'lucide-react';
+import { altFor } from "@/lib/imageAlts";
 
 const grids = [
   { id: '18kt', title: '18KT', desc: 'High-margin lightweight', img: '/images/catalog_earrings.png' },
@@ -29,7 +30,7 @@ export const KaratSection = () => {
                 transition={{ duration: 0.6, delay: index * 0.1 }}
                 className={`relative group overflow-hidden bg-gray-100 ${index === 2 ? 'col-span-2 aspect-[2/1] sm:aspect-[2.5/1]' : 'aspect-square'}`}
               >
-                <Image src={item.img} alt={item.title} fill sizes="(max-width: 1024px) 100vw, 50vw" className="object-cover transition-transform duration-700 group-hover:scale-110" />
+                <Image src={item.img} alt={altFor(item.img, `${item.title} gold jewellery`)} fill sizes="(max-width: 1024px) 100vw, 50vw" className="object-cover transition-transform duration-700 group-hover:scale-110" />
 
                 {/* Gradient overlay */}
                 <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent" />

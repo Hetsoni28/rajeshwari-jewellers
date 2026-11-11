@@ -1,5 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
+import { altFor } from "@/lib/imageAlts";
 
 export type CollectionBannerProps = {
   href: string;
@@ -25,7 +26,7 @@ export const CollectionBanner = ({
     >
       <Image 
         src={imageSrc} 
-        alt={title} 
+        alt={altFor(imageSrc, `${title} — gold jewellery by Rajeshwari Jewellers`)} 
         fill 
         className="object-cover transition-transform duration-700 group-hover:scale-105"
         sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 66vw" 

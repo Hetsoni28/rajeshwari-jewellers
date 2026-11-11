@@ -10,10 +10,21 @@ import { WeddingSection } from "@/components/organisms/WeddingSection";
 import { GoldExchangeSection } from "@/components/organisms/GoldExchangeSection";
 import { WholesaleInquirySection } from "@/components/organisms/WholesaleInquirySection";
 import { Footer } from "@/components/organisms/Footer";
+import { WelcomeIntro } from "@/components/organisms/WelcomeIntro";
+import { pageMetadata } from "@/lib/seo";
+
+export const metadata = pageMetadata({
+  title: "Rajeshwari Jewellers | 22K Gold Jewellery in Ahmedabad",
+  absoluteTitle: true,
+  description:
+    "Wholesale and retail 22K gold ornaments in Ahmedabad — antique, bridal, women's, men's and kids' jewellery. Visit our Shahibaug showroom or enquire online.",
+  path: "/",
+});
 
 export default function Home() {
   return (
     <main className="min-h-screen bg-white overflow-x-hidden">
+      <WelcomeIntro />
       <Navbar />
       <HeroSection />
       <StorySection />

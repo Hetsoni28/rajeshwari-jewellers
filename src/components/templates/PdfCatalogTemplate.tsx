@@ -5,6 +5,7 @@ import Image from "next/image";
 
 import { Product } from "@/data/products";
 import { LogoSVG } from "@/components/atoms/LogoSVG";
+import { productAlt } from "@/lib/seo";
 
 interface PdfCatalogTemplateProps {
   category: string;
@@ -97,9 +98,9 @@ export const PdfCatalogTemplate = ({ category, products }: PdfCatalogTemplatePro
         
         {/* Top Shop Name in Golden Font */}
         <div className="absolute top-16 left-0 w-full z-20 flex flex-col items-center text-center">
-          <h1 className="font-cinzel text-5xl tracking-[0.3em] text-[#D4AF37] font-bold ml-[0.3em]">
+          <p className="font-cinzel text-5xl tracking-[0.3em] text-[#D4AF37] font-bold ml-[0.3em]">
             RAJESHWARI
-          </h1>
+          </p>
           <p className="text-xs tracking-[0.6em] uppercase text-[#B5952F] mt-2 font-bold ml-[0.6em]">
             Jewellers
           </p>
@@ -164,7 +165,7 @@ export const PdfCatalogTemplate = ({ category, products }: PdfCatalogTemplatePro
                       <LogoSVG size="custom" className="w-full h-full scale-105" />
                     </div>
                     <div className="flex flex-col items-start">
-                      <h1 className="font-cinzel text-2xl tracking-[0.2em] text-[#D4AF37] font-bold">RAJESHWARI</h1>
+                      <p className="font-cinzel text-2xl tracking-[0.2em] text-[#D4AF37] font-bold">RAJESHWARI</p>
                       <p className="text-[9px] tracking-[0.6em] uppercase text-[#B5952F] font-bold mt-0.5">Jewellers</p>
                     </div>
                   </div>
@@ -178,7 +179,7 @@ export const PdfCatalogTemplate = ({ category, products }: PdfCatalogTemplatePro
                     <div className="w-full aspect-square relative bg-[#f9fafb] border border-[#f3f4f6] p-4 mb-4">
                       <Image 
                         src={item.image || "/images/placeholder.svg"}
-                        alt={item.name}
+                        alt={productAlt(item)}
                         fill sizes="320px"
                         quality={100}
                         unoptimized={true}

@@ -5,6 +5,7 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { motion, AnimatePresence } from 'framer-motion';
 import { ArrowRight } from 'lucide-react';
+import { altFor } from "@/lib/imageAlts";
 
 const occasions = [
   { id: 'lightweight', title: 'Lightweight Ornaments', image: '/images/catalog_ring.png', href: '/catalog?category=Female' },
@@ -84,7 +85,7 @@ export const OccasionsSection = () => {
 
              <Image
                 src="/images/bridal_collection.png"
-                alt="Bridal Occasions"
+                alt={altFor("/images/bridal_collection.png", "Gold bridal jewellery")}
                 fill
                 sizes="(max-width: 1024px) 100vw, 50vw"
                 className="object-contain object-right-bottom z-10 drop-shadow-2xl"
@@ -124,7 +125,7 @@ const OccasionCard = ({ data, isHovered, onHover, onLeave, height }: OccasionCar
             exit={{ opacity: 0 }}
             className="absolute inset-0 z-20"
           >
-            <Image src={data.image} alt={data.title} fill sizes="(max-width: 1024px) 50vw, 25vw" className="object-cover" />
+            <Image src={data.image} alt={altFor(data.image, data.title)} fill sizes="(max-width: 1024px) 50vw, 25vw" className="object-cover" />
             <div className="absolute inset-0 bg-black/40" />
             <div className="absolute top-4 left-4 text-white font-montserrat font-medium text-lg">
               {data.title}

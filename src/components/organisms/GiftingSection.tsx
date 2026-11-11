@@ -4,6 +4,7 @@ import * as React from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 import { motion } from 'framer-motion';
+import { altFor } from "@/lib/imageAlts";
 
 export const GiftingSection = () => {
   return (
@@ -74,7 +75,7 @@ export const GiftingSection = () => {
         <div className="w-full lg:w-1/2 relative min-h-[420px] sm:min-h-[560px] lg:min-h-screen">
           <Image
             src="/images/bridal_necklace.png"
-            alt="Wholesale Ornaments"
+            alt={altFor("/images/bridal_necklace.png", "Gold bridal necklace")}
             fill
             className="object-cover object-center"
             sizes="(max-width: 1024px) 100vw, 50vw"

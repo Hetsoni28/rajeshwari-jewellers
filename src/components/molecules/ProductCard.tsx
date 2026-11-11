@@ -14,6 +14,7 @@ import { Product } from "@/data/products";
 import { Badge } from "@/components/atoms/Badge";
 import { urlForImage } from "@/sanity/image";
 import { useWishlist } from "@/context/WishlistContext";
+import { productAlt } from "@/lib/seo";
 
 const PLACEHOLDER = "/images/placeholder.svg";
 
@@ -57,7 +58,7 @@ export const ProductCard = ({ product, priority = false }: { product: Product; p
 
           <Image
             src={imageUrl}
-            alt={product.name}
+            alt={productAlt(product)}
             fill
             sizes="(max-width: 768px) 50vw, (max-width: 1280px) 33vw, 25vw"
             priority={priority}

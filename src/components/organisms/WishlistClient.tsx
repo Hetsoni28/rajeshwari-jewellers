@@ -33,8 +33,6 @@ export const WishlistClient = () => {
     }
   };
 
-  if (!isHydrated) return null;
-
   return (
     <>
       {/* Header */}
@@ -69,7 +67,10 @@ export const WishlistClient = () => {
 
       {/* Grid or Empty State */}
       <div className="container mx-auto px-4 sm:px-6 md:px-12 pb-16 sm:pb-20 md:pb-24">
-        {items.length === 0 ? (
+        {/* Saved items live in this browser, so the list waits for hydration; the header renders immediately */}
+        {!isHydrated ? (
+          <div className="min-h-[40vh]" aria-busy="true" />
+        ) : items.length === 0 ? (
           <div className="bg-white border border-gray-100 shadow-[0_4px_20px_-4px_rgba(0,0,0,0.05)] p-12 sm:p-20 md:p-32 text-center my-4 sm:my-8 max-w-5xl mx-auto">
             <Heading level={2} className="text-2xl sm:text-3xl md:text-4xl text-gray-800 mb-3 sm:mb-5 font-normal tracking-wide">
               Your wishlist is empty

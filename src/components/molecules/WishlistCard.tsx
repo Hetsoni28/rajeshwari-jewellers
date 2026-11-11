@@ -21,7 +21,7 @@ export const WishlistCard = ({ item, onRemove, priority = false }: WishlistCardP
           sizes="(max-width: 768px) 50vw, (max-width: 1024px) 33vw, 25vw"
           priority={priority}
           className="object-cover transition-transform duration-700 group-hover:scale-105"
-          alt={item.title}
+          alt={`${item.title} — saved gold jewellery from Rajeshwari Jewellers`}
         />
         <Button
           variant="custom"

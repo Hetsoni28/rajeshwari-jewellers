@@ -34,6 +34,25 @@ h1, h2, h3, h4, h5, h6 {
   font-family: var(--font-script);
 }
 
+/* Welcome intro (homepage, once per session) */
+html.intro-seen #welcome-intro {
+  display: none;
+}
+html.intro-playing,
+html.intro-playing body {
+  overflow: hidden;
+}
+/* The engraved rosette turns very slowly, like a piece on a display stand */
+@keyframes intro-rosette-turn {
+  to { transform: rotate(360deg); }
+}
+.intro-rosette {
+  animation: intro-rosette-turn 70s linear infinite;
+}
+@media (prefers-reduced-motion: reduce) {
+  .intro-rosette { animation: none; }
+}
+
 @layer utilities {
   .scrollbar-hide {
     -ms-overflow-style: none;

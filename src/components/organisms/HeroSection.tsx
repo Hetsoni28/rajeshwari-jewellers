@@ -5,6 +5,7 @@ import Link from 'next/link';
 import { motion, AnimatePresence } from 'framer-motion';
 import { ChevronLeft, ChevronRight } from 'lucide-react';
 import Image from 'next/image';
+import { altFor } from "@/lib/imageAlts";
 
 const slides = [
   {
@@ -41,6 +42,9 @@ export const HeroSection = () => {
   return (
     <section className="relative w-full h-[100svh] min-h-[550px] md:min-h-[700px] overflow-hidden bg-[#3E2723]">
       
+      {/* Single page H1 for search engines; the slide titles below are visual H2s */}
+      <h1 className="sr-only">Rajeshwari Jewellers – 22K Gold Jewellery Wholesaler &amp; Retailer in Shahibaug, Ahmedabad</h1>
+
       {/* Background Slider - Pure CSS Opacity */}
       {slides.map((slide, index) => (
         <div 
@@ -49,7 +53,7 @@ export const HeroSection = () => {
         >
           <Image
             src={slide.image}
-            alt={slide.titleMain}
+            alt={altFor(slide.image, slide.titleMain)}
             fill
             className="object-cover object-center sm:object-top"
             priority={index === 0}
@@ -72,10 +76,10 @@ export const HeroSection = () => {
             className="absolute max-w-xl lg:ml-16 pointer-events-auto"
           >
             {/* Title */}
-            <h1 className="text-white mb-8 sm:mb-12 flex flex-col sm:block">
+            <h2 className="text-white mb-8 sm:mb-12 flex flex-col sm:block">
               <span className="font-montserrat font-light text-4xl sm:text-5xl md:text-6xl tracking-wide">{slides[currentSlide].titleMain}</span>
               <span className="font-script text-white text-6xl sm:text-7xl md:text-8xl mt-2 sm:mt-0 sm:ml-4 drop-shadow-md">{slides[currentSlide].titleScript}</span>
-            </h1>
+            </h2>
 
             {/* CTA Button */}
             <Link

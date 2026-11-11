@@ -22,7 +22,7 @@ export const Footer = () => {
 
           {/* Column 2 — Quick Links */}
           <div>
-            <h4 className="font-cinzel text-base sm:text-lg font-bold tracking-wide text-[#1A1A1A] mb-3 sm:mb-4">Quick Links</h4>
+            <h2 className="font-cinzel text-base sm:text-lg font-bold tracking-wide text-[#1A1A1A] mb-3 sm:mb-4">Quick Links</h2>
             <div className="flex flex-col gap-2.5 sm:gap-3 text-sm text-gray-600 font-light">
               <Link href="/" className="hover:text-gold-dark transition-colors py-0.5">Home</Link>
               <Link href="/collections" className="hover:text-gold-dark transition-colors py-0.5">Collections</Link>
@@ -34,7 +34,7 @@ export const Footer = () => {
 
           {/* Column 3 — Contact */}
           <div>
-            <h4 className="font-cinzel text-base sm:text-lg font-bold tracking-wide text-[#1A1A1A] mb-3 sm:mb-4">Contact Us</h4>
+            <h2 className="font-cinzel text-base sm:text-lg font-bold tracking-wide text-[#1A1A1A] mb-3 sm:mb-4">Contact Us</h2>
             <div className="flex flex-col gap-3 sm:gap-4 text-sm text-gray-600 font-light">
 
               {/* Address */}
@@ -83,7 +83,7 @@ export const Footer = () => {
         <div className="mt-8 sm:mt-10 pt-4 border-t border-gray-300 flex flex-col sm:flex-row justify-between items-center gap-4 sm:gap-4 text-[10px] md:text-xs tracking-wider text-gray-400 uppercase font-light">
           <p>© {new Date().getFullYear()} Rajeshwari Jewellers. All rights reserved.</p>
           <div className="flex items-center gap-2">
-            <Image src="/hn-logo.jpg" alt="HN Logo" width={24} height={24} className="rounded-full shadow-sm" />
+            <Image src="/hn-logo.jpg" alt="HN — website design and development" width={24} height={24} className="rounded-full shadow-sm" />
             <span className="hover:text-gray-600 transition-colors">Designed and Developed by HN</span>
           </div>
         </div>

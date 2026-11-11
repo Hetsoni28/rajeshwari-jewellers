@@ -4,6 +4,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { motion } from "framer-motion";
 import { LogoSVG } from "@/components/atoms/LogoSVG";
+import { altFor } from "@/lib/imageAlts";
 
 const fadeUp = {
   hidden: { opacity: 0, y: 24 },
@@ -165,7 +166,7 @@ export const AboutClient = () => {
             Est. in Ahmedabad
           </motion.p>
           <motion.h1 variants={fadeUp} className="font-cinzel text-4xl sm:text-5xl lg:text-6xl text-[#1A1A1A] mb-6 leading-tight">
-            About Rajeshwari<br/>Jewellers
+            About Rajeshwari <br/>Jewellers
           </motion.h1>
           <motion.div variants={fadeUp} className="w-14 h-[2px] bg-[#D4AF37] mb-8" />
           <motion.p variants={fadeUp} className="font-montserrat text-gray-500 text-sm sm:text-base leading-relaxed max-w-md">
@@ -188,7 +189,7 @@ export const AboutClient = () => {
         <div className="w-full lg:w-1/2 relative min-h-[340px] sm:min-h-[440px] lg:min-h-0">
           <Image
             src="/images/hero_bridal_16x9.jpg"
-            alt="Rajeshwari Jewellers"
+            alt={altFor("/images/hero_bridal_16x9.jpg", "Gold bridal necklace set")}
             fill
             className="object-cover"
             sizes="(max-width:1024px) 100vw, 50vw"
@@ -230,7 +231,7 @@ export const AboutClient = () => {
         <div className="w-full lg:w-1/2 relative min-h-[300px] sm:min-h-[420px] lg:min-h-0 order-2 lg:order-1">
           <Image
             src="/images/heritage_necklaces.png"
-            alt="Rajeshwari Jewellers craftsmanship"
+            alt={altFor("/images/heritage_necklaces.png", "Gold temple necklace")}
             fill
             className="object-cover"
             sizes="(max-width:1024px) 100vw, 50vw"

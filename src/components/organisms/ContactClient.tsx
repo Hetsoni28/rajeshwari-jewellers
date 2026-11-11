@@ -45,7 +45,7 @@ export const ContactClient = () => {
       <section className="relative w-full h-[60vh] sm:h-[70vh] md:h-screen flex items-center justify-center min-h-[360px] max-h-[900px]">
         <Image
           src="/images/contact_hero_light.png"
-          alt="Contact Us Background"
+          alt=""
           fill
           priority={true}
           className="object-cover"

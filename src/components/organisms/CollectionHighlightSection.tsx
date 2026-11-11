@@ -4,6 +4,7 @@ import * as React from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 import { motion } from 'framer-motion';
+import { altFor } from "@/lib/imageAlts";
 
 export const CollectionHighlightSection = () => {
   return (
@@ -83,7 +84,7 @@ export const CollectionHighlightSection = () => {
              >
                 <Image
                   src="/images/heritage_necklaces.png"
-                  alt="Rajeshwari Signature"
+                  alt={altFor("/images/heritage_necklaces.png", "Gold temple necklace")}
                   fill
                   sizes="(max-width: 1024px) 100vw, 66vw"
                   className="object-cover"
@@ -94,11 +95,11 @@ export const CollectionHighlightSection = () => {
                    <svg width="32" height="32" viewBox="0 0 24 24" fill="currentColor" className="mx-auto mb-2">
                      <path d="M12 2L15 8L22 9L17 14L18 21L12 17L6 21L7 14L2 9L9 8L12 2Z" />
                    </svg>
-                   <h4 className="text-xl font-cinzel tracking-widest font-bold mb-1">RAJESHWARI</h4>
+                   <p className="text-xl font-cinzel tracking-widest font-bold mb-1">RAJESHWARI</p>
                    <p className="text-[10px] tracking-widest uppercase mb-4 opacity-80">Gold & Diamonds</p>
                    <div className="w-8 h-[1px] bg-current mx-auto mb-4" />
                    <p className="text-[10px] tracking-widest uppercase mb-1">Presents</p>
-                   <h3 className="text-3xl font-playfair italic">Signature</h3>
+                   <p className="text-3xl font-playfair italic">Signature</p>
                    <p className="text-[8px] tracking-widest uppercase mt-2 opacity-80">Bridal Collection</p>
                 </div>
              </div>

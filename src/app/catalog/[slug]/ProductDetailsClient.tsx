@@ -21,6 +21,7 @@ import { Product } from "@/data/products";
 import { Breadcrumbs } from "@/components/molecules/Breadcrumbs";
 import { ProductCard } from "@/components/molecules/ProductCard";
 import { buildWhatsAppLink } from "@/lib/contact";
+import { productAlt } from "@/lib/seo";
 
 const PLACEHOLDER = "/images/placeholder.svg";
 
@@ -219,7 +220,7 @@ export const ProductDetailsClient = ({ product, related = [] }: { product: Produ
             >
               <Image
                 src={photo}
-                alt={product.name}
+                alt={productAlt(product)}
                 fill
                 priority
                 unoptimized={isRemote}
@@ -444,7 +445,7 @@ export const ProductDetailsClient = ({ product, related = [] }: { product: Produ
             >
               <Image
                 src={largePhoto}
-                alt={product.name}
+                alt={productAlt(product)}
                 fill
                 unoptimized={isRemote}
                 sizes="100vw"

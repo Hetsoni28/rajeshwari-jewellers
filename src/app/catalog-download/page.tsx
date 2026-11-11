@@ -2,6 +2,14 @@ import { Navbar } from "@/components/organisms/Navbar";
 import { Footer } from "@/components/organisms/Footer";
 import { CatalogDownloader } from "@/components/organisms/CatalogDownloader";
 import { fetchAllProducts } from "@/sanity/queries";
+import { pageMetadata } from "@/lib/seo";
+
+export const metadata = pageMetadata({
+  title: "Download Gold Jewellery Catalogue (PDF)",
+  description:
+    "Download our wholesale gold jewellery catalogue as a print-ready PDF — the full collection or by category: antique, women's, men's and kids' jewellery.",
+  path: "/catalog-download",
+});
 
 export const revalidate = 60;
 

@@ -5,6 +5,7 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { motion } from 'framer-motion';
 import { ArrowRight } from 'lucide-react';
+import { altFor } from "@/lib/imageAlts";
 
 const categories = [
   { id: 'earrings', title: 'Earrings', desc: 'Shimmer to every love song', img: '/images/wishlist_earrings.png' },
@@ -84,7 +85,7 @@ export const ShopByCategory = () => {
                 {/* Image */}
                 <Image
                   src={item.img}
-                  alt={item.title}
+                  alt={altFor(item.img, item.title)}
                   fill
                   sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 30vw"
                   className="object-cover transition-transform duration-1000 group-hover:scale-110"
