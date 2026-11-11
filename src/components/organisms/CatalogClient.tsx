@@ -9,8 +9,23 @@ import { Product } from "@/data/products";
 import { Heading } from "@/components/atoms/Heading";
 import { Button } from "@/components/atoms/Button";
 import { ChevronLeft, ChevronRight } from "lucide-react";
+import { useSearchParams } from "next/navigation";
 
 const PRODUCTS_PER_PAGE = 24;
+
+const MAIN_CATEGORIES = ["All", "Antique", "Female", "Male", "Kids"];
+const ALL_SUBCATEGORIES = ["Set", "Jhumar", "Bangles", "Rings", "Earrings", "Necklaces", "MS Lockets", "Pendants", "Dokiya", "Mala", "Bracelet", "Kanchain", "Bali", "Mangalsutra", "Rudrakash", "Lucky", "Nazriya"];
+
+const matchIgnoreCase = (list: string[], value: string | null) =>
+  value ? list.find((item) => item.toLowerCase() === value.trim().toLowerCase()) : undefined;
+
+// Resolve ?category= / ?sub= from links across the site (e.g. "female", "Earrings")
+function resolveInitialFilters(category: string | null, sub: string | null) {
+  const mainMatch = matchIgnoreCase(MAIN_CATEGORIES, category);
+  // ?category= may also name a jewellery type, e.g. /catalog?category=Earrings
+  const subMatch = matchIgnoreCase(ALL_SUBCATEGORIES, sub) ?? (mainMatch ? undefined : matchIgnoreCase(ALL_SUBCATEGORIES, category));
+  return { category: mainMatch ?? "All", subcategory: subMatch ?? "All" };
+}
 
 // Build a smart page range: [1, ..., 4, 5, 6, ..., 20]
 function getPageRange(current: number, total: number): (number | "...")[] {
@@ -27,9 +42,21 @@ function getPageRange(current: number, total: number): (number | "...")[] {
 }
 
 export const CatalogClient = ({ initialProducts }: { initialProducts: Product[] }) => {
-  const [activeCategory, setActiveCategory]       = useState("All");
-  const [activeSubcategory, setActiveSubcategory] = useState("All");
   const [currentPage, setCurrentPage]             = useState(1);
+  const searchParams = useSearchParams();
+  const initialFilters = resolveInitialFilters(searchParams.get("category"), searchParams.get("sub"));
+  const [activeCategory, setActiveCategory]       = useState(initialFilters.category);
+  const [activeSubcategory, setActiveSubcategory] = useState(initialFilters.subcategory);
+
+  // Re-sync filters when navigating between catalog links (same component instance)
+  const paramsKey = searchParams.toString();
+  const [lastParamsKey, setLastParamsKey] = useState(paramsKey);
+  if (paramsKey !== lastParamsKey) {
+    setLastParamsKey(paramsKey);
+    setActiveCategory(initialFilters.category);
+    setActiveSubcategory(initialFilters.subcategory);
+    setCurrentPage(1);
+  }
   const gridRef = useRef<HTMLDivElement>(null);
   const [isDropdownOpen, setIsDropdownOpen]       = useState(false);
   const dropdownRef = useRef<HTMLDivElement>(null);
@@ -54,14 +81,14 @@ export const CatalogClient = ({ initialProducts }: { initialProducts: Product[] 
   };
 
   /* ── data ── */
-  const mainCategories = ["All", "Antique", "Female", "Male", "Kids"];
+  const mainCategories = MAIN_CATEGORIES;
 
   const subCategories = useMemo(() => {
     if (activeCategory === "Antique") return ["All", "Set", "Jhumar", "Bangles"];
     if (activeCategory === "Female")  return ["All", "Rings", "Earrings", "Necklaces", "MS Lockets", "Pendants", "Dokiya", "Mala", "Bracelet", "Kanchain", "Bali", "Mangalsutra"];
     if (activeCategory === "Male")    return ["All", "Rings", "Pendants", "Rudrakash"];
     if (activeCategory === "Kids")    return ["All", "Rings", "Lucky", "Nazriya"];
-    return ["All", "Set", "Jhumar", "Bangles", "Rings", "Earrings", "Necklaces", "MS Lockets", "Pendants", "Dokiya", "Mala", "Bracelet", "Kanchain", "Bali", "Mangalsutra", "Rudrakash", "Lucky", "Nazriya"];
+    return ["All", ...ALL_SUBCATEGORIES];
   }, [activeCategory]);
 
   const filteredProducts = useMemo(() => {

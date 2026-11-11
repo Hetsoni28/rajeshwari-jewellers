@@ -10,7 +10,7 @@ const collections = [
     key: "female",
     label: "Heritage & Grace",
     title: "Female Collection",
-    href: "/catalog?category=female",
+    href: "/catalog?category=Female",
     banner: { src: "/images/bridal_necklace_sets.png", title: "Antique Necklace Sets", desc: "Intricate designs for the perfect moment." },
     sides: [
       { src: "/images/mangalsutra.png", title: "Mangalsutra", variant: "light" as const },
@@ -21,7 +21,7 @@ const collections = [
     key: "antique",
     label: "Timeless Classics",
     title: "Antique Collection",
-    href: "/catalog?category=antique",
+    href: "/catalog?category=Antique",
     banner: { src: "/images/antique_main_necklace.png", title: "Antique Temple Necklaces", desc: "Heritage pieces crafted with divine precision." },
     sides: [
       { src: "/images/antique_side_earrings.png", title: "Antique Jhumkas", variant: "light" as const },
@@ -32,7 +32,7 @@ const collections = [
     key: "male",
     label: "Power & Prestige",
     title: "Male Collection",
-    href: "/catalog?category=male",
+    href: "/catalog?category=Male",
     banner: { src: "/images/male_main_chain.png", title: "Heavy Gold Chains", desc: "Bold statements of masculinity and strength." },
     sides: [
       { src: "/images/male_side_ring.png", title: "Signet Rings", variant: "light" as const },
@@ -43,7 +43,7 @@ const collections = [
     key: "kids",
     label: "Joy & Innocence",
     title: "Kids Collection",
-    href: "/catalog?category=kids",
+    href: "/catalog?category=Kids",
     banner: { src: "/images/kids_main_pendant.png", title: "Chain & Pendants", desc: "Delicate pieces designed for the little ones." },
     sides: [
       { src: "/images/kids_side_bangles.png", title: "Tiny Bangles", variant: "light" as const },
@@ -73,7 +73,7 @@ export const CollectionsClient = () => {
             <div className="flex flex-col sm:flex-row justify-between items-start sm:items-end border-b border-gray-200 pb-3 sm:pb-4 mb-6 sm:mb-8 gap-2 sm:gap-4">
               <Heading level={2} className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-semibold">{col.title}</Heading>
               <Link
-                href="/catalog"
+                href={col.href}
                 className="text-gold-dark text-xs font-bold tracking-[0.1em] uppercase hover:text-brown transition-colors whitespace-nowrap min-h-[44px] flex items-center"
               >
                 View All &rarr;
@@ -84,7 +84,7 @@ export const CollectionsClient = () => {
             <div className="grid grid-cols-1 lg:grid-cols-3 gap-4 sm:gap-5 md:gap-6">
               {/* Main banner */}
               <CollectionBanner
-                href="/catalog"
+                href={col.href}
                 imageSrc={col.banner.src}
                 title={col.banner.title}
                 description={col.banner.desc}
@@ -96,7 +96,7 @@ export const CollectionsClient = () => {
                 {col.sides.map((side) => (
                   <CollectionSideItem
                     key={side.title}
-                    href="/catalog"
+                    href={col.href}
                     imageSrc={side.src}
                     title={side.title}
                     bgVariant={side.variant}

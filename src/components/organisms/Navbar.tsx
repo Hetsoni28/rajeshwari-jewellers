@@ -7,7 +7,7 @@ import { Menu, X, Phone, Heart } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { mobileMenuReveal, navbarReveal, luxuryEasing, duration } from '@/lib/motion';
 import { LogoSVG } from '@/components/atoms/LogoSVG';
-import { LogoText } from '@/components/atoms/LogoText';
+
 import { useWishlist } from '@/context/WishlistContext';
 
 export const Navbar = () => {
@@ -16,20 +16,34 @@ export const Navbar = () => {
 
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
-  const [activeLink, setActiveLink] = useState('');
   const pathname = usePathname();
   const isHomePage = pathname === '/';
   const isContactPage = pathname === '/contact';
   const isTransparentPage = isHomePage || isContactPage;
   const isSolidBg = isScrolled || !isTransparentPage;
   const useDarkText = isSolidBg || isContactPage;
+  const isActive = (href: string) => pathname === href || (href !== '/' && pathname.startsWith(`${href}/`));
 
   useEffect(() => {
-    setActiveLink(pathname);
     const handleScroll = () => setIsScrolled(window.scrollY > 50);
+    // Check once on mount too — after a reload mid-page the navbar was stuck transparent
+    const frame = requestAnimationFrame(handleScroll);
     window.addEventListener('scroll', handleScroll, { passive: true });
-    return () => window.removeEventListener('scroll', handleScroll);
-  }, [pathname]);
+    return () => {
+      cancelAnimationFrame(frame);
+      window.removeEventListener('scroll', handleScroll);
+    };
+  }, []);
+
+  // Close the mobile menu with Escape
+  useEffect(() => {
+    if (!isMobileMenuOpen) return;
+    const onKeyDown = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') setIsMobileMenuOpen(false);
+    };
+    window.addEventListener('keydown', onKeyDown);
+    return () => window.removeEventListener('keydown', onKeyDown);
+  }, [isMobileMenuOpen]);
 
   const navLinks = [
     { name: 'Home', href: '/' },
@@ -52,15 +66,18 @@ export const Navbar = () => {
       }`}
     >
       <div className="container mx-auto px-6 md:px-12 flex justify-between items-center">
-        <Link href="/" className="flex items-center gap-3 group">
+        <Link href="/" className="flex items-center group" aria-label="Rajeshwari Jewellers — Home">
           <motion.div
-            className={`flex-shrink-0 transition-all duration-500 ${isSolidBg ? 'w-[40px] h-[40px]' : 'w-[50px] h-[50px]'}`}
-            whileHover={{ rotate: 2, scale: 1.05 }}
+            className={`flex-shrink-0 transition-all duration-500 ${
+              isSolidBg
+                ? 'w-[120px] h-[76px] sm:w-[140px] sm:h-[89px]'
+                : 'w-[140px] h-[89px] sm:w-[170px] sm:h-[108px] md:w-[200px] md:h-[127px]'
+            }`}
+            whileHover={{ scale: 1.03 }}
             transition={{ duration: duration.fast, ease: luxuryEasing }}
           >
-            <LogoSVG size={isSolidBg ? "sm" : "md"} />
+            <LogoSVG size={isSolidBg ? "md" : "xl"} />
           </motion.div>
-          <LogoText solidBg={isSolidBg} darkText={useDarkText} size={isSolidBg ? "sm" : "md"} />
         </Link>
 
         {/* Desktop Nav */}
@@ -69,8 +86,11 @@ export const Navbar = () => {
             <Link
               key={link.name}
               href={link.href}
+              aria-current={isActive(link.href) ? 'page' : undefined}
               className={`relative text-[11px] lg:text-xs tracking-[0.18em] uppercase font-semibold transition-colors duration-300 group ${
-                useDarkText ? 'text-brown hover:text-gold' : 'text-white/80 hover:text-white'
+                isActive(link.href)
+                  ? useDarkText ? 'text-gold-dark' : 'text-white'
+                  : useDarkText ? 'text-brown hover:text-gold' : 'text-white/80 hover:text-white'
               }`}
             >
               {link.name}
@@ -80,6 +100,7 @@ export const Navbar = () => {
             <motion.div whileHover={{ scale: 1.1 }} whileTap={{ scale: 0.95 }} transition={{ duration: duration.micro }}>
               <Link
                 href="/wishlist"
+                aria-label={`Wishlist (${wishlistCount} items)`}
                 className={`relative flex items-center justify-center hover:text-gold transition-colors duration-300 ${useDarkText ? 'text-brown' : 'text-white/80'}`}
               >
                 <Heart size={19} />
@@ -107,7 +128,7 @@ export const Navbar = () => {
 
         {/* Mobile controls */}
         <div className="flex items-center gap-5 md:hidden">
-          <Link href="/wishlist" className={`relative flex items-center justify-center hover:text-gold transition-colors ${useDarkText ? 'text-brown' : 'text-gold'}`}>
+          <Link href="/wishlist" aria-label={`Wishlist (${wishlistCount} items)`} className={`relative flex items-center justify-center hover:text-gold transition-colors ${useDarkText ? 'text-brown' : 'text-gold'}`}>
             <Heart size={22} />
             {wishlistCount > 0 && (
               <span className="absolute -top-1.5 -right-2 flex h-4 w-4 items-center justify-center rounded-full bg-[#B38728] text-[9px] font-bold text-white shadow-sm">
@@ -120,7 +141,8 @@ export const Navbar = () => {
             transition={{ duration: duration.micro }}
             className={`hover:text-gold transition-colors ${useDarkText ? 'text-brown' : 'text-gold'}`}
             onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-            aria-label="Toggle menu"
+            aria-label={isMobileMenuOpen ? 'Close menu' : 'Open menu'}
+            aria-expanded={isMobileMenuOpen}
           >
             <AnimatePresence mode="wait" initial={false}>
               {isMobileMenuOpen ? (
@@ -148,6 +170,10 @@ export const Navbar = () => {
             className="md:hidden absolute top-full left-0 w-full bg-white/98 backdrop-blur-lg shadow-[0_8px_40px_rgba(0,0,0,0.10)] overflow-hidden"
           >
             <div className="flex flex-col items-center py-10 space-y-7">
+              {/* Logo in mobile menu */}
+              <div className="w-[160px] h-[101px] mb-2">
+                <LogoSVG size="lg" />
+              </div>
               {navLinks.map((link, i) => (
                 <motion.div
                   key={link.name}

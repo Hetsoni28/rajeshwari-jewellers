@@ -6,8 +6,9 @@ import { CollectionHighlightSection } from "@/components/organisms/CollectionHig
 import { GiftingSection } from "@/components/organisms/GiftingSection";
 import { OccasionsSection } from "@/components/organisms/OccasionsSection";
 import { KaratSection } from "@/components/organisms/KaratSection";
-import { GoldExchangeSection } from "@/components/organisms/GoldExchangeSection";
 import { WeddingSection } from "@/components/organisms/WeddingSection";
+import { GoldExchangeSection } from "@/components/organisms/GoldExchangeSection";
+import { WholesaleInquirySection } from "@/components/organisms/WholesaleInquirySection";
 import { Footer } from "@/components/organisms/Footer";
 
 export default function Home() {
@@ -17,12 +18,13 @@ export default function Home() {
       <HeroSection />
       <StorySection />
       <ShopByCategory />
-      <CollectionHighlightSection />
       <GiftingSection />
+      <CollectionHighlightSection />
       <OccasionsSection />
       <KaratSection />
-      <GoldExchangeSection />
       <WeddingSection />
+      <GoldExchangeSection />
+      <WholesaleInquirySection />
       <Footer />
     </main>
   );

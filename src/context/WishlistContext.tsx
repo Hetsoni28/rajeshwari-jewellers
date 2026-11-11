@@ -1,6 +1,6 @@
 "use client";
 
-import React, { createContext, useContext, useState, useEffect, ReactNode } from "react";
+import React, { createContext, useCallback, useContext, useMemo, useSyncExternalStore, ReactNode } from "react";
 
 export type WishlistItem = {
   id: string;
@@ -17,50 +17,79 @@ type WishlistContextType = {
   isHydrated: boolean;
 };
 
+const STORAGE_KEY = "rajeshwari_wishlist";
+const EMPTY: WishlistItem[] = [];
+
+/* ── Tiny localStorage-backed store (safe when storage is unavailable) ── */
+let cache: WishlistItem[] | null = null;
+const listeners = new Set<() => void>();
+
+function readItems(): WishlistItem[] {
+  if (cache) return cache;
+  try {
+    const raw = window.localStorage.getItem(STORAGE_KEY);
+    const parsed: unknown = raw ? JSON.parse(raw) : [];
+    cache = Array.isArray(parsed) ? (parsed as WishlistItem[]) : [];
+  } catch (e) {
+    console.error("Failed to read wishlist from local storage", e);
+    cache = [];
+  }
+  return cache;
+}
+
+function writeItems(items: WishlistItem[]) {
+  cache = items;
+  try {
+    window.localStorage.setItem(STORAGE_KEY, JSON.stringify(items));
+  } catch (e) {
+    console.error("Failed to save wishlist to local storage", e);
+  }
+  listeners.forEach((listener) => listener());
+}
+
+function subscribe(listener: () => void) {
+  listeners.add(listener);
+  // Keep multiple open tabs in sync
+  const onStorage = (e: StorageEvent) => {
+    if (e.key === STORAGE_KEY) {
+      cache = null;
+      listener();
+    }
+  };
+  window.addEventListener("storage", onStorage);
+  return () => {
+    listeners.delete(listener);
+    window.removeEventListener("storage", onStorage);
+  };
+}
+
+const noopSubscribe = () => () => {};
+
 const WishlistContext = createContext<WishlistContextType | undefined>(undefined);
 
 export function WishlistProvider({ children }: { children: ReactNode }) {
-  const [items, setItems] = useState<WishlistItem[]>([]);
-  const [isHydrated, setIsHydrated] = useState(false);
+  // Server render (and hydration) uses the empty list, then switches to stored items
+  const items = useSyncExternalStore(subscribe, readItems, () => EMPTY);
+  const isHydrated = useSyncExternalStore(noopSubscribe, () => true, () => false);
 
-  useEffect(() => {
-    const stored = localStorage.getItem("rajeshwari_wishlist");
-    if (stored) {
-      try {
-        setItems(JSON.parse(stored));
-      } catch (e) {
-        console.error("Failed to parse wishlist from local storage", e);
-      }
-    }
-    setIsHydrated(true);
+  const addToWishlist = useCallback((item: WishlistItem) => {
+    const current = readItems();
+    if (current.some((i) => i.id === item.id)) return;
+    writeItems([...current, item]);
   }, []);
 
-  useEffect(() => {
-    if (isHydrated) {
-      localStorage.setItem("rajeshwari_wishlist", JSON.stringify(items));
-    }
-  }, [items, isHydrated]);
+  const removeFromWishlist = useCallback((id: string) => {
+    writeItems(readItems().filter((i) => i.id !== id));
+  }, []);
 
-  const addToWishlist = (item: WishlistItem) => {
-    setItems((prev) => {
-      if (prev.some((i) => i.id === item.id)) return prev;
-      return [...prev, item];
-    });
-  };
+  const isInWishlist = useCallback((id: string) => items.some((i) => i.id === id), [items]);
 
-  const removeFromWishlist = (id: string) => {
-    setItems((prev) => prev.filter((i) => i.id !== id));
-  };
-
-  const isInWishlist = (id: string) => {
-    return items.some((i) => i.id === id);
-  };
-
-  return (
-    <WishlistContext.Provider value={{ items, addToWishlist, removeFromWishlist, isInWishlist, isHydrated }}>
-      {children}
-    </WishlistContext.Provider>
+  const value = useMemo(
+    () => ({ items, addToWishlist, removeFromWishlist, isInWishlist, isHydrated }),
+    [items, addToWishlist, removeFromWishlist, isInWishlist, isHydrated]
   );
+
+  return <WishlistContext.Provider value={value}>{children}</WishlistContext.Provider>;
 }
 
 export function useWishlist() {

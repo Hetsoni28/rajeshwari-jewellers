@@ -1,4 +1,4 @@
-import { createImageUrlBuilder } from "@sanity/image-url";
+import { createImageUrlBuilder, type SanityImageSource } from "@sanity/image-url";
 import { dataset, projectId } from "./env";
 
 const imageBuilder = createImageUrlBuilder({
@@ -13,7 +13,7 @@ const imageBuilder = createImageUrlBuilder({
  * - quality=80   → good balance of sharpness and file size
  * - w/h          → resize to exact display dimensions so browser gets the right resolution
  */
-export const urlForImage = (source: any, width = 600, height = 600) => {
+export const urlForImage = (source: SanityImageSource | null | undefined, width = 600, height = 600) => {
   if (!source) return null;
   return imageBuilder
     .image(source)
@@ -27,7 +27,7 @@ export const urlForImage = (source: any, width = 600, height = 600) => {
 /**
  * Tiny thumbnail URL for blur placeholder (32px wide)
  */
-export const urlForThumb = (source: any) => {
+export const urlForThumb = (source: SanityImageSource | null | undefined) => {
   if (!source) return null;
   return imageBuilder
     .image(source)

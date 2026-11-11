@@ -6,8 +6,39 @@ import { Heading } from "@/components/atoms/Heading";
 import { Textarea } from "@/components/atoms/Textarea";
 import { Button } from "@/components/atoms/Button";
 import { Select } from "@/components/atoms/Select";
+import { useState, type FormEvent } from "react";
+import { buildWhatsAppLink } from "@/lib/contact";
+
+const INQUIRY_TYPES = [
+  { value: "", label: "Nature of Inquiry" },
+  { value: "Custom Orders", label: "Custom Orders" },
+  { value: "Catalog Request", label: "Catalog Request" },
+  { value: "Schedule Private Viewing", label: "Schedule Private Viewing" },
+  { value: "Other", label: "Other" },
+];
 
 export const ContactClient = () => {
+  const [sent, setSent] = useState(false);
+
+  // The form previously had no submit handler, so "Send Inquiry" did nothing.
+  // Compose the inquiry and hand it to WhatsApp (the shop's primary contact channel).
+  const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    const data = new FormData(e.currentTarget);
+    const get = (key: string) => String(data.get(key) ?? "").trim();
+    const name = [get("firstName"), get("lastName")].filter(Boolean).join(" ");
+    const message = [
+      "New inquiry from the website",
+      `Name: ${name}`,
+      `Email: ${get("email")}`,
+      `Phone: ${get("phone")}`,
+      get("inquiryType") && `Inquiry: ${get("inquiryType")}`,
+      get("message") && `Message: ${get("message")}`,
+    ].filter(Boolean).join("\n");
+    window.open(buildWhatsAppLink(message), "_blank", "noopener,noreferrer");
+    setSent(true);
+  };
+
   return (
     <>
       {/* Hero Section — 60vh on mobile, 100vh on desktop */}
@@ -80,6 +111,8 @@ export const ContactClient = () => {
                     </div>
                     <a
                       href="https://wa.me/919825953334"
+                      target="_blank"
+                      rel="noreferrer"
                       className="text-[10px] font-bold tracking-[0.1em] text-gold-dark hover:text-brown transition-colors flex items-center gap-2 uppercase min-h-[44px] w-fit"
                     >
                       <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-4 h-4">
@@ -115,6 +148,7 @@ export const ContactClient = () => {
             {/* Map */}
             <div className="bg-white p-2 shadow-sm h-[200px] sm:h-[240px] md:h-[280px] relative">
               <iframe
+                title="Rajeshwari Jewellers showroom location"
                 src="https://maps.google.com/maps?q=Spectrum%20Tower,%20Shahibaug,%20Ahmedabad&t=&z=15&ie=UTF8&iwloc=&output=embed"
                 width="100%"
                 height="100%"
@@ -135,34 +169,36 @@ export const ContactClient = () => {
                 Please fill out the form below for bespoke requests, catalog inquiries, or to schedule a private viewing.
               </p>
 
-              <form className="flex flex-col gap-5 sm:gap-6">
+              <form className="flex flex-col gap-5 sm:gap-6" onSubmit={handleSubmit}>
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-5 sm:gap-6 md:gap-8">
-                  <Input label="First Name" placeholder="First Name" />
-                  <Input label="Last Name" placeholder="Last Name" />
+                  <Input label="First Name" name="firstName" placeholder="First Name" autoComplete="given-name" required />
+                  <Input label="Last Name" name="lastName" placeholder="Last Name" autoComplete="family-name" />
                 </div>
 
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-5 sm:gap-6 md:gap-8">
-                  <Input label="Email Address" type="email" placeholder="Email Address" />
-                  <Input label="Phone Number" type="tel" placeholder="Phone Number" />
+                  <Input label="Email Address" name="email" type="email" placeholder="Email Address" autoComplete="email" />
+                  <Input label="Phone Number" name="phone" type="tel" placeholder="Phone Number" autoComplete="tel" required />
                 </div>
 
                 <Select
+                  name="inquiryType"
+                  aria-label="Nature of Inquiry"
                   defaultValue=""
-                  options={[
-                    { value: "", label: "Nature of Inquiry" },
-                    { value: "custom", label: "Custom Orders" },
-                    { value: "catalog", label: "Catalog Request" },
-                    { value: "viewing", label: "Schedule Private Viewing" },
-                    { value: "other", label: "Other" },
-                  ]}
+                  options={INQUIRY_TYPES}
                 />
 
-                <Textarea label="Your Message" placeholder="Your Message" rows={3} />
+                <Textarea label="Your Message" name="message" placeholder="Your Message" rows={3} />
+
+                {sent && (
+                  <p className="text-sm text-gold-dark" role="status">
+                    WhatsApp has opened with your inquiry — please press send there and our team will respond shortly.
+                  </p>
+                )}
 
                 <div className="mt-4 sm:mt-6 flex justify-stretch sm:justify-end">
                   <Button
                     variant="custom"
-                    type="button"
+                    type="submit"
                     className="w-full sm:w-auto bg-[#B5952F] hover:bg-[#D4AF37] transition-colors text-white px-8 sm:px-10 py-4 text-[10px] font-bold tracking-[0.15em] uppercase shadow-md min-h-[52px]"
                   >
                     Send Inquiry

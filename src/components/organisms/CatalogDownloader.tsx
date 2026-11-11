@@ -1,9 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import Image from "next/image";
 import { Download } from "lucide-react";
-import { generateCatalogPdf } from "@/lib/pdfGenerator";
 import { PdfCatalogTemplate } from "@/components/templates/PdfCatalogTemplate";
 import { Product } from "@/data/products";
 import { Spinner } from "@/components/atoms/Spinner";
@@ -12,7 +10,6 @@ import { Button } from "@/components/atoms/Button";
 
 export const CatalogDownloader = ({ products }: { products: Product[] }) => {
   const [isGenerating, setIsGenerating] = useState(false);
-  const [loadingText, setLoadingText] = useState("");
   const [activeCategory, setActiveCategory] = useState<string | null>(null);
 
   const getCount = (categoryId: string, subName: string) => {
@@ -22,13 +19,15 @@ export const CatalogDownloader = ({ products }: { products: Product[] }) => {
 
   const handleDownload = async (category: string, title: string) => {
     setIsGenerating(true);
-    setLoadingText(`Generating ${title} PDF...`);
     setActiveCategory(category);
     try {
       await new Promise((resolve) => setTimeout(resolve, 500));
+      // Load the heavy PDF libraries (jspdf, html-to-image) only when a download is requested
+      const { generateCatalogPdf } = await import("@/lib/pdfGenerator");
       await generateCatalogPdf(category, title);
     } catch (error) {
       console.error("Failed to generate PDF", error);
+      alert("Sorry, the catalog PDF could not be generated. Please try again.");
     } finally {
       setIsGenerating(false);
       setActiveCategory(null);
@@ -112,7 +111,8 @@ export const CatalogDownloader = ({ products }: { products: Product[] }) => {
                           variant="custom"
                           key={sub}
                           onClick={() => handleDownload(downloadId, `${cat.title}_${sub.replace(/\s+/g, '_')}`)}
-                          disabled={isGenerating}
+                          // Nothing to export for empty sub-categories (would produce a cover-only PDF)
+                          disabled={isGenerating || getCount(cat.id, sub) === 0}
                           className="group flex items-center justify-between px-5 py-3.5 border border-gray-100 hover:border-[#D4AF37] hover:shadow-[0_4px_12px_rgba(212,175,55,0.12)] bg-white transition-all text-left disabled:opacity-50 min-h-[52px]"
                         >
                           <span className="text-[10px] uppercase tracking-widest font-bold text-[#1A1A1A] group-hover:text-[#B38728] transition-colors mt-0.5">

@@ -2,6 +2,7 @@
 
 import * as React from 'react';
 import Image from 'next/image';
+import Link from 'next/link';
 import { motion } from 'framer-motion';
 
 const BOARD_RATES = {
@@ -15,10 +16,10 @@ type PurityKey = keyof typeof BOARD_RATES;
 export const GoldExchangeSection = () => {
   const [weight, setWeight] = React.useState<number | string>(11);
   const [purity, setPurity] = React.useState<PurityKey>('22k (91.6% Pure)');
-  
+
   // Using the exact board rates provided
   const currentRate = BOARD_RATES[purity];
-  const calculatedValue = (Number(weight) || 0) * currentRate;
+  const calculatedValue = Math.max(0, Number(weight) || 0) * currentRate;
 
   // Format number to Indian Rupees format (e.g. 1,53,945)
   const formatCurrency = (amount: number) => {
@@ -33,56 +34,61 @@ export const GoldExchangeSection = () => {
     <section className="bg-white py-24 sm:py-32 overflow-hidden relative">
       <div className="container mx-auto px-4 sm:px-6 lg:px-8 max-w-7xl">
         <div className="flex flex-col lg:flex-row items-center justify-between gap-16 lg:gap-8">
-          
+
           {/* Left Text */}
           <div className="w-full lg:w-5/12 flex flex-col items-start relative z-10">
-            <motion.h2 
+            <motion.h2
               initial={{ opacity: 0, x: -20 }}
               whileInView={{ opacity: 1, x: 0 }}
               viewport={{ once: true }}
-              className="text-4xl sm:text-5xl md:text-6xl text-[#3E2723] font-cinzel leading-tight mb-6"
+              className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl text-[#3E2723] font-cinzel leading-tight mb-6"
             >
-              Exchange your old gold into a <br/>
-              <span className="font-script text-[#D4AF37] text-6xl md:text-8xl -ml-2">Smarter Investment</span>
+              Exchange your scrap gold into <br/>
+              <span className="font-script text-[#D4AF37] text-5xl sm:text-6xl md:text-7xl lg:text-8xl -ml-2">Fresh Inventory</span>
             </motion.h2>
-            <motion.p 
+            <motion.p
               initial={{ opacity: 0, x: -20 }}
               whileInView={{ opacity: 1, x: 0 }}
               viewport={{ once: true }}
               transition={{ delay: 0.1 }}
               className="text-[#3E2723]/80 font-montserrat text-sm sm:text-base leading-relaxed mb-10 max-w-md"
             >
-              Enter your old gold's weight and purity to get an instant estimate
+              Enter your scrap gold&apos;s weight and purity to estimate trade-in value against bulk sourcing.
               <br/><br/>
-              <span className="text-xs opacity-70">*Final exchange value will be determined after purity & weight verification at a Rajeshwari Jewellers store.</span>
+              <span className="text-xs opacity-70">*Final wholesale exchange value determined after XRF melting & testing at our facility.</span>
             </motion.p>
-            <motion.button 
+            <motion.div
               initial={{ opacity: 0 }}
               whileInView={{ opacity: 1 }}
               viewport={{ once: true }}
               transition={{ delay: 0.2 }}
-              className="bg-[#D4AF37] text-[#3E2723] px-10 py-3 font-semibold hover:bg-[#E5C158] transition-colors shadow-md"
             >
-              Know More
-            </motion.button>
+              <Link
+                href="/contact"
+                className="inline-block bg-[#D4AF37] text-[#3E2723] px-10 py-3 font-semibold hover:bg-[#E5C158] transition-colors shadow-md"
+              >
+                Know More
+              </Link>
+            </motion.div>
           </div>
 
           {/* Right Image + Calculator UI Card */}
           <div className="w-full lg:w-7/12 relative h-[500px] sm:h-[600px] flex justify-end items-center">
-            
+
             {/* Background Image */}
             <div className="absolute right-0 w-3/4 h-full">
                <Image
                  src="/images/product_main.png"
                  alt="Gold Display"
                  fill
+                 sizes="(max-width: 1024px) 75vw, 45vw"
                  className="object-cover rounded-sm shadow-xl"
                />
                <div className="absolute inset-0 bg-black/10" />
             </div>
 
             {/* Overlapping Calculator Card */}
-            <motion.div 
+            <motion.div
               initial={{ opacity: 0, x: -50 }}
               whileInView={{ opacity: 1, x: 0 }}
               viewport={{ once: true }}
@@ -90,14 +96,16 @@ export const GoldExchangeSection = () => {
               className="relative z-20 bg-[#FFFDD0] p-8 sm:p-10 shadow-2xl w-[90%] sm:w-[450px] mr-auto lg:mr-0 lg:absolute lg:left-0"
             >
               <h3 className="text-xl text-[#3E2723] font-semibold font-montserrat mb-8">Exchange Programme</h3>
-              
+
               <div className="space-y-6">
                 <div>
-                  <label className="block text-xs text-[#3E2723]/70 mb-2 font-medium uppercase tracking-wider">Weight of Gold</label>
+                  <label htmlFor="exchange-weight" className="block text-xs text-[#3E2723]/70 mb-2 font-medium uppercase tracking-wider">Weight of Gold</label>
                   <div className="border-b border-[#3E2723]/30 pb-2 flex items-center relative">
-                    <input 
-                      type="number" 
-                      value={weight} 
+                    <input
+                      id="exchange-weight"
+                      type="number"
+                      inputMode="decimal"
+                      value={weight}
                       onChange={(e) => setWeight(e.target.value)}
                       className="text-lg font-medium text-[#3E2723] bg-transparent outline-none w-20 appearance-none"
                       min="0"
@@ -108,9 +116,10 @@ export const GoldExchangeSection = () => {
                 </div>
 
                 <div>
-                  <label className="block text-xs text-[#3E2723]/70 mb-2 font-medium uppercase tracking-wider">Purity (In Karat)</label>
+                  <label htmlFor="exchange-purity" className="block text-xs text-[#3E2723]/70 mb-2 font-medium uppercase tracking-wider">Purity (In Karat)</label>
                   <div className="border-b border-[#3E2723]/30 pb-2 relative">
-                    <select 
+                    <select
+                      id="exchange-purity"
                       value={purity}
                       onChange={(e) => setPurity(e.target.value as PurityKey)}
                       className="text-lg font-medium text-[#3E2723] bg-transparent outline-none w-full appearance-none cursor-pointer pr-8"
@@ -127,7 +136,7 @@ export const GoldExchangeSection = () => {
 
                 <div className="pt-2">
                   <div className="flex items-center gap-2 mb-2">
-                    <p className="text-xs text-[#E57A44] font-medium">Today's {purity.split(' ')[0]} Gold Board Rate {formatCurrency(currentRate)}/gram</p>
+                    <p className="text-xs text-[#E57A44] font-medium">Today&apos;s {purity.split(' ')[0]} Gold Board Rate {formatCurrency(currentRate)}/gram</p>
                   </div>
                   <div className="border border-[#E57A44]/30 bg-white p-4 sm:p-5 flex flex-col sm:flex-row sm:items-center justify-between shadow-inner gap-2 sm:gap-0">
                      <span className="text-xs sm:text-sm font-bold text-[#3E2723]/60 uppercase tracking-widest">Approx. Value</span>

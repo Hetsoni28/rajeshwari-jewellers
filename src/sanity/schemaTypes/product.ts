@@ -1,15 +1,17 @@
-export const productSchema = {
+import { defineField, defineType } from "sanity";
+
+export const productSchema = defineType({
   name: "product",
   title: "Product",
   type: "document",
   fields: [
-    {
+    defineField({
       name: "name",
       title: "Product Name",
       type: "string",
-      validation: (Rule: any) => Rule.required(),
-    },
-    {
+      validation: (rule) => rule.required(),
+    }),
+    defineField({
       name: "slug",
       title: "Slug",
       type: "slug",
@@ -17,8 +19,8 @@ export const productSchema = {
         source: "name",
         maxLength: 96,
       },
-    },
-    {
+    }),
+    defineField({
       name: "category",
       title: "Category",
       type: "string",
@@ -30,9 +32,9 @@ export const productSchema = {
           { title: "Kids", value: "Kids" },
         ],
       },
-      validation: (Rule: any) => Rule.required(),
-    },
-    {
+      validation: (rule) => rule.required(),
+    }),
+    defineField({
       name: "subcategory",
       title: "Subcategory",
       type: "string",
@@ -57,34 +59,34 @@ export const productSchema = {
           { title: "Nazriya", value: "Nazriya" },
         ],
       },
-      validation: (Rule: any) => Rule.required(),
-    },
-    {
+      validation: (rule) => rule.required(),
+    }),
+    defineField({
       name: "image",
       title: "Product Image",
       type: "image",
       options: {
         hotspot: true,
       },
-      validation: (Rule: any) => Rule.required(),
-    },
-    {
+      validation: (rule) => rule.required(),
+    }),
+    defineField({
       name: "approxWeight",
       title: "Approx Weight (in grams)",
       type: "number",
       description: "Enter weight in decimals (e.g. 12.5)",
-    },
-    {
+    }),
+    defineField({
       name: "description",
       title: "Description",
       type: "text",
       rows: 4,
-    },
-    {
+    }),
+    defineField({
       name: "badge",
       title: "Badge",
       type: "string",
       description: "Optional badge text like 'New', 'Bestseller'",
-    },
+    }),
   ],
-};
+});

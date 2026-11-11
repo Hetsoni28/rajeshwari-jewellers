@@ -43,7 +43,7 @@ export const PdfCatalogTemplate = ({ category, products }: PdfCatalogTemplatePro
     : category.replace(/_all_.*/, '').replace(/_/g, " ").replace(/\b\w/g, l => l.toUpperCase());
 
   type Section = { title: string; products: Product[] };
-  let sections: Section[] = [];
+  const sections: Section[] = [];
 
   if (isFull) {
     const grouped = filteredProducts.reduce((acc, p) => {
@@ -78,7 +78,7 @@ export const PdfCatalogTemplate = ({ category, products }: PdfCatalogTemplatePro
     <div id="pdf-catalog-container" className="w-[794px] min-h-[1123px] bg-[#ffffff] flex flex-col font-sans">
       
       {/* Cover Page */}
-      <div className="w-[794px] h-[1123px] relative flex flex-col items-center justify-center p-12 overflow-hidden border-[12px] border-[#ffffff] outline outline-1 outline-[#e5e7eb]">
+      <div className="pdf-page w-[794px] h-[1123px] relative flex flex-col items-center justify-center p-12 overflow-hidden border-[12px] border-[#ffffff] outline outline-1 outline-[#e5e7eb]">
         
         {/* Clean Background */}
         <div className="absolute inset-0 z-0 bg-[#ffffff]">
@@ -151,7 +151,7 @@ export const PdfCatalogTemplate = ({ category, products }: PdfCatalogTemplatePro
           const currentPageNum = globalPageIndex++;
           
           return (
-            <div key={`${sectionIdx}-${pageIndex}`} className="w-[794px] h-[1123px] bg-[#ffffff] p-16 relative shrink-0 overflow-hidden">
+            <div key={`${sectionIdx}-${pageIndex}`} className="pdf-page w-[794px] h-[1123px] bg-[#ffffff] p-16 relative shrink-0 overflow-hidden">
               
               {/* Header */}
               <div className="flex justify-between items-end border-b-2 border-[#D4AF37] pb-4 mb-12">
@@ -177,9 +177,9 @@ export const PdfCatalogTemplate = ({ category, products }: PdfCatalogTemplatePro
                   <div key={idx} className="flex flex-col">
                     <div className="w-full aspect-square relative bg-[#f9fafb] border border-[#f3f4f6] p-4 mb-4">
                       <Image 
-                        src={item.image || "/images/placeholder.jpg"}
+                        src={item.image || "/images/placeholder.svg"}
                         alt={item.name}
-                        fill
+                        fill sizes="320px"
                         quality={100}
                         unoptimized={true}
                         crossOrigin="anonymous"

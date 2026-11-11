@@ -1,7 +1,6 @@
 import Link from "next/link";
 import Image from "next/image";
 import { LogoSVG } from "@/components/atoms/LogoSVG";
-import { LogoText } from "@/components/atoms/LogoText";
 
 export const Footer = () => {
   return (
@@ -11,11 +10,10 @@ export const Footer = () => {
 
           {/* Column 1 — Brand & About */}
           <div className="sm:col-span-2 lg:col-span-1">
-            <Link href="/" className="flex items-center gap-3 mb-4">
-              <div className="flex-shrink-0 w-[46px] h-[46px] sm:w-[52px] sm:h-[52px]">
-                <LogoSVG size="md" />
+            <Link href="/" className="flex items-center mb-4">
+              <div className="flex-shrink-0 w-[110px] h-[70px]">
+                <LogoSVG size="sm" />
               </div>
-              <LogoText solidBg={true} size="sm" />
             </Link>
             <p className="text-gray-600 text-sm leading-relaxed font-light pr-4 mb-5 max-w-sm">
               Crafting timeless fine jewelry for over three decades. Every piece tells a story of heritage, craftsmanship, and luxury. Visit our showroom or inquire online.
@@ -85,8 +83,8 @@ export const Footer = () => {
         <div className="mt-8 sm:mt-10 pt-4 border-t border-gray-300 flex flex-col sm:flex-row justify-between items-center gap-4 sm:gap-4 text-[10px] md:text-xs tracking-wider text-gray-400 uppercase font-light">
           <p>© {new Date().getFullYear()} Rajeshwari Jewellers. All rights reserved.</p>
           <div className="flex items-center gap-2">
-            <Image src="/hn-logo.jpg" alt="HN Solutions Logo" width={24} height={24} className="rounded-full shadow-sm" />
-            <span className="hover:text-gray-600 transition-colors">Designed and Developed by HN Solutions</span>
+            <Image src="/hn-logo.jpg" alt="HN Logo" width={24} height={24} className="rounded-full shadow-sm" />
+            <span className="hover:text-gray-600 transition-colors">Designed and Developed by HN</span>
           </div>
         </div>
       </div>

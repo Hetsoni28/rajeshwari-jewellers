@@ -7,11 +7,11 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { ArrowRight } from 'lucide-react';
 
 const occasions = [
-  { id: 'engagement', title: 'Engagement', image: '/images/catalog_ring.png' },
-  { id: 'sangeet', title: 'Sangeet', image: '/images/catalog_earrings.png' },
-  { id: 'mehendi', title: 'Mehendi', image: '/images/antique_side_earrings.png' },
-  { id: 'reception', title: 'Reception', image: '/images/bridal_necklace_sets.png' },
-  { id: 'wedding-day', title: 'Wedding Day', image: '/images/antique_main_necklace.png' }
+  { id: 'lightweight', title: 'Lightweight Ornaments', image: '/images/catalog_ring.png', href: '/catalog?category=Female' },
+  { id: 'bridal', title: 'Heavy Bridal Sets', image: '/images/catalog_earrings.png', href: '/catalog?category=Antique&sub=Set' },
+  { id: 'festive', title: 'Festive Wear', image: '/images/antique_side_earrings.png', href: '/catalog?category=Antique&sub=Jhumar' },
+  { id: 'daily', title: 'Daily Wear', image: '/images/bridal_necklace_sets.png', href: '/catalog?category=Female' },
+  { id: 'antique', title: 'Antique & Polki', image: '/images/antique_main_necklace.png', href: '/catalog?category=Antique' }
 ];
 
 export const OccasionsSection = () => {
@@ -21,51 +21,51 @@ export const OccasionsSection = () => {
     <section className="bg-[#FFFDD0] py-24 overflow-hidden relative">
       <div className="container mx-auto px-4 sm:px-6 lg:px-8 max-w-7xl">
         <div className="flex flex-col lg:flex-row gap-16">
-          
+
           {/* Left Side - Occasion Cards */}
           <div className="w-full lg:w-1/2 flex flex-col">
-            <motion.h2 
+            <motion.h2
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               className="text-[#3E2723] text-4xl sm:text-5xl font-cinzel mb-12"
             >
-              Choose the right jewellery for each occasion
+              High-margin collections for every market demand
             </motion.h2>
 
             <div className="grid grid-cols-2 gap-4">
               {/* Complex Grid Layout matching screenshot */}
               <div className="col-span-1 flex flex-col gap-4">
-                <OccasionCard 
-                  data={occasions[0]} 
-                  isHovered={hovered === occasions[0].id} 
-                  onHover={() => setHovered(occasions[0].id)} 
-                  onLeave={() => setHovered(null)} 
-                  height="h-32" 
+                <OccasionCard
+                  data={occasions[0]}
+                  isHovered={hovered === occasions[0].id}
+                  onHover={() => setHovered(occasions[0].id)}
+                  onLeave={() => setHovered(null)}
+                  height="h-32"
                 />
-                <OccasionCard 
-                  data={occasions[2]} 
-                  isHovered={hovered === occasions[2].id} 
-                  onHover={() => setHovered(occasions[2].id)} 
-                  onLeave={() => setHovered(null)} 
-                  height="h-56" 
+                <OccasionCard
+                  data={occasions[2]}
+                  isHovered={hovered === occasions[2].id}
+                  onHover={() => setHovered(occasions[2].id)}
+                  onLeave={() => setHovered(null)}
+                  height="h-56"
                 />
               </div>
-              
+
               <div className="col-span-1 flex flex-col gap-4">
-                <OccasionCard 
-                  data={occasions[1]} 
-                  isHovered={hovered === occasions[1].id} 
-                  onHover={() => setHovered(occasions[1].id)} 
-                  onLeave={() => setHovered(null)} 
-                  height="h-48" 
+                <OccasionCard
+                  data={occasions[1]}
+                  isHovered={hovered === occasions[1].id}
+                  onHover={() => setHovered(occasions[1].id)}
+                  onLeave={() => setHovered(null)}
+                  height="h-48"
                 />
-                <OccasionCard 
-                  data={occasions[4]} 
-                  isHovered={hovered === occasions[4].id} 
-                  onHover={() => setHovered(occasions[4].id)} 
-                  onLeave={() => setHovered(null)} 
-                  height="h-40" 
+                <OccasionCard
+                  data={occasions[4]}
+                  isHovered={hovered === occasions[4].id}
+                  onHover={() => setHovered(occasions[4].id)}
+                  onLeave={() => setHovered(null)}
+                  height="h-40"
                 />
               </div>
             </div>
@@ -81,11 +81,12 @@ export const OccasionsSection = () => {
                   <circle cx="100" cy="200" r="300" fill="none" stroke="#D4AF37" strokeWidth="0.5" />
                 </svg>
              </div>
-             
+
              <Image
                 src="/images/bridal_collection.png"
                 alt="Bridal Occasions"
                 fill
+                sizes="(max-width: 1024px) 100vw, 50vw"
                 className="object-contain object-right-bottom z-10 drop-shadow-2xl"
              />
           </div>
@@ -97,22 +98,33 @@ export const OccasionsSection = () => {
 };
 
 // Sub-component for the hover-reveal cards
-const OccasionCard = ({ data, isHovered, onHover, onLeave, height }: any) => {
+type Occasion = (typeof occasions)[number];
+
+type OccasionCardProps = {
+  data: Occasion;
+  isHovered: boolean;
+  onHover: () => void;
+  onLeave: () => void;
+  height: string;
+};
+
+const OccasionCard = ({ data, isHovered, onHover, onLeave, height }: OccasionCardProps) => {
   return (
-    <div 
+    <Link href={data.href} className="block" onFocus={onHover} onBlur={onLeave}>
+    <div
       className={`relative w-full ${height} border border-[#E57A44]/60 bg-[#FFFDD0] cursor-pointer overflow-hidden transition-all duration-300 group`}
       onMouseEnter={onHover}
       onMouseLeave={onLeave}
     >
       <AnimatePresence>
         {isHovered ? (
-          <motion.div 
-            initial={{ opacity: 0 }} 
-            animate={{ opacity: 1 }} 
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             className="absolute inset-0 z-20"
           >
-            <Image src={data.image} alt={data.title} fill className="object-cover" />
+            <Image src={data.image} alt={data.title} fill sizes="(max-width: 1024px) 50vw, 25vw" className="object-cover" />
             <div className="absolute inset-0 bg-black/40" />
             <div className="absolute top-4 left-4 text-white font-montserrat font-medium text-lg">
               {data.title}
@@ -122,9 +134,9 @@ const OccasionCard = ({ data, isHovered, onHover, onLeave, height }: any) => {
             </div>
           </motion.div>
         ) : (
-          <motion.div 
-            initial={{ opacity: 0 }} 
-            animate={{ opacity: 1 }} 
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             className="absolute inset-0 z-10 flex p-4"
           >
@@ -143,5 +155,6 @@ const OccasionCard = ({ data, isHovered, onHover, onLeave, height }: any) => {
         )}
       </AnimatePresence>
     </div>
+    </Link>
   );
 };

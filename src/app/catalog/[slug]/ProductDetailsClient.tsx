@@ -8,7 +8,6 @@ import {
   staggerContainerSlow,
   subtleScaleVariant,
   dividerReveal,
-  viewport,
   luxuryEasing,
   duration,
 } from "@/lib/motion";
@@ -18,20 +17,23 @@ import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { useWishlist } from "@/context/WishlistContext";
 import { Product } from "@/data/products";
-import { Badge } from "@/components/atoms/Badge";
 import { Breadcrumbs } from "@/components/molecules/Breadcrumbs";
 
 export const ProductDetailsClient = ({ product }: { product: Product }) => {
   const router = useRouter();
   const [activeMedia, setActiveMedia] = useState<'image' | 'video'>('image');
-  const { addToWishlist, isInWishlist } = useWishlist();
+  const { addToWishlist, removeFromWishlist, isInWishlist } = useWishlist();
   const isSaved = isInWishlist(product.slug);
 
   const handleSave = () => {
+    if (isSaved) {
+      removeFromWishlist(product.slug);
+      return;
+    }
     addToWishlist({
       id: product.slug,
       title: product.name,
-      image: product.image || "/images/placeholder.jpg",
+      image: product.image || "/images/placeholder.svg",
       tag: "22K\nGOLD",
     });
   };
@@ -47,8 +49,9 @@ export const ProductDetailsClient = ({ product }: { product: Product }) => {
         transition={{ duration: duration.base, ease: luxuryEasing, delay: 0.3 }}
         className="pt-28 sm:pt-32 md:pt-40 px-4 sm:px-6 md:px-12 container mx-auto relative z-10 mb-6 sm:mb-8 md:mb-10 flex flex-col sm:flex-row sm:items-center justify-between gap-4"
       >
-        <button 
-          onClick={() => router.back()}
+        <button
+          // router.back() leaves the site when the product page was opened directly (shared link)
+          onClick={() => (window.history.length > 1 ? router.back() : router.push("/catalog"))}
           className="flex items-center gap-2 text-gray-500 hover:text-gold-dark transition-colors duration-300 w-fit group"
         >
           <svg className="w-4 h-4 sm:w-5 sm:h-5 transform group-hover:-translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
@@ -61,7 +64,7 @@ export const ProductDetailsClient = ({ product }: { product: Product }) => {
         <Breadcrumbs
           paths={[
             { label: "Catalog", href: "/catalog" },
-            { label: product.category, href: "/catalog" },
+            { label: product.category, href: `/catalog?category=${encodeURIComponent(product.category)}` },
             { label: product.name },
           ]}
         />
@@ -93,7 +96,7 @@ export const ProductDetailsClient = ({ product }: { product: Product }) => {
               >
                 {activeMedia === 'image' ? (
                   <Image
-                    src={product.image || "/images/placeholder.jpg"}
+                    src={product.image || "/images/placeholder.svg"}
                     fill
                     sizes="(max-width: 1024px) 100vw, 50vw"
                     priority={true}
@@ -117,7 +120,7 @@ export const ProductDetailsClient = ({ product }: { product: Product }) => {
                 }`}
               >
                 <Image
-                  src={product.image || "/images/placeholder.jpg"}
+                  src={product.image || "/images/placeholder.svg"}
                   fill
                   sizes="80px"
                   alt="Thumbnail"
@@ -177,6 +180,7 @@ export const ProductDetailsClient = ({ product }: { product: Product }) => {
             <motion.div variants={fadeUpVariant} className="flex flex-col sm:flex-row gap-3 sm:gap-4 mt-auto">
               <motion.button
                 onClick={handleSave}
+                aria-pressed={isSaved}
                 whileHover={{ y: -1 }}
                 whileTap={{ scale: 0.98 }}
                 transition={{ duration: duration.fast, ease: luxuryEasing }}

@@ -8,18 +8,19 @@ import Image from 'next/image';
 export const WeddingSection = () => {
   return (
     <section className="relative w-full min-h-screen overflow-hidden flex items-center justify-center">
-      
+
       {/* Background Ornate Graphic */}
       <div className="absolute inset-0 z-0">
-        <Image 
-          src="/images/wedding_palace_bg.jpg" 
-          alt="Wedding Background" 
-          fill 
+        <Image
+          src="/images/wedding_palace_bg.jpg"
+          alt=""
+          fill
+          sizes="100vw"
           className="object-cover object-center"
         />
       </div>
 
-      <motion.div 
+      <motion.div
         initial={{ opacity: 0, scale: 0.95 }}
         whileInView={{ opacity: 1, scale: 1 }}
         viewport={{ once: true }}
@@ -36,16 +37,17 @@ export const WeddingSection = () => {
           <div className="h-[1px] w-12 sm:w-20 bg-[#DAB852]"></div>
         </div>
 
-        <h2 className="font-montserrat font-light text-4xl sm:text-5xl md:text-6xl text-[#3E2723] mb-12 leading-[1.4]">
-          Where two souls meet, a <br/>
-          <span className="font-script text-[#DAB852] text-6xl sm:text-7xl md:text-8xl drop-shadow-sm pr-3">beautiful</span> journey <br/>
-          begins.
+        <h2 className="font-montserrat font-light text-3xl sm:text-4xl md:text-5xl lg:text-6xl text-[#3E2723] mb-10 sm:mb-12 leading-[1.4]">
+          Elevate your showroom with our <br/>
+          <span className="font-script text-[#DAB852] text-5xl sm:text-6xl md:text-7xl lg:text-8xl drop-shadow-sm pr-3">premium</span> bridal sets for <br/>
+          bulk sourcing.
         </h2>
 
-        <Link href="/catalog?category=Bridal">
-          <button className="bg-[#DAB852] text-[#3E2723] px-12 py-4 font-semibold text-sm hover:bg-[#c9a744] transition-colors">
-            Explore Wedding Jewellery Collection
-          </button>
+        <Link
+          href="/catalog?category=Antique&sub=Set"
+          className="inline-block bg-[#DAB852] text-[#3E2723] px-8 sm:px-12 py-4 font-semibold text-sm hover:bg-[#c9a744] transition-colors"
+        >
+          Explore Wholesale Bridal Collection
         </Link>
       </motion.div>
     </section>

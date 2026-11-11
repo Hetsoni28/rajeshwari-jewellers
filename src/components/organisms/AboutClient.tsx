@@ -1,152 +1,375 @@
 "use client";
 
 import Image from "next/image";
-import { Heading } from "@/components/atoms/Heading";
+import Link from "next/link";
 import { motion } from "framer-motion";
-import { fadeUpVariant, staggerContainerSlow, dividerReveal, viewport } from "@/lib/motion";
+import { LogoSVG } from "@/components/atoms/LogoSVG";
+
+const fadeUp = {
+  hidden: { opacity: 0, y: 24 },
+  show: { opacity: 1, y: 0, transition: { duration: 0.7, ease: "easeOut" as const } },
+};
+const stagger = {
+  hidden: {},
+  show: { transition: { staggerChildren: 0.12 } },
+};
+const vp = { once: true, margin: "-80px" };
+
+const values = [
+  {
+    title: "Wholesale Expertise",
+    icon: (
+      <svg viewBox="0 0 48 48" fill="none" stroke="#D4AF37" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" className="w-12 h-12 mx-auto">
+        <rect x="6" y="14" width="36" height="26" rx="2"/>
+        <path d="M16 14v-4a8 8 0 0 1 16 0v4"/>
+        <circle cx="24" cy="27" r="3"/>
+        <path d="M24 30v4"/>
+      </svg>
+    ),
+  },
+  {
+    title: "Certified Purity",
+    icon: (
+      <svg viewBox="0 0 48 48" fill="none" stroke="#D4AF37" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" className="w-12 h-12 mx-auto">
+        <path d="M24 4l4 8 9 1.3-6.5 6.3 1.5 9L24 24l-8 4.6 1.5-9L11 13.3 20 12z"/>
+        <path d="M17 30l-5 12 12-5 12 5-5-12"/>
+      </svg>
+    ),
+  },
+  {
+    title: "Heritage Craftsmanship",
+    icon: (
+      <svg viewBox="0 0 48 48" fill="none" stroke="#D4AF37" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" className="w-12 h-12 mx-auto">
+        <path d="M8 40c0-8.8 7.2-16 16-16s16 7.2 16 16"/>
+        <circle cx="24" cy="18" r="8"/>
+        <path d="M18 18c2-4 6-6 10-4M30 16c1 2 1 5-1 7"/>
+      </svg>
+    ),
+  },
+  {
+    title: "Competitive Trade Rates",
+    icon: (
+      <svg viewBox="0 0 48 48" fill="none" stroke="#D4AF37" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" className="w-12 h-12 mx-auto">
+        <circle cx="24" cy="24" r="18"/>
+        <path d="M24 12v24M12 24h24"/>
+        <path d="M17 17l14 14M31 17L17 31"/>
+      </svg>
+    ),
+  },
+];
+
+const promises = [
+  {
+    title: "Certified Gold Purity",
+    desc: "Every ornament we supply undergoes strict quality checks — 22KT, 18KT or 24KT — guaranteeing authentic purity you can pass on to your customers with confidence.",
+    icon: (
+      <svg viewBox="0 0 56 56" fill="none" stroke="#D4AF37" strokeWidth="1.4" strokeLinecap="round" strokeLinejoin="round" className="w-14 h-14 mx-auto">
+        <rect x="10" y="8" width="36" height="42" rx="2"/>
+        <path d="M18 20h20M18 28h14M18 36h10"/>
+        <circle cx="40" cy="40" r="8" fill="white" stroke="#D4AF37"/>
+        <path d="M37 40l2 2 4-4"/>
+      </svg>
+    ),
+  },
+  {
+    title: "Transparent Wholesale Pricing",
+    desc: "We provide itemised invoices with clear breakdowns of gold weight, making charges, and stone value. No hidden charges — ever.",
+    icon: (
+      <svg viewBox="0 0 56 56" fill="none" stroke="#D4AF37" strokeWidth="1.4" strokeLinecap="round" strokeLinejoin="round" className="w-14 h-14 mx-auto">
+        <circle cx="28" cy="28" r="18"/>
+        <path d="M28 18v4M28 34v4M22 22l3 3M31 31l3 3M18 28h4M34 28h4M22 34l3-3M31 25l3-3"/>
+        <circle cx="28" cy="28" r="5"/>
+      </svg>
+    ),
+  },
+  {
+    title: "Bulk Order Support",
+    desc: "From 10 pieces to 10,000 — our team manages your bulk sourcing seamlessly with dedicated order tracking and prompt delivery.",
+    icon: (
+      <svg viewBox="0 0 56 56" fill="none" stroke="#D4AF37" strokeWidth="1.4" strokeLinecap="round" strokeLinejoin="round" className="w-14 h-14 mx-auto">
+        <rect x="8" y="18" width="24" height="20" rx="2"/>
+        <path d="M32 22h8l6 8v8H32V22z"/>
+        <circle cx="18" cy="42" r="4"/><circle cx="40" cy="42" r="4"/>
+        <path d="M8 28h4M14 28h4"/>
+      </svg>
+    ),
+  },
+  {
+    title: "Exchange & Buyback",
+    desc: "We offer a genuine old-gold exchange programme for retailers — get fair market value for scrap gold and convert it into fresh certified inventory.",
+    icon: (
+      <svg viewBox="0 0 56 56" fill="none" stroke="#D4AF37" strokeWidth="1.4" strokeLinecap="round" strokeLinejoin="round" className="w-14 h-14 mx-auto">
+        <path d="M12 20a16 16 0 0 1 28-4M44 36a16 16 0 0 1-28 4"/>
+        <path d="M8 20h8v-8M48 36h-8v8"/>
+      </svg>
+    ),
+  },
+  {
+    title: "200+ Exclusive Designs",
+    desc: "Our ever-growing catalogue covers lightweight dailywear, heavy bridal sets, antique & polki, kundan, and diamond — updated every season.",
+    icon: (
+      <svg viewBox="0 0 56 56" fill="none" stroke="#D4AF37" strokeWidth="1.4" strokeLinecap="round" strokeLinejoin="round" className="w-14 h-14 mx-auto">
+        <polygon points="28,8 34,22 50,24 38,35 41,51 28,44 15,51 18,35 6,24 22,22"/>
+      </svg>
+    ),
+  },
+  {
+    title: "Dedicated Trade Support",
+    desc: "Call or WhatsApp our trade desk directly — Dixit Soni, Harshil Soni, or Jimil Soni — for personalised assistance on pricing, orders, and customisation.",
+    icon: (
+      <svg viewBox="0 0 56 56" fill="none" stroke="#D4AF37" strokeWidth="1.4" strokeLinecap="round" strokeLinejoin="round" className="w-14 h-14 mx-auto">
+        <path d="M44 37c-1.4-0.8-5.7-2.8-6.5-3.1-0.8-0.3-1.4-0.5-2 0.5-0.6 1-2.3 2.9-2.8 3.5-0.5 0.6-1 0.7-1.9 0.2-4.3-2.1-7.2-3.8-10-8.6-0.8-1.3 0.8-1.2 2.2-4 0.3-0.6 0.1-1.1-0.1-1.5-0.2-0.5-2.1-5-2.9-6.8-0.7-1.8-1.5-1.5-2-1.6-0.5 0-1.1 0-1.6 0-0.6 0-1.5 0.2-2.3 1.1-0.8 0.9-3 2.9-3 7.1 0 4.2 3 8.2 3.5 8.8 0.4 0.6 6 9.1 14.5 12.8 8.5 3.6 8.5 2.4 10 2.3 1.5-0.1 4.9-2 5.6-3.9 0.7-1.9 0.7-3.5 0.5-3.8z"/>
+      </svg>
+    ),
+  },
+];
 
 export const AboutClient = () => {
   return (
-    <>
-      <div className="pt-28 sm:pt-32 md:pt-40 pb-16 sm:pb-20 md:pb-24 container mx-auto px-4 sm:px-6 md:px-12 relative z-10">
+    <div className="bg-white overflow-x-hidden">
 
-        {/* Section 1 — Header & Wide Image */}
-        <section className="mb-20 sm:mb-24 md:mb-32">
-          <motion.div
-            variants={staggerContainerSlow}
-            initial="hidden"
-            whileInView="show"
-            viewport={viewport}
-            className="text-center max-w-4xl mx-auto mb-10 sm:mb-12 md:mb-16"
-          >
-            <motion.div variants={fadeUpVariant}>
-              <Heading level={1} className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold mb-4 sm:mb-6 tracking-wide">
-                A Legacy of <span className="text-[#D4AF37]">Purity</span> &amp; Brilliance
-              </Heading>
-            </motion.div>
-            <motion.p
-              variants={fadeUpVariant}
-              className="text-gray-500 text-sm md:text-base leading-relaxed tracking-wide font-light max-w-3xl mx-auto"
+      {/* ── SECTION 1: Hero Split ─────────────────────────────────────────── */}
+      <section className="flex flex-col lg:flex-row min-h-[60vh] pt-20 lg:pt-0">
+        {/* Left — text on white */}
+        <motion.div
+          variants={stagger} initial="hidden" whileInView="show" viewport={vp}
+          className="w-full lg:w-1/2 flex flex-col justify-center px-8 sm:px-14 lg:px-20 py-16 lg:py-28 bg-white relative overflow-hidden"
+        >
+          {/* Decorative SVG background */}
+          <svg className="absolute inset-0 w-full h-full pointer-events-none opacity-[0.04]" viewBox="0 0 600 700" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg">
+            <defs>
+              <pattern id="hero-about-pat" x="0" y="0" width="120" height="150" patternUnits="userSpaceOnUse">
+                {/* Lotus/mandala motif */}
+                <circle cx="60" cy="75" r="28" fill="none" stroke="#D4AF37" strokeWidth="1"/>
+                <circle cx="60" cy="75" r="18" fill="none" stroke="#D4AF37" strokeWidth="0.8"/>
+                <circle cx="60" cy="75" r="6" fill="#D4AF37"/>
+                {/* Petal shapes */}
+                <ellipse cx="60" cy="50" rx="5" ry="12" fill="#D4AF37" transform="rotate(0 60 75)"/>
+                <ellipse cx="60" cy="50" rx="5" ry="12" fill="#D4AF37" transform="rotate(45 60 75)"/>
+                <ellipse cx="60" cy="50" rx="5" ry="12" fill="#D4AF37" transform="rotate(90 60 75)"/>
+                <ellipse cx="60" cy="50" rx="5" ry="12" fill="#D4AF37" transform="rotate(135 60 75)"/>
+                <ellipse cx="60" cy="50" rx="5" ry="12" fill="#D4AF37" transform="rotate(180 60 75)"/>
+                <ellipse cx="60" cy="50" rx="5" ry="12" fill="#D4AF37" transform="rotate(225 60 75)"/>
+                <ellipse cx="60" cy="50" rx="5" ry="12" fill="#D4AF37" transform="rotate(270 60 75)"/>
+                <ellipse cx="60" cy="50" rx="5" ry="12" fill="#D4AF37" transform="rotate(315 60 75)"/>
+                {/* Corner diamonds */}
+                <polygon points="60,2 63,8 60,14 57,8" fill="#D4AF37"/>
+                <polygon points="60,136 63,142 60,148 57,142" fill="#D4AF37"/>
+                <polygon points="2,75 8,72 14,75 8,78" fill="#D4AF37"/>
+                <polygon points="106,75 112,72 118,75 112,78" fill="#D4AF37"/>
+              </pattern>
+            </defs>
+            <rect width="100%" height="100%" fill="url(#hero-about-pat)"/>
+          </svg>
+          <motion.p variants={fadeUp} className="font-cinzel text-xs tracking-[0.25em] text-[#D4AF37] uppercase mb-4">
+            Est. in Ahmedabad
+          </motion.p>
+          <motion.h1 variants={fadeUp} className="font-cinzel text-4xl sm:text-5xl lg:text-6xl text-[#1A1A1A] mb-6 leading-tight">
+            About Rajeshwari<br/>Jewellers
+          </motion.h1>
+          <motion.div variants={fadeUp} className="w-14 h-[2px] bg-[#D4AF37] mb-8" />
+          <motion.p variants={fadeUp} className="font-montserrat text-gray-500 text-sm sm:text-base leading-relaxed max-w-md">
+            Rajeshwari Jewellers is a leading wholesale and retail gold ornaments house based in Ahmedabad.
+            We supply 22KT, 18KT and 24KT jewellery — diamonds, polki, kundan, antique and gemstone ornaments —
+            to retailers, jewellers, and bulk buyers across India. Every piece reflects our commitment to
+            purity, craftsmanship, and competitive trade value.
+          </motion.p>
+          <motion.div variants={fadeUp} className="mt-10">
+            <Link
+              href="/contact"
+              className="inline-block bg-[#D4AF37] text-white font-cinzel font-semibold tracking-widest text-xs uppercase px-8 py-3.5 shadow-md hover:bg-[#c9a744] transition-colors"
             >
-              For over three decades, Rajeshwari Jewellers has been the cornerstone of trust and impeccable craftsmanship in Ahmedabad&apos;s wholesale jewelry market.
-            </motion.p>
+              Get in Touch
+            </Link>
           </motion.div>
+        </motion.div>
 
-          <motion.div
-            initial={{ opacity: 0, scale: 0.98 }}
-            whileInView={{ opacity: 1, scale: 1 }}
-            viewport={viewport}
-            transition={{ duration: 0.8 }}
-            className="relative w-full h-[200px] sm:h-[300px] md:h-[450px] lg:h-[560px] bg-gray-200 overflow-hidden shadow-md"
-          >
-            <Image
-              src="/images/hero_bg.png"
-              alt="Rajeshwari Jewellers Showroom"
-              fill
-              className="object-cover"
-              sizes="100vw"
-            />
-          </motion.div>
-        </section>
-
-        {/* Section 2 — Heritage */}
-        <section className="mb-20 sm:mb-24 md:mb-32">
-          <motion.div
-            variants={staggerContainerSlow}
-            initial="hidden"
-            whileInView="show"
-            viewport={viewport}
-            className="flex flex-col lg:flex-row gap-10 sm:gap-12 md:gap-16 items-center"
-          >
-            <div className="w-full lg:w-1/2 flex flex-col justify-center order-2 lg:order-1">
-              <motion.div variants={fadeUpVariant}>
-                <Heading level={2} className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-semibold mb-4 sm:mb-6 leading-tight">
-                  Our Heritage in <br /> Ahmedabad
-                </Heading>
-              </motion.div>
-              <motion.div variants={dividerReveal} className="w-14 sm:w-16 h-1 bg-[#D4AF37] mb-6 sm:mb-8 origin-left" />
-              <motion.div
-                variants={fadeUpVariant}
-                className="text-gray-500 text-sm md:text-base leading-[1.8] font-light flex flex-col gap-4 sm:gap-6"
-              >
-                <p>
-                  Rooted in the historic lanes of Ahmedabad, Rajeshwari Jewellers began as a humble endeavor dedicated to authentic craftsmanship. Over generations, we have evolved into a premier wholesale destination, yet our core philosophy remains unchanged: to provide jewelry that is as pure in intention as it is in material.
-                </p>
-                <p>
-                  We source the finest materials and collaborate with master artisans whose skill has been honed over centuries. Every piece in our catalog is a testament to India&apos;s rich cultural tapestry, refined for the modern connoisseur.
-                </p>
-              </motion.div>
+        {/* Right — image */}
+        <div className="w-full lg:w-1/2 relative min-h-[340px] sm:min-h-[440px] lg:min-h-0">
+          <Image
+            src="/images/hero_bridal_16x9.jpg"
+            alt="Rajeshwari Jewellers"
+            fill
+            className="object-cover"
+            sizes="(max-width:1024px) 100vw, 50vw"
+            priority
+          />
+          {/* Gold overlay with logo */}
+          <div className="absolute inset-0 bg-black/30 flex flex-col items-center justify-center gap-4">
+            <div className="w-20 h-20 sm:w-28 sm:h-28 text-[#D4AF37] drop-shadow-lg">
+              <LogoSVG size="md" />
             </div>
+            <p className="font-cinzel text-xl sm:text-2xl tracking-[0.2em] text-white font-bold drop-shadow">RAJESHWARI</p>
+            <p className="font-cinzel text-xs tracking-[0.3em] text-white/70 uppercase">Jewellers · Ahmedabad</p>
+          </div>
+        </div>
+      </section>
+
+      {/* ── SECTION 2: Value Cards ─────────────────────────────────────────── */}
+      <section className="py-16 sm:py-20 bg-[#F9F6F0]">
+        <motion.div
+          variants={stagger} initial="hidden" whileInView="show" viewport={vp}
+          className="container mx-auto px-4 sm:px-8 max-w-6xl grid grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6"
+        >
+          {values.map((v) => (
             <motion.div
-              variants={{ hidden: { opacity: 0, scale: 0.97 }, show: { opacity: 1, scale: 1 } }}
-              className="w-full lg:w-1/2 h-[280px] sm:h-[380px] md:h-[500px] lg:h-[580px] relative bg-gray-200 overflow-hidden shadow-md order-1 lg:order-2"
+              key={v.title}
+              variants={fadeUp}
+              className="bg-white border border-gray-100 flex flex-col items-center text-center py-8 px-4 sm:px-6 shadow-sm hover:shadow-md transition-shadow"
             >
-              <Image
-                src="/images/bridal_necklace.png"
-                alt="Heritage Craftsmanship"
-                fill
-                className="object-cover"
-                sizes="(max-width: 1024px) 100vw, 50vw"
-              />
+              <div className="mb-5">{v.icon}</div>
+              <p className="font-cinzel text-sm sm:text-base text-[#1A1A1A] font-medium leading-snug">{v.title}</p>
             </motion.div>
-          </motion.div>
-        </section>
-      </div>
+          ))}
+        </motion.div>
+      </section>
 
-      {/* Section 3 — Pillars */}
-      <section className="py-16 sm:py-20 md:py-24 bg-[#F2F2F2]">
-        <div className="container mx-auto px-4 sm:px-6 md:px-12">
-          <motion.div
-            variants={staggerContainerSlow}
-            initial="hidden"
-            whileInView="show"
-            viewport={viewport}
-            className="text-center max-w-3xl mx-auto mb-10 sm:mb-12 md:mb-16"
-          >
-            <motion.div variants={fadeUpVariant}>
-              <Heading level={2} className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-semibold mb-3 sm:mb-4 tracking-wide">
-                The Pillars of Our Brand
-              </Heading>
-            </motion.div>
-            <motion.p variants={fadeUpVariant} className="text-gray-500 text-sm md:text-base tracking-wide font-light">
-              The principles that guide every facet of our wholesale operations.
-            </motion.p>
+      {/* ── SECTION 3: Heritage Split ──────────────────────────────────────── */}
+      <section className="flex flex-col lg:flex-row min-h-[420px] sm:min-h-[500px]">
+        {/* Left — image */}
+        <div className="w-full lg:w-1/2 relative min-h-[300px] sm:min-h-[420px] lg:min-h-0 order-2 lg:order-1">
+          <Image
+            src="/images/heritage_necklaces.png"
+            alt="Rajeshwari Jewellers craftsmanship"
+            fill
+            className="object-cover"
+            sizes="(max-width:1024px) 100vw, 50vw"
+          />
+        </div>
+
+        {/* Right — text on white */}
+        <motion.div
+          variants={stagger} initial="hidden" whileInView="show" viewport={vp}
+          className="w-full lg:w-1/2 flex flex-col justify-center px-8 sm:px-14 lg:px-16 py-14 lg:py-20 bg-white order-1 lg:order-2"
+        >
+          <motion.p variants={fadeUp} className="font-cinzel text-xs tracking-[0.25em] text-[#D4AF37] uppercase mb-4">
+            Our Story
+          </motion.p>
+          <motion.h2 variants={fadeUp} className="font-cinzel text-3xl sm:text-4xl lg:text-5xl text-[#1A1A1A] mb-6 leading-tight">
+            Rooted in<br/>Ahmedabad
+          </motion.h2>
+          <motion.div variants={fadeUp} className="w-12 h-[2px] bg-[#D4AF37] mb-8" />
+          <motion.p variants={fadeUp} className="font-montserrat text-gray-500 text-sm sm:text-base leading-relaxed mb-5">
+            Our showroom is located at E-13, Spectrum Tower, opposite Police Stadium, Shahibaug —
+            at the heart of Ahmedabad&apos;s jewellery trade corridor. We have spent years building relationships
+            with India&apos;s finest artisans, sourcing designs that balance timeless heritage with modern aesthetics.
+          </motion.p>
+          <motion.p variants={fadeUp} className="font-montserrat text-gray-400 text-sm leading-relaxed">
+            From lightweight everyday ornaments to elaborate bridal sets, every piece passes through stringent
+            quality checks before it reaches your showroom floor. Our trade is built on one promise —
+            what you order is exactly what your customers deserve.
+          </motion.p>
+        </motion.div>
+      </section>
+
+      {/* ── SECTION 4: Promises ────────────────────────────────────────────── */}
+      <section className="py-16 sm:py-20 lg:py-24 bg-[#F9F6F0] relative overflow-hidden">
+        {/* Decorative SVG */}
+        <svg className="absolute inset-0 w-full h-full pointer-events-none opacity-[0.05]" viewBox="0 0 1200 700" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg">
+          <defs>
+            <pattern id="promise-pat" x="0" y="0" width="100" height="100" patternUnits="userSpaceOnUse">
+              <path d="M50 10 C60 20 70 30 60 45 C50 60 40 55 40 45 C30 35 38 18 50 10Z" fill="#D4AF37"/>
+              <path d="M50 90 C40 80 30 70 40 55 C50 40 60 45 60 55 C70 65 62 82 50 90Z" fill="#D4AF37"/>
+              <path d="M10 50 C20 40 30 35 40 45 C50 55 45 65 35 60 C25 55 15 62 10 50Z" fill="#D4AF37"/>
+              <path d="M90 50 C80 60 70 65 60 55 C50 45 55 35 65 40 C75 45 85 38 90 50Z" fill="#D4AF37"/>
+              <circle cx="50" cy="50" r="5" fill="#D4AF37"/>
+              <circle cx="50" cy="50" r="12" fill="none" stroke="#D4AF37" strokeWidth="0.6"/>
+            </pattern>
+          </defs>
+          <rect width="100%" height="100%" fill="url(#promise-pat)"/>
+        </svg>
+        <div className="container mx-auto px-4 sm:px-8 max-w-6xl">
+          <motion.div variants={stagger} initial="hidden" whileInView="show" viewport={vp} className="text-center mb-12 sm:mb-16">
+            <motion.h2 variants={fadeUp} className="font-cinzel text-3xl sm:text-4xl lg:text-5xl text-[#1A1A1A] mb-2">
+              The Rajeshwari{" "}
+              <span className="font-script text-[#D4AF37] text-4xl sm:text-5xl lg:text-6xl">Promises</span>
+            </motion.h2>
+            <motion.div variants={fadeUp} className="w-12 h-[2px] bg-[#D4AF37] mx-auto mt-5" />
           </motion.div>
 
           <motion.div
-            variants={staggerContainerSlow}
-            initial="hidden"
-            whileInView="show"
-            viewport={viewport}
-            className="grid grid-cols-1 sm:grid-cols-3 gap-5 sm:gap-6 md:gap-8 max-w-6xl mx-auto"
+            variants={stagger} initial="hidden" whileInView="show" viewport={vp}
+            className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 sm:gap-10"
           >
-            {[
-              {
-                title: "Uncompromising Quality",
-                text: "We utilize only the finest ethically sourced materials, ensuring that each piece not only shines with brilliance but also stands the test of time for generations.",
-              },
-              {
-                title: "Rigorous Certification",
-                text: "Our rigorous certification process ensures that every bulk order meets exact hallmark standards. We provide the documentation you need to guarantee purity and value to your final customers.",
-              },
-              {
-                title: "Scalable Artistry",
-                text: "Combining traditional techniques with modern production capabilities, we deliver artisan-quality jewelry at the scale required for wholesale, giving your store a distinct competitive advantage.",
-              },
-            ].map((pillar) => (
+            {promises.map((p) => (
               <motion.div
-                key={pillar.title}
-                variants={fadeUpVariant}
-                className="bg-white p-7 sm:p-8 md:p-10 shadow-sm flex flex-col items-center text-center"
+                key={p.title}
+                variants={fadeUp}
+                className="flex flex-col items-center text-center bg-white p-8 shadow-sm hover:shadow-md transition-shadow"
               >
-                <div className="w-10 h-10 sm:w-12 sm:h-12 bg-[#F8F5EE] mb-6 sm:mb-8 flex items-center justify-center flex-shrink-0" />
-                <Heading level={3} className="text-lg sm:text-xl font-semibold mb-3 sm:mb-4">{pillar.title}</Heading>
-                <p className="text-gray-500 text-xs leading-relaxed font-light">{pillar.text}</p>
+                <div className="mb-5">{p.icon}</div>
+                <h3 className="font-cinzel text-base sm:text-lg text-[#1A1A1A] font-semibold mb-3">{p.title}</h3>
+                <p className="font-montserrat text-gray-500 text-sm leading-relaxed max-w-xs">{p.desc}</p>
               </motion.div>
             ))}
           </motion.div>
         </div>
       </section>
-    </>
+
+      {/* ── SECTION 5: Contact CTA ─────────────────────────────────────────── */}
+      <section className="py-16 sm:py-20 bg-white border-t border-gray-100 text-center relative overflow-hidden">
+        {/* Large corner decorations */}
+        <svg className="absolute top-0 left-0 w-40 h-40 sm:w-56 sm:h-56 opacity-[0.06] pointer-events-none" viewBox="0 0 200 200" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M0 0 L120 0 Q80 0 80 40 L80 120 Q80 160 40 160 L0 160 Z" fill="#D4AF37"/>
+          <path d="M0 0 L80 0 Q50 0 50 30 L50 80 Q50 110 20 110 L0 110 Z" fill="#D4AF37"/>
+          <circle cx="10" cy="10" r="6" fill="#D4AF37"/>
+          <circle cx="30" cy="30" r="4" fill="#D4AF37"/>
+          <path d="M0 50 Q25 50 25 75 Q25 100 50 100" stroke="#D4AF37" strokeWidth="1.5" fill="none"/>
+          <path d="M0 80 Q35 80 35 115 Q35 150 70 150" stroke="#D4AF37" strokeWidth="1" fill="none"/>
+        </svg>
+        <svg className="absolute top-0 right-0 w-40 h-40 sm:w-56 sm:h-56 opacity-[0.06] pointer-events-none" viewBox="0 0 200 200" fill="none" xmlns="http://www.w3.org/2000/svg" style={{transform:'scaleX(-1)'}}>
+          <path d="M0 0 L120 0 Q80 0 80 40 L80 120 Q80 160 40 160 L0 160 Z" fill="#D4AF37"/>
+          <path d="M0 0 L80 0 Q50 0 50 30 L50 80 Q50 110 20 110 L0 110 Z" fill="#D4AF37"/>
+          <circle cx="10" cy="10" r="6" fill="#D4AF37"/>
+          <circle cx="30" cy="30" r="4" fill="#D4AF37"/>
+          <path d="M0 50 Q25 50 25 75 Q25 100 50 100" stroke="#D4AF37" strokeWidth="1.5" fill="none"/>
+          <path d="M0 80 Q35 80 35 115 Q35 150 70 150" stroke="#D4AF37" strokeWidth="1" fill="none"/>
+        </svg>
+        <svg className="absolute bottom-0 left-0 w-40 h-40 sm:w-56 sm:h-56 opacity-[0.06] pointer-events-none" viewBox="0 0 200 200" fill="none" xmlns="http://www.w3.org/2000/svg" style={{transform:'scaleY(-1)'}}>
+          <path d="M0 0 L120 0 Q80 0 80 40 L80 120 Q80 160 40 160 L0 160 Z" fill="#D4AF37"/>
+          <path d="M0 0 L80 0 Q50 0 50 30 L50 80 Q50 110 20 110 L0 110 Z" fill="#D4AF37"/>
+          <circle cx="10" cy="10" r="6" fill="#D4AF37"/>
+          <circle cx="30" cy="30" r="4" fill="#D4AF37"/>
+        </svg>
+        <svg className="absolute bottom-0 right-0 w-40 h-40 sm:w-56 sm:h-56 opacity-[0.06] pointer-events-none" viewBox="0 0 200 200" fill="none" xmlns="http://www.w3.org/2000/svg" style={{transform:'scale(-1,-1)'}}>
+          <path d="M0 0 L120 0 Q80 0 80 40 L80 120 Q80 160 40 160 L0 160 Z" fill="#D4AF37"/>
+          <path d="M0 0 L80 0 Q50 0 50 30 L50 80 Q50 110 20 110 L0 110 Z" fill="#D4AF37"/>
+          <circle cx="10" cy="10" r="6" fill="#D4AF37"/>
+          <circle cx="30" cy="30" r="4" fill="#D4AF37"/>
+        </svg>
+        <div className="container mx-auto px-6 max-w-3xl">
+          <div className="flex items-center justify-center gap-4 mb-6">
+            <div className="w-16 h-[1px] bg-[#D4AF37]" />
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="#D4AF37"><path d="M12 2L15 8L22 9L17 14L18 21L12 17L6 21L7 14L2 9L9 8L12 2Z"/></svg>
+            <div className="w-16 h-[1px] bg-[#D4AF37]" />
+          </div>
+          <p className="font-cinzel text-xs tracking-[0.3em] text-[#D4AF37] uppercase mb-4">Visit Us</p>
+          <h2 className="font-cinzel text-2xl sm:text-3xl lg:text-4xl text-[#1A1A1A] mb-5">
+            E-13, Spectrum Tower, Shahibaug, Ahmedabad
+          </h2>
+          <p className="font-montserrat text-gray-500 text-sm mb-2">Mon–Sat: 10:30am – 7:30pm</p>
+          <p className="font-montserrat text-gray-400 text-sm mb-10">
+            +91 98259 53334 &nbsp;·&nbsp; +91 99255 11134 &nbsp;·&nbsp; +91 83206 47040
+          </p>
+          <div className="flex flex-col sm:flex-row gap-4 justify-center">
+            <Link
+              href="/contact"
+              className="inline-block bg-[#D4AF37] text-white font-cinzel font-semibold tracking-widest text-xs uppercase px-10 py-4 shadow-md hover:bg-[#c9a744] transition-colors"
+            >
+              Send an Enquiry
+            </Link>
+            <a
+              href="https://wa.me/919825953334"
+              target="_blank"
+              rel="noreferrer"
+              className="inline-block border border-[#D4AF37] text-[#D4AF37] font-cinzel font-semibold tracking-widest text-xs uppercase px-10 py-4 hover:bg-[#D4AF37]/5 transition-colors"
+            >
+              WhatsApp Us
+            </a>
+          </div>
+        </div>
+      </section>
+
+    </div>
   );
 };

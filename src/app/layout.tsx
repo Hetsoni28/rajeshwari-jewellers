@@ -27,6 +27,11 @@ const greatVibes = Great_Vibes({
 export const metadata: Metadata = {
   title: "Rajeshwari Jewellers",
   description: "Ahmedabad's Premier Wholesaler Of Gold Ornaments",
+  icons: {
+    icon: "/images/logo.svg",
+    shortcut: "/images/logo.svg",
+    apple: "/images/logo.svg",
+  },
 };
 
 export default function RootLayout({
@@ -35,8 +40,12 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className="scroll-smooth" data-scroll-behavior="smooth">
-      <body className={`${playfair.variable} ${montserrat.variable} ${cinzel.variable} ${greatVibes.variable} antialiased bg-neutral-light text-brown min-h-screen flex flex-col`}>
+    // suppressHydrationWarning: browser extensions often inject attributes into <html>/<body>
+    // before React hydrates. This only ignores attribute differences on these two tags.
+    <html lang="en" className="scroll-smooth" data-scroll-behavior="smooth" suppressHydrationWarning>
+      <body
+        suppressHydrationWarning
+        className={`${playfair.variable} ${montserrat.variable} ${cinzel.variable} ${greatVibes.variable} antialiased bg-neutral-light text-brown min-h-screen flex flex-col`}>
         <WishlistProvider>
           {children}
         </WishlistProvider>

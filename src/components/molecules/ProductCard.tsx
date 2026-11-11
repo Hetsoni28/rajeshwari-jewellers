@@ -17,8 +17,8 @@ export const ProductCard = ({ product }: { product: Product }) => {
   // Build the optimised Sanity CDN URL (600×600, fit=max, WebP, q80)
   // Falls back to the raw URL if imageRef isn't available
   const imageUrl = product.imageRef
-    ? urlForImage(product.imageRef, 600, 600)?.url() ?? product.image ?? "/images/placeholder.jpg"
-    : product.image ?? "/images/placeholder.jpg";
+    ? urlForImage(product.imageRef, 600, 600)?.url() ?? product.image ?? "/images/placeholder.svg"
+    : product.image ?? "/images/placeholder.svg";
 
   return (
     <motion.div
