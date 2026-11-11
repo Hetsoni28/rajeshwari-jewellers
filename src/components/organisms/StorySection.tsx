@@ -15,13 +15,11 @@ export const StorySection = () => {
           transition={{ duration: 0.8 }}
           className="flex flex-col items-center"
         >
-          {/* Decorative Logo / Icon */}
-          <div className="flex items-center gap-4 mb-6">
-            <div className="w-24 h-[1px] bg-gold-dark/40" />
-            <div className="w-16 h-16 text-gold-dark">
-              <LogoSVG size="md" />
+          {/* Logo centred */}
+          <div className="flex justify-center mb-6">
+            <div className="w-[200px] sm:w-[240px] md:w-[280px]">
+              <LogoSVG size="lg" />
             </div>
-            <div className="w-24 h-[1px] bg-gold-dark/40" />
           </div>
 
           {/* Heading */}
