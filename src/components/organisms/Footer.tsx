@@ -1,5 +1,4 @@
 import Link from "next/link";
-import Image from "next/image";
 import { Clock, Mail, MapPin, Phone, ShieldCheck, Store, Truck } from "lucide-react";
 import { LogoSVG } from "@/components/atoms/LogoSVG";
 
@@ -196,9 +195,8 @@ export const Footer = () => {
             target="_blank"
             rel="noopener"
             aria-label="Designed and developed by HNTech (opens in a new tab)"
-            className="group flex min-h-11 items-center gap-2.5 transition-colors hover:text-gold"
+            className="group flex min-h-11 items-center transition-colors hover:text-gold"
           >
-            <Image src="/hn-logo.jpg" alt="" width={22} height={22} className="rounded-full opacity-90 transition-opacity group-hover:opacity-100" />
             <span>
               Designed &amp; developed by{" "}
               <span className="text-cream/80 underline decoration-gold/40 underline-offset-4 transition-colors group-hover:text-gold group-hover:decoration-gold">
