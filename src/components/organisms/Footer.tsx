@@ -191,10 +191,21 @@ export const Footer = () => {
       <div className="border-t border-cream/10">
         <div className="container mx-auto flex flex-col items-center justify-between gap-4 px-5 sm:px-6 lg:px-12 py-6 text-[11px] uppercase tracking-[0.18em] text-cream/55 sm:flex-row">
           <p>© {year} Rajeshwari Jewellers. All rights reserved.</p>
-          <p className="flex items-center gap-2.5">
-            <Image src="/hn-logo.jpg" alt="" width={22} height={22} className="rounded-full opacity-90" />
-            <span>Designed &amp; developed by HN</span>
-          </p>
+          <a
+            href="https://www.hntech.in/"
+            target="_blank"
+            rel="noopener"
+            aria-label="Designed and developed by HNTech (opens in a new tab)"
+            className="group flex min-h-11 items-center gap-2.5 transition-colors hover:text-gold"
+          >
+            <Image src="/hn-logo.jpg" alt="" width={22} height={22} className="rounded-full opacity-90 transition-opacity group-hover:opacity-100" />
+            <span>
+              Designed &amp; developed by{" "}
+              <span className="text-cream/80 underline decoration-gold/40 underline-offset-4 transition-colors group-hover:text-gold group-hover:decoration-gold">
+                HNTech
+              </span>
+            </span>
+          </a>
         </div>
       </div>
     </footer>
